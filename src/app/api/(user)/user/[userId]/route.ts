@@ -1,8 +1,7 @@
 import dbConnect from '@/src/app/lib/dbConnection';
 import User from '@/src/app/models/User';
 import mongoose from 'mongoose';
-import type { NextRequest } from 'next/server'
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
 
 // GET /api/user
 // Get a specific users data
