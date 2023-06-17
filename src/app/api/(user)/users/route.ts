@@ -1,3 +1,4 @@
+import dbConnect from '@/src/app/lib/dbConnection';
 import User from '@/src/app/models/User';
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server';
@@ -5,7 +6,8 @@ import { NextResponse } from 'next/server';
 // GET /api/user
 // Get all users
 export async function GET(_req: NextRequest) {
-	const users = await User.find()
+	dbConnect();
+	const users = await User.find().select(['-password', '-refreshToken']);
 
 	return NextResponse.json(users, { status: 200 })
 };
@@ -13,6 +15,7 @@ export async function GET(_req: NextRequest) {
 // POST /api/users
 // Create a new user
 export async function POST(req: NextRequest) {
+	dbConnect();
 	const body = await req.json();
 	const existingUser = await User.findOne({ email: body.email });
 

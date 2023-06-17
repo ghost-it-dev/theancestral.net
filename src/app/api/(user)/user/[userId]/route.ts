@@ -1,3 +1,4 @@
+import dbConnect from '@/src/app/lib/dbConnection';
 import User from '@/src/app/models/User';
 import mongoose from 'mongoose';
 import type { NextRequest } from 'next/server'
@@ -6,6 +7,7 @@ import { NextResponse } from 'next/server';
 // GET /api/user
 // Get a specific users data
 export async function GET(_req: NextRequest, { params }: { params: { userId: string } }) {
+	dbConnect();
 	const user = await User.findOne({ _id: params.userId }).select(['-password', '-refreshToken']);
 
 	return NextResponse.json(user, { status: 200 })
@@ -14,6 +16,7 @@ export async function GET(_req: NextRequest, { params }: { params: { userId: str
 // DELETE /api/user
 // Delete a user by id
 export async function DELETE(_req: NextRequest, { params }: { params: { userId: string } }) {
+	dbConnect();
 	if (!mongoose.Types.ObjectId.isValid(params.userId)) return NextResponse.json({ message: 'User not found' }, { status: 404 });
 	const user = await User.findById(params.userId);
 	if (!user) return NextResponse.json({ message: 'User not found' }, { status: 404 });
@@ -29,6 +32,7 @@ export async function DELETE(_req: NextRequest, { params }: { params: { userId: 
 // PATCH /api/user
 // Update a user by id
 export async function PATCH(req: NextRequest, { params }: { params: { userId: string } }) {
+	dbConnect();
 	const body = await req.json();
 	if (!mongoose.Types.ObjectId.isValid(params.userId)) return NextResponse.json({ message: 'User not found' }, { status: 404 });
 	const user = await User.findById(params.userId);

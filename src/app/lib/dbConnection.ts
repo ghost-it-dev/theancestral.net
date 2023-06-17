@@ -8,7 +8,7 @@ async function dbConnect() {
 	}
 
 	// Use new db connection
-	return mongoose.connect('mongodb://127.0.0.1:27017/life');
+	return await mongoose.connect('mongodb://127.0.0.1:27017/life');
 }
 
 export default dbConnect;
