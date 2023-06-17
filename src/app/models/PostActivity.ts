@@ -1,4 +1,4 @@
-import { Schema, model, Types } from 'mongoose';
+import mongoose, { Schema, model, Types } from 'mongoose';
 
 export interface PostActivityInterface {
 	action: 'delete' | 'update' | 'create';
@@ -15,4 +15,4 @@ const postSchema = new Schema<PostActivityInterface>(
 	{ versionKey: false, timestamps: true }
 );
 
-export default model<PostActivityInterface>('PostActivity', postSchema);
+export default mongoose.models.PostActivity || model<PostActivityInterface>('PostActivity', postSchema);

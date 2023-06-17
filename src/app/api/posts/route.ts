@@ -8,7 +8,7 @@ export async function GET() {
 	const publicPosts = await Post.find({ publicPost: true });
 	const privatePosts = await Post.find({ publicPost: false });
 
-	// Redo this with nextAuth
+	// Redo this with nextJS
 	// if (res.locals.role === 'admin' || res.locals.role === 'user') {
 	// 	return res.status(200).send([...publicPosts, ...privatePosts])
 	// } else {

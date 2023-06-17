@@ -1,7 +1,5 @@
 import mongoose, { Schema, model, Types } from 'mongoose';
-// import User from './User';
-
-// Refactor user stuff with new nextAuth model
+import User from './User';
 
 export interface PostInterface {
 	title: string;
@@ -27,13 +25,13 @@ const postSchema = new Schema<PostInterface>(
 	{ versionKey: false, timestamps: true }
 );
 
-// postSchema.pre('save', async function (next) {
-// 	if (!this.isNew) return next();
-// 	const user = await User.findById(this.authorID);
-// 	if (!user) return next();
-// 	user.postAmount += 1;
-// 	await user.save();
-// });
+postSchema.pre('save', async function (next) {
+	if (!this.isNew) return next();
+	const user = await User.findById(this.authorID);
+	if (!user) return next();
+	user.postAmount += 1;
+	await user.save();
+});
 
 
 export default mongoose.models.Post || model<PostInterface>('Post', postSchema);

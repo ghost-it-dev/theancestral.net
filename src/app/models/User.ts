@@ -1,5 +1,5 @@
 import argon2id from 'argon2';
-import { Schema, Types, model } from 'mongoose';
+import mongoose, { Schema, Types, model } from 'mongoose';
 
 export interface UserInterface {
 	username: string;
@@ -34,4 +34,4 @@ userSchema.pre('save', async function (next) {
 	return next()
 })
 
-export default model<UserInterface>('User', userSchema);
+export default mongoose.models.User || model<UserInterface>('User', userSchema);
