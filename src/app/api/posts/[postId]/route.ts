@@ -1,8 +1,8 @@
-import Post from '@/src/app/models/Post';
+import Post from '@/src/models/Post';
 import mongoose from 'mongoose';
 import { NextResponse, NextRequest } from 'next/server';
-import getUserRole from '../../helpers/getRole';
-import dbConnect from '@/src/app/lib/dbConnection';
+import getUserRole from '../../../../lib/getUserRole';
+import dbConnect from '@/src/lib/dbConnection';
 
 export async function GET(req: NextRequest, { params }: { params: { postId: string } }) {
 	dbConnect();

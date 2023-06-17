@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
-import dbConnect from "../../lib/dbConnection"
-import Post from "../../models/Post";
-import getUserRole from "../helpers/getRole";
+import dbConnect from "../../../lib/dbConnection"
+import Post from "../../../models/Post";
+import getUserRole from "../../../lib/getUserRole";
 
 export async function GET(req: NextRequest) {
 	dbConnect()

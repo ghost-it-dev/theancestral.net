@@ -1,5 +1,5 @@
-import dbConnect from '@/src/app/lib/dbConnection';
-import User from '@/src/app/models/User';
+import dbConnect from '@/src/lib/dbConnection';
+import User from '@/src/models/User';
 import mongoose from 'mongoose';
 import { NextResponse, NextRequest } from 'next/server';
 
