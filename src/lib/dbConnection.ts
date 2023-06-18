@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import env from './env';
 
 async function dbConnect() {
 	// checks if we have a connection to the database or if it's currently
@@ -8,7 +9,7 @@ async function dbConnect() {
 	}
 
 	// Use new db connection
-	return await mongoose.connect('mongodb://127.0.0.1:27017/life');
+	return await mongoose.connect(env.DB_URI as string);
 }
 
 export default dbConnect;
