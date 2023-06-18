@@ -6,7 +6,7 @@ import { NextResponse, NextRequest } from 'next/server';
 // Get the logged in users data
 export async function GET(req: NextRequest) {
 	dbConnect();
-	const user = await User.findOne({ refreshToken: req.cookies.get('refreshToken') }).select(['-password', '-refreshToken']);
+	const user = await User.findOne({ refreshToken: req.cookies.get('refreshToken')?.value }).select(['-password', '-refreshToken']);
 
 	return NextResponse.json(user, { status: 200 })
 };

@@ -1,32 +1,24 @@
-import axios, { AxiosInstance } from 'axios';
-
 const baseURL = 'http://localhost:3000/api';
 
-const http: AxiosInstance = axios.create({
-	baseURL: baseURL,
-	headers: { 'Content-Type': 'application/json' },
-	withCredentials: true,
-	timeout: 20000,
-});
+async function http(url: string, options: any) {
+	options = {
+		headers: { 'Content-Type': 'application/json' },
+		credentials: 'include',
+		...options
+	};
 
-http.interceptors.response.use(
-	response => response,
-	async (error) => {
-		const prevRequest = error?.config;
+	let response = await fetch(baseURL + url, options);
 
-		// Prevent retrying if it's a /auth/refresh-token request
-		if (prevRequest?.url === '/auth/refresh-token') {
-			return Promise.reject(error);
+	if (!response.ok) {
+		if (response.status === 401 && !options._retry && url !== '/auth/refresh-token') {
+			options._retry = true;
+			await http('/auth/refresh-token', { method: 'POST' });
+			response = await http(url, options);
+		} else {
+			throw new Error(await response.text());
 		}
-
-		if (error?.response?.status === 401 && !prevRequest?._retry) {
-			prevRequest._retry = true;
-			await http.post('/auth/refresh-token');
-			return http(prevRequest);
-		}
-
-		return Promise.reject(error);
 	}
-);
+	return response.json();
+}
 
 export default http;

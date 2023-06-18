@@ -4,6 +4,7 @@ import { NextResponse, NextRequest } from 'next/server';
 import getUserRole from '../../../../lib/getUserRole';
 import dbConnect from '@/src/lib/dbConnection';
 
+// GET /api/posts/[postId]
 export async function GET(req: NextRequest, { params }: { params: { postId: string } }) {
 	dbConnect();
 	const userRole = await getUserRole(req);
