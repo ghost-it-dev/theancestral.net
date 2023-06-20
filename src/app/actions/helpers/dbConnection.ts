@@ -1,5 +1,5 @@
+import env from '@/src/lib/env';
 import mongoose from 'mongoose';
-import env from './env';
 
 async function dbConnect() {
 	// checks if we have a connection to the database or if it's currently
