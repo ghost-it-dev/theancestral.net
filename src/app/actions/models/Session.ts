@@ -7,6 +7,14 @@ export interface SessionInterface {
 	userAgent: string;
 }
 
+
+// When any of the following happen invalidate the session:
+// 1. User logs out
+// 2. User changes password
+// 4. Account is deleted
+// 5. User Agent changes
+// 6. Session expires
+
 const sessionSchema = new Schema<SessionInterface>(
 	{
 		userID: { type: Schema.Types.ObjectId, ref: 'User', required: true },
