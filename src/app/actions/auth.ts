@@ -5,6 +5,9 @@ import Session from '@/src/models/Session'
 import User from '@/src/models/User'
 import argon2id from 'argon2'
 import { cookies, headers } from 'next/headers'
+import { redirect } from 'next/navigation'
+import { UserTypes } from '../types/User'
+import env from '@/src/lib/env'
 
 async function login({ email, password }: { email: string, password: string }) {
 	if (!email || !password) return { error: 'Missing email or password' }
@@ -32,12 +35,12 @@ async function login({ email, password }: { email: string, password: string }) {
 
 	await session.save()
 
-	cookies().set('session', session._id, { expires: session.expiresAt, httpOnly: true, path: '/', sameSite: 'strict', secure: process.env.NODE_ENV === 'production' })
+	cookies().set('session', session._id, { expires: session.expiresAt, httpOnly: true, path: '/', sameSite: 'strict', secure: env.APP_MODE === 'production' })
 	return { message: 'Successfully logged in' }
 }
 
 async function logout() {
-	cookies().set('session', '', { expires: new Date(0), httpOnly: true, path: '/', sameSite: 'strict', secure: process.env.NODE_ENV === 'production' })
+	cookies().set('session', '', { expires: new Date(0), httpOnly: true, path: '/', sameSite: 'strict', secure: env.APP_MODE === 'production' })
 	if (!cookies().get('session') || cookies().get('session')?.value === '') return { message: 'Successfully logged out' }
 
 	dbConnect();
@@ -48,4 +51,25 @@ async function logout() {
 	return { message: 'Successfully logged out' }
 }
 
-export { login, logout } 
+async function validateSession(allowedRoles?: UserTypes['role'][]) {
+	if (!cookies().get('session')) redirect('/')
+
+	dbConnect();
+	const session = await Session.findById(cookies().get('session')?.value)
+
+	// If the session doesn't exist or the user agent doesn't match, delete the session and redirect to the login page
+	if (!session || headers().get('user-agent') !== session.userAgent) {
+		await session.delete()
+		cookies().set('session', '', { expires: new Date(0), httpOnly: true, path: '/', sameSite: 'strict', secure: process.env.NODE_ENV === 'production' })
+		return redirect('/')
+	}
+
+	if (allowedRoles) {
+		const user = await User.findById(session.userID)
+		if (!allowedRoles.includes(user.role)) return redirect('/')
+	}
+
+	return
+}
+
+export { login, logout, validateSession }

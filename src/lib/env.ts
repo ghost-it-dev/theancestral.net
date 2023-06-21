@@ -6,11 +6,13 @@ dotenv.config();
 const envSchema = yup.object().shape({
 	DB_URI: yup.string().optional(),
 	JWT_SECRET: yup.string().required(),
+	APP_MODE: yup.string().required()
 });
 
 const env = envSchema.cast({
 	DB_URI: process.env.DB_URI,
-	JWT_SECRET: process.env.JWT_SECRET
+	JWT_SECRET: process.env.JWT_SECRET,
+	APP_MODE: process.env.APP_MODE
 });
 
 if (!env) {

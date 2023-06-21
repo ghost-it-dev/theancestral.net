@@ -1,6 +1,6 @@
 'use client'
 import Button from "@/src/components/Button"
-import { login, logout } from "../actions/action"
+import { login, logout } from "../actions/auth"
 
 export default async function Home() {
   return (
