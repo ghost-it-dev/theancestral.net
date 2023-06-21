@@ -6,7 +6,7 @@ interface TextAreaProps extends Omit<ComponentProps<'textarea'>, 'ref' | 'classN
 	label?: string;
 }
 
-export default forwardRef<HTMLTextAreaElement, TextAreaProps>(
+const Textarea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
 	({ label, ...props }, ref) => {
 		return (
 			<>
@@ -29,3 +29,6 @@ export default forwardRef<HTMLTextAreaElement, TextAreaProps>(
 		);
 	}
 );
+
+export default Textarea;
+Textarea.displayName = 'Textarea';

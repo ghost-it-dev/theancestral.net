@@ -3,7 +3,7 @@ import Link, { LinkProps } from 'next/link'
 
 export type ButtonOrLinkProps = Omit<Partial<LinkProps> & ComponentProps<'a'> & ComponentProps<'button'>, 'ref'>;
 
-export const ButtonOrLink = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonOrLinkProps>(
+const ButtonOrLink = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonOrLinkProps>(
 	({ href, ...props }, ref: any) => {
 		// Internal router link:
 		if (href) {
@@ -15,3 +15,6 @@ export const ButtonOrLink = forwardRef<HTMLAnchorElement | HTMLButtonElement, Bu
 		return <button {...props} type={props.type || 'button'} ref={ref} />;
 	}
 );
+
+export default ButtonOrLink;
+ButtonOrLink.displayName = 'ButtonOrLink';

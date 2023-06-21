@@ -1,15 +1,16 @@
-import getPosts from '../requests/posts/getPosts';
+'use client'
+import Button from "@/src/components/Button"
+import { login, logout } from "../actions/action"
 
 export default async function Home() {
-  const posts = await getPosts();
-
   return (
     <>
-      {posts.map((post) => (
-        <div key={post._id}>
-          <span>{post.title}</span>
-        </div>
-      ))}
+      <Button onClick={async () => {
+        console.log(await login({ email: 'test@test.com', password: 'password' }))
+      }}>test</Button>
+      <Button onClick={async () => {
+        console.log(await logout())
+      }}>Logout</Button>
     </>
   )
 }

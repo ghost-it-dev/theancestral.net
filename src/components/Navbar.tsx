@@ -5,35 +5,21 @@ import { Bars3Icon, MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 import { Form, Formik, FormikHelpers } from 'formik';
 import Field from './Field';
 import { object, string } from 'yup';
-import getUser from '../app/requests/user/getUser';
 import { User } from '../app/types/User';
-import http from '../app/requests/http';
 
 interface LoginValues {
 	email: User['email'];
 	password: string;
 }
 
-export default ({ breadcrumbs }: { breadcrumbs?: ReactNode }) => {
+function Navbar({ breadcrumbs }: { breadcrumbs?: ReactNode }) {
 	const [open, setOpen] = useState(false);
-	const { mutate } = getUser();
 	const [error, setError] = useState<any>();
 
-	const submit = (values: LoginValues, { setSubmitting }: FormikHelpers<LoginValues>) => {
-
-		http.post('/auth/login', { ...values })
-			.then(() => setSubmitting(false))
-			.catch((err) => {
-				setError(err.response.data.message);
-				setSubmitting(false);
-			})
-			.finally(() => mutate())
-
-	};
 
 	return (
 		<>
-			<Modal isOpen={open} setIsOpen={setOpen}>
+			{/* <Modal isOpen={open} setIsOpen={setOpen}>
 				<span className='text-white text-xl font-semibold'>Log In</span>
 				<Formik
 					onSubmit={submit}
@@ -55,7 +41,7 @@ export default ({ breadcrumbs }: { breadcrumbs?: ReactNode }) => {
 						</div>
 					</Form>
 				</Formik>
-			</Modal>
+			</Modal> */}
 			<nav className='flex-shrink-0 bg-[#1E2936] border-b border-[#4B5563]'>
 				<div className='mx-auto max-w-7xl px-4 sm:px-8'>
 					<div className='relative flex h-14 items-center justify-between'>
@@ -80,3 +66,6 @@ export default ({ breadcrumbs }: { breadcrumbs?: ReactNode }) => {
 		</>
 	)
 };
+
+export default Navbar;
+Navbar.displayName = 'Navbar';

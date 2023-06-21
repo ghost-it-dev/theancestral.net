@@ -1,6 +1,6 @@
 import React from 'react';
 import { cva, VariantProps } from 'cva';
-import { ButtonOrLink, ButtonOrLinkProps } from './ButtonOrLink';
+import ButtonOrLink, { ButtonOrLinkProps } from './ButtonOrLink';
 import classNames from 'classnames';
 import { SpinnerCircular } from 'spinners-react';
 

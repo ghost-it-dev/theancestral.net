@@ -6,7 +6,7 @@ interface InputProps extends Omit<ComponentProps<'input'>, 'ref' | 'className'> 
 	label?: string;
 }
 
-export default forwardRef<HTMLInputElement, InputProps>(
+const Input = forwardRef<HTMLInputElement, InputProps>(
 	({ label, ...props }, ref) => {
 		return (
 			<>
@@ -29,3 +29,6 @@ export default forwardRef<HTMLInputElement, InputProps>(
 		);
 	}
 );
+
+export default Input;
+Input.displayName = 'Input';

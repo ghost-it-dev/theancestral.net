@@ -8,7 +8,7 @@ interface ModalProps {
 	children: React.ReactNode;
 }
 
-export default ({ isOpen, setIsOpen, children }: ModalProps) => {
+function Modal({ isOpen, setIsOpen, children }: ModalProps) {
 	return (
 		<Transition.Root show={isOpen} as={Fragment}>
 			<Dialog as="div" className="relative z-10" onClose={() => setIsOpen(false)}>
@@ -53,4 +53,8 @@ export default ({ isOpen, setIsOpen, children }: ModalProps) => {
 			</Dialog>
 		</Transition.Root>
 	)
-}
+};
+
+
+export default Modal;
+Modal.displayName = 'Modal';
