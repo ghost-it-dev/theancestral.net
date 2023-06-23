@@ -1,11 +1,11 @@
 import { FC } from 'react'
 
 interface PageProps {
-	params: { userId: string }
+	params: { postId: string }
 }
 
 const Page: FC<PageProps> = ({ params }) => {
-	return <div>{params.userId}</div>
+	return <div>{params.postId}</div>
 }
 
 export default Page

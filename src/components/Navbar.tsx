@@ -1,54 +1,34 @@
 'use client'
-import React, { useState, ReactNode } from 'react';
+import React, { useState } from 'react';
 import Button from './Button';
-import { Bars3Icon, MagnifyingGlassIcon } from '@heroicons/react/20/solid';
-import { UserType } from '../app/types/User';
+import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
+import Modal from './Modal';
+import { login } from '../app/actions/auth';
 
-interface LoginValues {
-	email: UserType['email'];
-	password: string;
-}
-
-function Navbar({ breadcrumbs }: { breadcrumbs?: ReactNode }) {
+// DONT USE ASYNC WITH CLIENT COMPONENTS
+function Navbar() {
 	const [open, setOpen] = useState(false);
-	const [error, setError] = useState<any>();
 
+	const handleLogin = async () => {
+		const res = await login({ email: 'test@test.com', password: 'test' })
+		console.log(res)
+	}
 
 	return (
 		<>
-			{/* <Modal isOpen={open} setIsOpen={setOpen}>
+			<Modal isOpen={open} setIsOpen={setOpen}>
 				<span className='text-white text-xl font-semibold'>Log In</span>
-				<Formik
-					onSubmit={submit}
-					initialValues={{ email: '', password: '' }}
-					validationSchema={object().shape({
-						email: string().required('An email must be provided.').email('Please enter a valid email address.'),
-						password: string().required('Please enter your account password.'),
-					})}>
-					<Form>
-						{error &&
-							<div className='mt-4 px-2 py-1 bg-indigo-600 bg-opacity-40 border-l-4 border-indigo-600 rounded rounded-l-none text-white font-semibold'>
-								{error}
-							</div>
-						}
-						<div className='flex flex-col gap-2 mt-4'>
-							<Field id='email' name='email' type='email' placeholder='Email' />
-							<Field id='password' type='password' name='password' placeholder='Password' />
-							<Button type='submit'>Login</Button>
-						</div>
-					</Form>
-				</Formik>
-			</Modal> */}
+			</Modal>
 			<nav className='flex-shrink-0 bg-[#1E2936] border-b border-[#4B5563]'>
 				<div className='mx-auto max-w-7xl px-4 sm:px-8'>
 					<div className='relative flex h-14 items-center justify-between'>
 						<div className='flex flex-row items-center'>
-							<div className='px-3 border-r-2 border-[#465160]'>
+							{/* <div className='px-3 border-r-2 border-[#465160]'>
 								<Bars3Icon className='h-5 w-5 text-gray-100' />
 							</div>
 							<div className='pl-3 gap-1 flex flex-row items-center'>
 								{breadcrumbs}
-							</div>
+							</div> */}
 						</div>
 						{/* When we write this search function just get the posts one time and filter through it, just match strings & filter with tags */}
 						<div className='flex flex-row gap-2'>

@@ -13,11 +13,10 @@ async function getUser(): Promise<UserType | null> {
 }
 
 // Return the role of the user making the request
+// This should only be called from a server action not the frontend
 async function getRequestRole(): Promise<UserType['role']> {
 	const user = await getUser()
-	if (!user) return 'guest'
-
-	return user.role
+	return user?.role || 'guest'
 }
 
 export { getUser, getRequestRole }

@@ -11,7 +11,7 @@ async function getPosts(): Promise<PostType[] | null> {
 
 	// If the user is a guest, only return public posts
 	const publicPosts = await Post.find({ publicPost: true })
-	if (role == 'guest') return publicPosts
+	if (role === 'guest') return publicPosts
 
 	// If the user is an admin or user, return all posts
 	const privatePosts = await Post.find({ publicPost: false })
