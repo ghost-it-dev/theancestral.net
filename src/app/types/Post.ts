@@ -1,11 +1,11 @@
-import { UserTypes } from './User';
+import { UserType } from './User';
 
-export interface Post {
+export interface PostType {
 	title: string;
 	description: string;
 	link?: string;
 	tags: string[];
-	authorID: UserTypes['_id'];
+	authorID: UserType['_id'];
 	updatedAt: Date;
 	authorName: string;
 	publicPost: boolean;

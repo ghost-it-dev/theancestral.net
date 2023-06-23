@@ -2,16 +2,16 @@
 
 import dbConnect from "@/src/helpers/dbConnection";
 import Post from "@/src/models/Post";
+import { PostType } from "../types/Post";
 
-async function getPosts() {
+async function getPosts(): Promise<PostType[] | null> {
 	dbConnect();
-	// const publicPosts = await Post.find({ publicPost: true }).sort({ createdAt: -1 })
-	const privatePosts = await Post.find({ publicPost: false }).sort({ createdAt: -1 })
-	// const session = await validateSession()
+	const posts = await Post.find()
+	if (!posts) return null
 
 	// if (session.role !== 'guest') return [...publicPosts, ...privatePosts]
 
-	return privatePosts
+	return posts
 }
 
 export { getPosts }

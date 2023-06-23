@@ -1,14 +1,10 @@
-'use client'
 import classNames from 'classnames'
 import './globals.css'
 import Button from '../../components/Button'
 import { CheckBadgeIcon, RectangleStackIcon } from '@heroicons/react/24/outline'
 import Navbar from '../../components/Navbar'
 import Image from 'next/image'
-import { UserType } from '../types/User'
 import { getUser } from '../actions/user'
-import { useEffect, useState, useTransition } from 'react'
-
 
 export const metadata = {
   title: 'Create Next App',
@@ -19,7 +15,7 @@ export const metadata = {
 export const revalidate = 300
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const user = {} as UserType
+  const user = await getUser()
 
   return (
     <html lang="en">

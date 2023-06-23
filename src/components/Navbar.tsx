@@ -1,14 +1,11 @@
+'use client'
 import React, { useState, ReactNode } from 'react';
-import Modal from './Modal';
 import Button from './Button';
 import { Bars3Icon, MagnifyingGlassIcon } from '@heroicons/react/20/solid';
-import { Form, Formik, FormikHelpers } from 'formik';
-import Field from './Field';
-import { object, string } from 'yup';
-import { User } from '../app/types/User';
+import { UserType } from '../app/types/User';
 
 interface LoginValues {
-	email: User['email'];
+	email: UserType['email'];
 	password: string;
 }
 
