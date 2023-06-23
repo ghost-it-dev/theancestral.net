@@ -18,6 +18,7 @@ async function getUser(): Promise<UserType | null> {
 
 	if (session && session?.userAgent !== headers().get('user-agent')) {
 		await Session.findByIdAndDelete(sessionCookie)
+		return null
 	}
 
 	if (!user) return null
