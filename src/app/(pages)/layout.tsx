@@ -4,8 +4,10 @@ import './globals.css'
 import Button from '../../components/Button'
 import { CheckBadgeIcon, RectangleStackIcon } from '@heroicons/react/24/outline'
 import Navbar from '../../components/Navbar'
-import { User } from '../types/User'
 import Image from 'next/image'
+import { UserType } from '../types/User'
+import { getUser } from '../actions/user'
+import { useEffect, useState, useTransition } from 'react'
 
 
 export const metadata = {
@@ -16,8 +18,8 @@ export const metadata = {
 // revalidate SSG very 5 minutes
 export const revalidate = 300
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const user = {} as User
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const user = {} as UserType
 
   return (
     <html lang="en">
@@ -83,9 +85,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     <li className='py-4'>
                       <div className='flex space-x-3'>
                         <Image
-                          height={24}
-                          width={24}
-                          className='rounded-full'
+                          height={0}
+                          width={0}
+                          className='rounded-full h-6 w-6'
                           src='https://avatars.githubusercontent.com/u/38229170?s=400&u=b6d25af34d7cd519ee3f69a701229dfe35ace5da&v=4'
                           alt=''
                         />
@@ -101,9 +103,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     <li className='py-4'>
                       <div className='flex space-x-3'>
                         <Image
-                          height={24}
-                          width={24}
-                          className='rounded-full'
+                          height={0}
+                          width={0}
+                          className='rounded-full h-6 w-6'
                           src='https://avatars.githubusercontent.com/u/38229170?s=400&u=b6d25af34d7cd519ee3f69a701229dfe35ace5da&v=4'
                           alt=''
                         />
@@ -119,9 +121,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     <li className='py-4'>
                       <div className='flex space-x-3'>
                         <Image
-                          height={24}
-                          width={24}
-                          className='rounded-full'
+                          height={0}
+                          width={0}
+                          className='rounded-full h-6 w-6'
                           src='https://avatars.githubusercontent.com/u/38229170?s=400&u=b6d25af34d7cd519ee3f69a701229dfe35ace5da&v=4'
                           alt=''
                         />

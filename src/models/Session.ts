@@ -8,7 +8,7 @@ export interface SessionInterface {
 }
 
 // When any of the following happen invalidate the session:
-// 1. User logs out (function)
+// 1. x User logs out (function)
 // 2. User changes password (function)
 // 4. Account is deleted (function)
 // 5. User Agent changes (verify session)
