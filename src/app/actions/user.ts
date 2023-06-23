@@ -1,23 +1,26 @@
 'use server'
-
 import User from "@/src/models/User";
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers'
 import { UserType } from '../types/User';
 import dbConnect from "@/src/helpers/dbConnection";
+import Session from "@/src/models/Session";
+import mongoose from "mongoose";
 
 // Return the user object if the user is logged in, otherwise return null
-
-// Write more validations for this
-// Find the session
-// match the user agent and delte if they mismatch
-// if the client provides a session cookie that doesn't exist in the database, delete the cookie
-// This will pretty much be like our validateSession function, do all the redirecting on the backend
-
+// Do all redirecting on the backend so we don't have to write a function on the frontend
 async function getUser(): Promise<UserType | null> {
 	dbConnect();
-	const user = await User.findOne({ session: cookies().get('session')?.value }).select(['-password', '-session'])
-	if (!user) return null
+	const sessionCookie = cookies().get('session')?.value
+	const isValidSession = mongoose.isValidObjectId(sessionCookie)
+	const session = await Session.findOne({ _id: isValidSession ? sessionCookie : null })
+	if (!session) return null
+	const user = await User.findById(session.userID).select(['-password', '-session'])
 
+	if (session && session?.userAgent !== headers().get('user-agent')) {
+		await Session.findByIdAndDelete(sessionCookie)
+	}
+
+	if (!user) return null
 	return user
 }
 

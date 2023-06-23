@@ -5,8 +5,6 @@ import Session from '@/src/models/Session'
 import User from '@/src/models/User'
 import argon2id from 'argon2'
 import { cookies, headers } from 'next/headers'
-import { redirect } from 'next/navigation'
-import { UserType } from '../types/User'
 import env from '@/src/lib/env'
 
 async function login({ email, password }: { email: string, password: string }) {

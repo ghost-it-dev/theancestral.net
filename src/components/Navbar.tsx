@@ -10,7 +10,7 @@ function Navbar() {
 	const [open, setOpen] = useState(false);
 
 	const handleLogin = async () => {
-		const res = await login({ email: 'test@test.com', password: 'test' })
+		const res = await login({ email: 'test@test.com', password: 'password' })
 		console.log(res)
 	}
 
@@ -35,7 +35,7 @@ function Navbar() {
 							<div className='p-2 cursor-pointer flex items-center justify-center rounded-full bg-[#364150] hover:bg-[#465160] transition-all ease-linear'>
 								<MagnifyingGlassIcon className='h-5 w-5 text-gray-200' aria-hidden='true' />
 							</div>
-							<Button onClick={() => setOpen(true)} variant={'gray'}>Login</Button>
+							<Button onClick={() => handleLogin()} variant={'gray'}>Login</Button>
 						</div>
 					</div>
 				</div>
