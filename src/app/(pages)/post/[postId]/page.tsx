@@ -1,11 +1,15 @@
-import { FC } from 'react'
+import { getPost } from '@/src/app/actions/posts'
 
 interface PageProps {
 	params: { postId: string }
 }
 
-const Page: FC<PageProps> = ({ params }) => {
-	return <div>{params.postId}</div>
+async function Page({ params }: PageProps) {
+	const post = await getPost(params.postId)
+
+	return (
+		<div>{post?.title}</div>
+	)
 }
 
 export default Page

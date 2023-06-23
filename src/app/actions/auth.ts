@@ -51,25 +51,4 @@ async function logout() {
 	return { message: 'Successfully logged out' }
 }
 
-async function validateSession(allowedRoles?: UserType['role'][], redirectUser?: boolean) {
-	if (!cookies().get('session')) redirectUser ? redirect('/') : { loggedIn: false, role: 'guest' }
-
-	dbConnect();
-	const session = await Session.findById(cookies().get('session')?.value)
-
-	// If the session doesn't exist or the user agent doesn't match, delete the session and redirect to the login page
-	if (!session || headers().get('user-agent') !== session.userAgent) {
-		if (session) await session.delete()
-		cookies().set('session', '', { expires: new Date(0), httpOnly: true, path: '/', sameSite: 'strict', secure: process.env.NODE_ENV === 'production' })
-		return redirectUser ? redirect('/') : { loggedIn: false, role: 'guest' }
-	}
-
-	const user = await User.findById(session.userID)
-	if (allowedRoles) {
-		if (!allowedRoles.includes(user.role)) return redirectUser ? redirect('/') : { loggedIn: false, role: 'guest' }
-	}
-
-	return { loggedIn: true, role: user.role }
-}
-
-export { login, logout, validateSession }
+export { login, logout }

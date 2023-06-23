@@ -1,9 +1,11 @@
 'use server'
 
-import dbConnect from "@/src/helpers/dbConnection";
-import Post from "@/src/models/Post";
-import { PostType } from "../types/Post";
-import { getRequestRole } from "./user";
+
+import dbConnect from '@/src/helpers/dbConnection';
+import { PostType } from '../types/Post';
+import { getRequestRole } from './user';
+import Post from '@/src/models/Post';
+import { redirect } from 'next/navigation';
 
 async function getPosts(): Promise<PostType[] | null> {
 	dbConnect();
@@ -18,4 +20,15 @@ async function getPosts(): Promise<PostType[] | null> {
 	return [...publicPosts, ...privatePosts]
 }
 
-export { getPosts }
+async function getPost(id: PostType['_id']): Promise<PostType | null> {
+	dbConnect();
+	const role = await getRequestRole()
+	const post = await Post.findOne({ _id: id })
+
+	if (!post) return null
+	if (role === 'guest' && !post.publicPost) return redirect('/')
+
+	return post
+}
+
+export { getPosts, getPost }
