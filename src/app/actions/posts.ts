@@ -5,6 +5,7 @@ import { PostType } from '../types/Post';
 import { getRequestRole, getUserFromSession } from './user';
 import Post from '@/src/models/Post';
 import { redirect } from 'next/navigation';
+import mongoose from 'mongoose';
 
 async function getPosts(): Promise<PostType[]> {
 	dbConnect();
@@ -22,6 +23,8 @@ async function getPosts(): Promise<PostType[]> {
 async function getPostById(_id: PostType['_id']): Promise<PostType | { error: string }> {
 	dbConnect();
 	const reqRole = await getRequestRole()
+	const isValidPost = mongoose.isValidObjectId(_id)
+	if (!isValidPost) return { error: 'Invalid post id' }
 	const post: PostType | null = await Post.findOne({ _id })
 
 	if (!post) return { error: 'Post not found' }
