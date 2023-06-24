@@ -1,6 +1,5 @@
 'use server'
 
-
 import dbConnect from '@/src/helpers/dbConnection';
 import { PostType } from '../types/Post';
 import { getRequestRole } from './user';
@@ -20,7 +19,7 @@ async function getPosts(): Promise<PostType[] | null> {
 	return [...publicPosts, ...privatePosts]
 }
 
-async function getPost(id: PostType['_id']): Promise<PostType | null> {
+async function getPostById(id: PostType['_id']): Promise<PostType | null> {
 	dbConnect();
 	const role = await getRequestRole()
 	const post = await Post.findOne({ _id: id })
@@ -31,4 +30,4 @@ async function getPost(id: PostType['_id']): Promise<PostType | null> {
 	return post
 }
 
-export { getPosts, getPost }
+export { getPosts, getPostById }

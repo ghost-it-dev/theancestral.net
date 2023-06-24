@@ -4,14 +4,14 @@ import Button from '../../components/Button'
 import { CheckBadgeIcon, RectangleStackIcon } from '@heroicons/react/24/outline'
 import Navbar from '../../components/Navbar'
 import Image from 'next/image'
-import { getUser } from '../actions/user'
+import { getUserFromSession } from '../actions/user'
 
 export const metadata = {
   title: 'Ancestral'
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const user = await getUser()
+  const user = await getUserFromSession()
 
   return (
     <html lang="en">

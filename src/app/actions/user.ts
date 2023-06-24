@@ -8,7 +8,7 @@ import mongoose from "mongoose";
 
 // Return the user object if the user is logged in, otherwise return null
 // Do all redirecting on the backend so we don't have to write a function on the frontend
-async function getUser(): Promise<UserType | null> {
+async function getUserFromSession(): Promise<UserType | null> {
 	dbConnect();
 	const sessionCookie = cookies().get('session')?.value
 	const isValidSession = mongoose.isValidObjectId(sessionCookie)
@@ -28,8 +28,8 @@ async function getUser(): Promise<UserType | null> {
 // Return the role of the user making the request
 // This should only be called from a server action not the frontend
 async function getRequestRole(): Promise<UserType['role']> {
-	const user = await getUser()
+	const user = await getUserFromSession()
 	return user?.role || 'guest'
 }
 
-export { getUser, getRequestRole }
+export { getUserFromSession, getRequestRole }
