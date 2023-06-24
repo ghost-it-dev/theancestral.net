@@ -1,15 +1,25 @@
-import { getPost } from '@/src/app/actions/posts'
+import { getPostById } from '@/src/app/actions/posts'
+import { hasError } from '@/src/lib/hasError'
 
 interface PageProps {
 	params: { postId: string }
 }
 
 async function Page({ params }: PageProps) {
-	const post = await getPost(params.postId)
+	const post = await getPostById(params.postId)
+
+	// render error better
+	if (hasError(post)) {
+		return <div>{post.error}</div>
+	}
 
 	return (
-		<div>{post?.title}</div>
+		<div>
+			<h1>{post.title}</h1>
+			<p>{post.description}</p>
+		</div>
 	)
+
 }
 
 export default Page

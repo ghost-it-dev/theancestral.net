@@ -5,6 +5,8 @@ export interface SessionInterface {
   sessionToken: string;
   expiresAt: Date;
   userAgent: string;
+  updatedAt: Date;
+  createdAt: Date;
 }
 
 // When any of the following happen invalidate the session:

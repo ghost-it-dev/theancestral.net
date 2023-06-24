@@ -8,29 +8,29 @@ import { redirect } from 'next/navigation';
 
 async function getPosts(): Promise<PostType[]> {
 	dbConnect();
-	const role = await getRequestRole()
+	const reqRole = await getRequestRole()
 
 	// If the user is a guest, only return public posts
 	const publicPosts = await Post.find({ publicPost: true })
-	if (role === 'guest') return publicPosts
+	if (reqRole === 'guest') return publicPosts
 
 	// If the user is an admin or user, return all posts
 	const privatePosts = await Post.find({ publicPost: false })
 	return [...publicPosts, ...privatePosts]
 }
 
-async function getPostById(id: PostType['_id']): Promise<PostType | Object> {
+async function getPostById(_id: PostType['_id']): Promise<PostType | { error: string }> {
 	dbConnect();
-	const role = await getRequestRole()
-	const post = await Post.findOne({ _id: id })
+	const reqRole = await getRequestRole()
+	const post: PostType | null = await Post.findOne({ _id })
 
 	if (!post) return { error: 'Post not found' }
-	if (role === 'guest' && !post.publicPost) return redirect('/')
+	if (reqRole === 'guest' && !post.publicPost) return redirect('/')
 
 	return post
 }
 
-async function createPost(title: PostType['title'], description: PostType['description'], publicPost?: PostType['publicPost'], tags?: PostType['tags']): Promise<PostType | Object> {
+async function createPost({ title, description, publicPost, tags }: Partial<PostType>): Promise<PostType | { error: string }> {
 	dbConnect();
 	const user = await getUserFromSession()
 	if (!user) return { error: 'You must be logged in to create a post' }
@@ -47,12 +47,12 @@ async function createPost(title: PostType['title'], description: PostType['descr
 	return post
 }
 
-async function updatePostById(id: PostType['_id'], title?: PostType['title'], description?: PostType['description'], publicPost?: PostType['publicPost'], tags?: PostType['tags']): Promise<PostType | Object> {
+async function updatePostById({ _id, title, description, publicPost, tags }: Partial<PostType>): Promise<PostType | { error: string }> {
 	dbConnect();
 	const user = await getUserFromSession();
 	if (!user) return { error: 'You must be logged in to edit a post' };
 
-	const post = await Post.findOne({ _id: id });
+	const post = await Post.findOne({ _id });
 	if (!post) return { error: 'Post not found' };
 
 	if (user.role !== 'admin' && user._id !== post.authorId) return { error: 'You do not have permission to edit this post' }
@@ -70,15 +70,15 @@ async function updatePostById(id: PostType['_id'], title?: PostType['title'], de
 	return post;
 }
 
-async function deletePostById(id: PostType['_id']): Promise<Object> {
+async function deletePostById(_id: PostType['_id']): Promise<{ error?: string, message?: string }> {
 	dbConnect();
 	const user = await getUserFromSession()
-	const post = await Post.findOne({ _id: id })
+	const post = await Post.findOne({ _id })
 	if (!post) return { error: 'Post not found' }
 
 	if (user?.role !== 'admin' || user._id !== post.authorId) return { error: 'You do not have permission to delete this post' }
 
-	await Post.findByIdAndDelete(id)
+	await Post.findByIdAndDelete(_id)
 	return { message: 'Post succesfully deleted' }
 }
 

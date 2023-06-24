@@ -1,5 +1,5 @@
 'use server'
-import User from "@/src/models/User";
+import User, { UserInterface } from "@/src/models/User";
 import { cookies, headers } from 'next/headers'
 import { UserType } from '../types/User';
 import dbConnect from "@/src/helpers/dbConnection";
@@ -32,4 +32,40 @@ async function getRequestRole(): Promise<UserType['role']> {
 	return user?.role || 'guest'
 }
 
-export { getUserFromSession, getRequestRole }
+async function getUserById(id: UserType['_id']): Promise<UserType | { error: string }> {
+	dbConnect();
+	const user = await User.findOne({ _id: id }).select(['-password', '-session'])
+	if (!user) return { error: 'User not found' }
+
+	return user
+}
+
+async function deleteUserById(id: UserType['_id']): Promise<{ error?: string, message?: string }> {
+	dbConnect();
+	const reqRole = await getRequestRole()
+	if (reqRole !== 'admin') return { error: 'You do not have permission to delete this user' }
+	const user = await User.findOne({ _id: id })
+	if (!user) return { error: 'User not found' }
+
+	await User.findByIdAndDelete(id)
+	return { message: 'User succesfully deleted' }
+}
+
+async function createUser({ email, name, password, username, role }: Partial<UserInterface>): Promise<{ message?: string, error?: string }> {
+	dbConnect();
+	const reqRole = await getRequestRole()
+	if (reqRole !== 'admin') return { error: 'You do not have permission to create a user' }
+
+	const user = new User({
+		email,
+		name,
+		password,
+		username,
+		role
+	})
+
+	await user.save()
+	return { message: 'User succesfully created' }
+}
+
+export { getUserFromSession, createUser, getUserById, deleteUserById, getRequestRole }
