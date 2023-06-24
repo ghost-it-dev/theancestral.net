@@ -1,1 +1,0 @@
-// data fetching is all fucked, idk how to mutate (revalidate) it after I make a POST request without SWR to still use server components

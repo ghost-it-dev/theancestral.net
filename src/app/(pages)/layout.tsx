@@ -44,7 +44,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                             </div>
                           </div>
                           <div className='flex flex-col sm:flex-row xl:flex-col'>
-                            <Button href={'/create'} className='xl:w-full'>
+                            <Button href={'/post/create'} className='xl:w-full'>
                               New Post
                             </Button>
                           </div>
