@@ -55,6 +55,8 @@ async function updatePostById({ _id, title, description, publicPost, tags }: Par
 	const user = await getUserFromSession();
 	if (!user) return { error: 'You must be logged in to edit a post' };
 
+	const isValidPost = mongoose.isValidObjectId(_id)
+	if (!isValidPost) return { error: 'Invalid post id' }
 	const post = await Post.findOne({ _id });
 	if (!post) return { error: 'Post not found' };
 
@@ -76,6 +78,10 @@ async function updatePostById({ _id, title, description, publicPost, tags }: Par
 async function deletePostById(_id: PostType['_id']): Promise<{ error?: string, message?: string }> {
 	dbConnect();
 	const user = await getUserFromSession()
+
+	const isValidPost = mongoose.isValidObjectId(_id)
+	if (!isValidPost) return { error: 'Invalid post id' }
+
 	const post = await Post.findOne({ _id })
 	if (!post) return { error: 'Post not found' }
 

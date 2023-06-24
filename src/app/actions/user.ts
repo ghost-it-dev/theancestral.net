@@ -32,22 +32,25 @@ async function getRequestRole(): Promise<UserType['role']> {
 	return user?.role || 'guest'
 }
 
-async function getUserById(id: UserType['_id']): Promise<UserType | { error: string }> {
+async function getUserById(_id: UserType['_id']): Promise<UserType | { error: string }> {
 	dbConnect();
-	const user = await User.findOne({ _id: id }).select(['-password', '-session'])
+	const isValidPost = mongoose.isValidObjectId(_id)
+	if (!isValidPost) return { error: 'Invalid post id' }
+
+	const user = await User.findOne({ _id }).select(['-password', '-session'])
 	if (!user) return { error: 'User not found' }
 
 	return user
 }
 
-async function deleteUserById(id: UserType['_id']): Promise<{ error?: string, message?: string }> {
+async function deleteUserById(_id: UserType['_id']): Promise<{ error?: string, message?: string }> {
 	dbConnect();
 	const reqRole = await getRequestRole()
 	if (reqRole !== 'admin') return { error: 'You do not have permission to delete this user' }
-	const user = await User.findOne({ _id: id })
+	const user = await User.findOne({ _id })
 	if (!user) return { error: 'User not found' }
 
-	await User.findByIdAndDelete(id)
+	await User.findByIdAndDelete(_id)
 	return { message: 'User succesfully deleted' }
 }
 
