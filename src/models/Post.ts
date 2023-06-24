@@ -5,7 +5,7 @@ export interface PostInterface {
   title: string;
   description: string;
   tags: string[];
-  authorID: Types.ObjectId;
+  authorId: Types.ObjectId;
   authorName: string;
   publicPost: boolean;
   updatedAt: Date;
@@ -18,7 +18,7 @@ const postSchema = new Schema<PostInterface>(
     title: { type: String, required: true },
     description: { type: String, required: true },
     tags: { type: [String], default: [], required: false },
-    authorID: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    authorId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     authorName: { type: String, required: true },
     publicPost: { type: Boolean, default: false, required: true }
   },
@@ -27,7 +27,7 @@ const postSchema = new Schema<PostInterface>(
 
 postSchema.pre('save', async function (next) {
   if (!this.isNew) return next();
-  const user = await User.findById(this.authorID);
+  const user = await User.findById(this.authorId);
   if (!user) return next();
   user.postAmount += 1;
   await user.save();
