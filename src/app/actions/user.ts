@@ -1,5 +1,5 @@
 'use server'
-import User, { UserInterface } from "@/src/models/User";
+import User from "@/src/models/User";
 import { cookies, headers } from 'next/headers'
 import { UserType } from '../types/User';
 import dbConnect from "@/src/helpers/dbConnection";
@@ -54,7 +54,7 @@ async function deleteUserById(_id: UserType['_id']): Promise<{ error?: string, m
 	return { message: 'User succesfully deleted' }
 }
 
-async function createUser({ email, name, password, username, role }: Partial<UserInterface>): Promise<{ message?: string, error?: string }> {
+async function createUser({ email, name, password, username, role }: Partial<UserType>): Promise<{ message?: string, error?: string }> {
 	dbConnect();
 	const reqRole = await getRequestRole()
 	if (reqRole !== 'admin') return { error: 'You do not have permission to create a user' }
