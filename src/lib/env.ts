@@ -1,27 +1,29 @@
-import * as yup from 'yup';
+import { z } from 'zod';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-const envSchema = yup.object().shape({
-	DB_URI: yup.string().optional(),
-	JWT_SECRET: yup.string().required(),
-	APP_MODE: yup.string().required()
+const envSchema = z.object({
+	DB_URI: z.string().nonempty(),
+	JWT_SECRET: z.string().nonempty(),
+	APP_MODE: z.enum(['development', 'production'])
 });
 
-const env = envSchema.cast({
+const env = {
 	DB_URI: process.env.DB_URI,
 	JWT_SECRET: process.env.JWT_SECRET,
 	APP_MODE: process.env.APP_MODE
-});
+};
 
-if (!env) {
+const parsedEnv = envSchema.safeParse(env);
+
+if (!parsedEnv.success) {
 	throw new Error('No env found');
 }
 
 const validateEnv = async () => {
 	try {
-		await envSchema.validate(env);
+		parsedEnv.data;
 	} catch (err) {
 		throw new Error(`${err}`);
 	}
@@ -29,4 +31,4 @@ const validateEnv = async () => {
 
 validateEnv();
 
-export default env;
+export default parsedEnv.data;

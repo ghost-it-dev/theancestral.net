@@ -2,9 +2,11 @@ import removeMD from "@/src/lib/removeMD"
 import { getPosts } from "../actions/posts"
 import { SpinnerCircular } from "spinners-react"
 import moment from 'moment'
+import env from "@/src/lib/env"
 
 export default async function Feed() {
   const posts = await getPosts()
+  console.log(env.APP_MODE)
 
   return (
     <div className='bg-[#101826] lg:min-w-0 lg:flex-1'>
