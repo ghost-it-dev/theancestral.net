@@ -1,20 +1,23 @@
 'use server'
 
-import dbConnect from '@/src/helpers/dbConnection'
-import Session from '@/src/models/Session'
-import User from '@/src/models/User'
-import argon2id from 'argon2'
-import { cookies, headers } from 'next/headers'
-import env from '@/src/lib/env'
+import dbConnect from '@/src/helpers/dbConnection';
+import Session from '@/src/models/Session';
+import User from '@/src/models/User';
+import argon2id from 'argon2';
+import { cookies, headers } from 'next/headers';
+import env from '@/src/lib/env';
+import { LoginFormData } from './validations/auth';
 
-async function login({ email, password }: { email: string, password: string }) {
-	if (!email || !password) return { error: 'Missing email or password' }
+
+async function login(data: LoginFormData) {
+	console.log(data)
+	if (!data.email || !data.password) return { error: 'Missing email or password' }
 	dbConnect();
 
-	const user = await User.findOne({ email })
+	const user = await User.findOne({ email: data.email })
 	if (!user) return { error: 'User not found' }
 
-	const validPassword = await argon2id.verify(user.password, password)
+	const validPassword = await argon2id.verify(user.password, data.password)
 	if (!validPassword) return { error: 'Invalid password' }
 
 	// Don't allow the user to spam this function and create a ton of sessions
@@ -49,4 +52,4 @@ async function logout() {
 	return { message: 'Successfully logged out' }
 }
 
-export { login, logout }
+export { login, logout };

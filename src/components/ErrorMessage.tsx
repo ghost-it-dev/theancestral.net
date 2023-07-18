@@ -11,3 +11,4 @@ function ErrorMessage({ message }: { message: string }) {
 }
 
 export default ErrorMessage
+ErrorMessage.displayName = 'ErrorMessage'

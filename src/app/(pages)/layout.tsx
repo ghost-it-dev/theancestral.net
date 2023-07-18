@@ -6,10 +6,6 @@ import Navbar from '../../components/Navbar'
 import Image from 'next/image'
 import { getUserFromSession } from '../actions/user'
 
-export const metadata = {
-  title: 'Ancestral'
-}
-
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const user = await getUserFromSession()
 

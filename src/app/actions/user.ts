@@ -1,5 +1,5 @@
 'use server'
-import User from "@/src/models/User";
+import User from '@/src/models/User';
 import { cookies, headers } from 'next/headers'
 import { UserType } from '../types/User';
 import dbConnect from "@/src/helpers/dbConnection";

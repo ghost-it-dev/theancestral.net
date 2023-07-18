@@ -42,3 +42,4 @@ const Button: React.FC<Props> = ({ variant, isLoading, className, ...props }) =>
 };
 
 export default Button;
+Button.displayName = 'Button';

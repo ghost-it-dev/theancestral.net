@@ -42,3 +42,4 @@ const SwitchGroup = ({ label, description, enabled, setEnabled }: SwitchGroupPro
 }
 
 export default SwitchGroup
+SwitchGroup.displayName = 'SwitchGroup'
