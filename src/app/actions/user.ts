@@ -23,7 +23,7 @@ async function getUserFromSession(): Promise<UserType | null> {
 	}
 
 	if (!user) return null
-	return user
+	return JSON.parse(JSON.stringify(user))
 }
 
 // Return the role of the user making the request

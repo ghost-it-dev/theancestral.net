@@ -10,7 +10,6 @@ import { LoginFormData } from './validations/auth';
 
 
 async function login(data: LoginFormData) {
-	console.log(data)
 	if (!data.email || !data.password) return { error: 'Missing email or password' }
 	dbConnect();
 
