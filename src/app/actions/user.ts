@@ -5,6 +5,7 @@ import { UserType } from '../types/User';
 import dbConnect from "@/src/helpers/dbConnection";
 import Session from "@/src/models/Session";
 import mongoose from "mongoose";
+import { UserCreateData } from './validations/user';
 
 // Return the user object if the user is logged in, otherwise return null
 // Do all redirecting on the backend so we don't have to write a function on the frontend
@@ -54,17 +55,17 @@ async function deleteUserById(_id: UserType['_id']): Promise<{ error?: string, m
 	return { message: 'User succesfully deleted' }
 }
 
-async function createUser({ email, name, password, username, role }: Partial<UserType>): Promise<{ message?: string, error?: string }> {
+async function createUser(data: UserCreateData): Promise<{ message?: string, error?: string }> {
 	dbConnect();
 	const reqRole = await getRequestRole()
 	if (reqRole !== 'admin') return { error: 'You do not have permission to create a user' }
 
 	const user = new User({
-		email,
-		name,
-		password,
-		username,
-		role
+		email: data.email,
+		name: data.name,
+		password: data.password,
+		username: data.username,
+		role: data.role
 	})
 
 	await user.save()

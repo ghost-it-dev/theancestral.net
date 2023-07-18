@@ -6,8 +6,9 @@ import { getRequestRole, getUserFromSession } from './user';
 import Post from '@/src/models/Post';
 import { redirect } from 'next/navigation';
 import mongoose from 'mongoose';
+import { PostCreateData, PostUpdateData } from './validations/posts';
 
-async function getPosts(): Promise<PostType[]> {
+async function getPosts(): Promise<PostType[] | []> {
 	dbConnect();
 	const reqRole = await getRequestRole()
 
@@ -33,40 +34,40 @@ async function getPostById(_id: PostType['_id']): Promise<PostType | { error: st
 	return post
 }
 
-async function createPost({ title, description, publicPost, tags }: Partial<PostType>): Promise<PostType | { error: string }> {
+async function createPost(data: PostCreateData): Promise<PostType | { error: string }> {
 	dbConnect();
 	const user = await getUserFromSession()
 	if (!user) return { error: 'You must be logged in to create a post' }
-	if (!title || !description) return { error: 'You must provide a title and description' }
+	if (!data.title || !data.description) return { error: 'You must provide a title and description' }
 
 	const post = await Post.create({
-		title,
-		tags,
-		description,
-		publicPost: publicPost ?? false,
+		title: data.title,
+		tags: data.tags,
+		description: data.description,
+		publicPost: data.publicPost ?? false,
 		authorId: user._id
 	})
 
 	return post
 }
 
-async function updatePostById({ _id, title, description, publicPost, tags }: Partial<PostType>): Promise<PostType | { error: string }> {
+async function updatePostById(data: PostUpdateData): Promise<PostType | { error: string }> {
 	dbConnect();
 	const user = await getUserFromSession();
 	if (!user) return { error: 'You must be logged in to edit a post' };
 
-	const isValidPost = mongoose.isValidObjectId(_id)
+	const isValidPost = mongoose.isValidObjectId(data._id)
 	if (!isValidPost) return { error: 'Invalid post id' }
-	const post = await Post.findOne({ _id });
+	const post = await Post.findOne({ _id: data._id });
 	if (!post) return { error: 'Post not found' };
 
 	if (user.role !== 'admin' && user._id !== post.authorId) return { error: 'You do not have permission to edit this post' }
 
 	const updatedFields: Partial<PostType> = {
-		title: title ?? post.title,
-		description: description ?? post.description,
-		publicPost: publicPost ?? post.publicPost,
-		tags: tags ?? post.tags,
+		title: data.title || post.title,
+		description: data.description || post.description,
+		publicPost: data.publicPost || post.publicPost,
+		tags: data.tags || post.tags,
 	};
 
 	Object.assign(post, updatedFields);
