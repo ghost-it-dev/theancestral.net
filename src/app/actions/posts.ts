@@ -44,7 +44,7 @@ async function createPost(data: PostCreateData): Promise<PostType | { error: str
 		title: data.title,
 		tags: data.tags,
 		description: data.description,
-		publicPost: data.publicPost ?? false,
+		publicPost: data.publicPost,
 		authorId: user._id
 	})
 
@@ -66,7 +66,7 @@ async function updatePostById(data: PostUpdateData): Promise<PostType | { error:
 	const updatedFields: Partial<PostType> = {
 		title: data.title || post.title,
 		description: data.description || post.description,
-		publicPost: data.publicPost || post.publicPost,
+		publicPost: data.hasOwnProperty('publicPost') ? data.publicPost : post.publicPost,
 		tags: data.tags || post.tags,
 	};
 
