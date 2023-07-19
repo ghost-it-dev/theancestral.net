@@ -13,8 +13,8 @@ export interface SessionInterface {
 // 1. x User logs out (function)
 // 2. User changes password (function)
 // 4. Account is deleted (function)
-// 5. User Agent changes (verify session)
-// 6. x Session expires (databse)
+// 5. x User Agent changes (verify session)
+// 6. x Session expires (database)
 
 const sessionSchema = new Schema<SessionInterface>(
   {

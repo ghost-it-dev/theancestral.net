@@ -10,14 +10,14 @@ import { LoginFormData } from './validations/auth';
 
 
 async function login(data: LoginFormData) {
-	if (!data.email || !data.password) return { error: 'Missing email or password' }
+	if (!data.email || !data.password) return { error: 'Please provide both email and password.' };
 	dbConnect();
 
 	const user = await User.findOne({ email: data.email })
-	if (!user) return { error: 'User not found' }
+	if (!user) return { error: 'User not found. Please check your email and password.' };
 
 	const validPassword = await argon2id.verify(user.password, data.password)
-	if (!validPassword) return { error: 'Invalid password' }
+	if (!validPassword) return { error: 'Invalid email or password. Please check your credentials.' };
 
 	// Don't allow the user to spam this function and create a ton of sessions
 	if (cookies().get('session')) {
@@ -29,7 +29,7 @@ async function login(data: LoginFormData) {
 
 	const session = await Session.create({
 		userID: user._id,
-		expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30), // Add 30 days (1000 milliseconds * 60 seconds)
+		expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30), // Add 30 days to the current date
 		userAgent: headers().get('user-agent')
 	})
 
@@ -40,14 +40,12 @@ async function login(data: LoginFormData) {
 }
 
 async function logout() {
-	cookies().set('session', '', { expires: new Date(0), httpOnly: true, path: '/', sameSite: 'strict', secure: env.APP_MODE === 'production' })
 	if (!cookies().get('session') || cookies().get('session')?.value === '') return { message: 'Successfully logged out' }
 
 	dbConnect();
-	const session = await Session.findById(cookies().get('session')?.value)
-	if (!session) return { message: 'Successfully logged out' }
+	await Session.findByIdAndDelete(cookies().get('session')?.value)
 
-	await session.delete()
+	cookies().set('session', '', { expires: new Date(0), httpOnly: true, path: '/', sameSite: 'strict', secure: env.APP_MODE === 'production' })
 	return { message: 'Successfully logged out' }
 }
 

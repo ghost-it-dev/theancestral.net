@@ -1,9 +1,10 @@
+import classNames from "classnames"
 
-function ErrorMessage({ message }: { message: string }) {
+function ErrorMessage({ message, className }: { message: string, className?: string }) {
 
 	return (
-		<div className="p-2">
-			<div className="px-2 py-1 bg-red-400 w-full h-auto">
+		<div>
+			<div className={classNames("px-2 py-1 rounded-sm border-l-4 border-red-400 rounded-l-none bg-[#364150] text-gray-200 rounded-l-0 w-full h-auto", className)}>
 				{message}
 			</div>
 		</div>

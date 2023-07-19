@@ -34,17 +34,10 @@ function Modal({ isOpen, setIsOpen, children }: ModalProps) {
 							leaveFrom="opacity-100 translate-y-0 sm:scale-100"
 							leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
 						>
-							<Dialog.Panel className="w-full relative transform overflow-hidden rounded-lg bg-[#1E2936] px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
-								<div className="absolute top-0 right-0 hidden pt-4 pr-4 sm:block">
-									<button
-										type="button"
-										className="rounded-md bg-transparent text-white hover:text-indigo-400 focus:outline-none"
-										onClick={() => setIsOpen(false)}
-									>
-										<span className="sr-only">Close</span>
-										<XMarkIcon className="h-6 w-6" aria-hidden="true" />
-									</button>
-								</div>
+							<Dialog.Panel className="w-full relative transform rounded-lg bg-[#1E2936] px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+								<button className="absolute top-[-2.5rem] right-0 p-2 block">
+									<XMarkIcon onClick={() => setIsOpen(false)} className="cursor-pointer h-6 w-6 text-gray-300 hover:text-white transition-all" aria-hidden="true" />
+								</button>
 								{children}
 							</Dialog.Panel>
 						</Transition.Child>

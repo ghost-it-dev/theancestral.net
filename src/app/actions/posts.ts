@@ -18,7 +18,7 @@ async function getPosts(): Promise<PostType[] | []> {
 
 	// If the user is an admin or user, return all posts
 	const privatePosts = await Post.find({ publicPost: false })
-	return [...publicPosts, ...privatePosts]
+	return JSON.parse(JSON.stringify([...publicPosts, ...privatePosts]));
 }
 
 async function getPostById(_id: PostType['_id']): Promise<PostType | { error: string }> {
@@ -31,7 +31,7 @@ async function getPostById(_id: PostType['_id']): Promise<PostType | { error: st
 	if (!post) return { error: 'Post not found' }
 	if (reqRole === 'guest' && !post.publicPost) return redirect('/')
 
-	return post
+	return JSON.parse(JSON.stringify(post));
 }
 
 async function createPost(data: PostCreateData): Promise<PostType | { error: string }> {
@@ -48,7 +48,7 @@ async function createPost(data: PostCreateData): Promise<PostType | { error: str
 		authorId: user._id
 	})
 
-	return post
+	return JSON.parse(JSON.stringify(post));
 }
 
 async function updatePostById(data: PostUpdateData): Promise<PostType | { error: string }> {
@@ -73,7 +73,7 @@ async function updatePostById(data: PostUpdateData): Promise<PostType | { error:
 	Object.assign(post, updatedFields);
 	await post.save();
 
-	return post;
+	return JSON.parse(JSON.stringify(post));
 }
 
 async function deletePostById(_id: PostType['_id']): Promise<{ error?: string, message?: string }> {

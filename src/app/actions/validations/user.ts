@@ -10,5 +10,4 @@ const userCreateSchema = z.object({
 
 type UserCreateData = z.infer<typeof userCreateSchema>
 
-
 export { userCreateSchema, type UserCreateData }
