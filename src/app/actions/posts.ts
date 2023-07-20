@@ -1,6 +1,6 @@
 'use server'
 
-import dbConnect from '@/src/helpers/dbConnection';
+import dbConnect from '@/src/lib/dbConnection';
 import { PostType } from '../types/Post';
 import { getRequestRole, getUserFromSession } from './user';
 import Post from '@/src/models/Post';

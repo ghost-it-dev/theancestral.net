@@ -11,6 +11,7 @@ export interface UserInterface {
   updatedAt: Date;
   createdAt: Date;
   _id: Types.ObjectId;
+  profilePicture: Buffer | null;
 }
 
 const userSchema = new Schema<UserInterface>(
@@ -20,7 +21,8 @@ const userSchema = new Schema<UserInterface>(
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     role: { type: String, required: false, default: 'user' },
-    postAmount: { type: Number, required: true, default: 0 }
+    postAmount: { type: Number, required: true, default: 0 },
+    profilePicture: { type: Buffer, default: null }
   },
   { versionKey: false, timestamps: true }
 );

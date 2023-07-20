@@ -1,16 +1,17 @@
 'use client'
 import React, { useState, useTransition } from 'react';
-import Button from './Button';
+import Button from '../Button';
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
-import Modal from './Modal';
-import { UserType } from '../app/types/User';
+import Modal from '../Modal';
+import { UserType } from '../../app/types/User';
 import { useForm } from 'react-hook-form';
-import { login, logout } from '../app/actions/auth';
-import Input from './Input';
+import { login, logout } from '../../app/actions/auth';
+import Input from '../Input';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { LoginFormData, loginSchema } from '../app/actions/validations/auth';
-import { hasError } from '../lib/hasError';
-import ErrorMessage from './ErrorMessage';
+import { LoginFormData, loginSchema } from '../../app/actions/validations/auth';
+import { hasError } from '../../lib/hasError';
+import ErrorMessage from '../ErrorMessage';
+import UserDropdown from './UserDropdown';
 
 function NavbarButtons({ user }: { user: UserType | null }) {
 	const [open, setOpen] = useState(false);
@@ -29,12 +30,6 @@ function NavbarButtons({ user }: { user: UserType | null }) {
 		});
 	});
 
-	const handleLogout = () => {
-		startTransition(() => {
-			logout()
-		});
-	}
-
 	return (
 		<>
 			<Modal isOpen={open} setIsOpen={setOpen}>
@@ -46,13 +41,12 @@ function NavbarButtons({ user }: { user: UserType | null }) {
 					<Button type='submit' disabled={isPending}>Log In</Button>
 				</form>
 			</Modal>
-			<div className='flex flex-row gap-2'>
+			<div className='flex flex-row gap-3'>
 				<div className='p-2 cursor-pointer flex items-center justify-center rounded-full bg-[#364150] hover:bg-[#465160] transition-all ease-linear'>
 					<MagnifyingGlassIcon className='h-5 w-5 text-gray-200' aria-hidden='true' />
 				</div>
 				{user ?
-					// Change this to user img and dropdown
-					<Button onClick={() => handleLogout()} variant={'gray'}>Logout</Button>
+					<UserDropdown />
 					:
 					<Button onClick={() => setOpen(true)} variant={'gray'}>Login</Button>
 				}

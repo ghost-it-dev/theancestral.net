@@ -1,6 +1,6 @@
 'use server'
 
-import dbConnect from '@/src/helpers/dbConnection';
+import dbConnect from '@/src/lib/dbConnection';
 import Session from '@/src/models/Session';
 import User from '@/src/models/User';
 import argon2id from 'argon2';

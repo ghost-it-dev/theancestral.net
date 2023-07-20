@@ -1,6 +1,6 @@
 import React from 'react';
 import NavbarButtons from './NavbarButtons';
-import { getUserFromSession } from '../app/actions/user';
+import { getUserFromSession } from '../../app/actions/user';
 import { Bars3Icon } from '@heroicons/react/20/solid';
 
 async function Navbar() {

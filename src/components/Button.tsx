@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { SpinnerCircular } from 'spinners-react';
 
 const buttonStyles = cva(
-	'relative inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium text-white shadow-sm focus:outline-none transition-all ease-linear',
+	'relative inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium text-white shadow-sm focus:outline-none transition-colors ease-linear',
 	{
 		variants: {
 			variant: {
