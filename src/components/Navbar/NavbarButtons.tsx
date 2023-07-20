@@ -5,7 +5,7 @@ import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 import Modal from '../Modal';
 import { UserType } from '../../app/types/User';
 import { useForm } from 'react-hook-form';
-import { login, logout } from '../../app/actions/auth';
+import { login } from '../../app/actions/auth';
 import Input from '../Input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginFormData, loginSchema } from '../../app/actions/validations/auth';
@@ -46,7 +46,7 @@ function NavbarButtons({ user }: { user: UserType | null }) {
 					<MagnifyingGlassIcon className='h-5 w-5 text-gray-200' aria-hidden='true' />
 				</div>
 				{user ?
-					<UserDropdown />
+					<UserDropdown user={user} />
 					:
 					<Button onClick={() => setOpen(true)} variant={'gray'}>Login</Button>
 				}

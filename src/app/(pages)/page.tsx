@@ -1,12 +1,13 @@
-import removeMD from "@/src/lib/removeMD"
-import { getPosts } from "../actions/posts"
-import { SpinnerCircular } from "spinners-react"
+import removeMD from '@/src/lib/removeMD'
+import { getPosts } from '../actions/posts'
+import { SpinnerCircular } from 'spinners-react'
 import moment from 'moment'
-import DashboardLayout from "./(dashboard)/layout"
+import DashboardLayout from './(dashboard)/layout'
 
-export default async function Feed() {
+export default async function Page() {
   const posts = await getPosts()
 
+  // Use dashboard layout here because we can't move this file to src\app\(pages)\(dashboard)\feed.tsx
   return (
     <DashboardLayout>
       <div className='bg-[#101826] lg:min-w-0 lg:flex-1'>

@@ -1,15 +1,16 @@
 'use client'
 
-import { Menu, Transition } from "@headlessui/react";
+import { Menu, Transition } from '@headlessui/react';
 import classNames from 'classnames';
-import { Fragment, useTransition } from "react";
+import { Fragment, useTransition } from 'react';
 import Image from 'next/image';
-import { ArrowRightOnRectangleIcon } from '@heroicons/react/20/solid';
+import { ArrowRightOnRectangleIcon, AdjustmentsHorizontalIcon } from '@heroicons/react/20/solid';
 import { Cog6ToothIcon, UserIcon } from '@heroicons/react/24/outline'
-import { logout } from "@/src/app/actions/auth";
-import Link from "next/link";
+import { logout } from '@/src/app/actions/auth';
+import Link from 'next/link';
+import { UserType } from '@/src/app/types/User';
 
-function UserDropdown() {
+function UserDropdown({ user }: { user: UserType }) {
 	const [isPending, startTransition] = useTransition();
 
 	const handleLogout = () => {
@@ -38,30 +39,45 @@ function UserDropdown() {
 				<Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-[#4B5563] py-1 shadow-xl">
 					<Menu.Item>
 						{({ active }) => (
-							<a
-								href="#"
+							<Link
+								href={`/user/${user._id}`}
 								className={classNames(
 									active ? 'bg-[#1E2936]' : '',
 									'flex items-center gap-1 px-4 py-2 text-sm text-gray-200 transition-colors font-semibold'
 								)}
 							>
 								<UserIcon className='h-5 w-5' /> View Profile
-							</a>
+							</Link>
 						)}
 					</Menu.Item>
 					<Menu.Item>
 						{({ active }) => (
 							<Link
-								href='/settings'
+								href='/settings/account'
 								className={classNames(
 									active ? 'bg-[#1E2936]' : '',
 									'flex items-center gap-1 px-4 py-2 text-sm text-gray-200 transition-colors border-t border-[#1E2936] font-semibold'
 								)}
 							>
-								<Cog6ToothIcon className='h-5 w-5' /> Settings
+								<Cog6ToothIcon className='h-5 w-5' /> Account Settings
 							</Link>
 						)}
 					</Menu.Item>
+					{user.role === 'admin' &&
+						<Menu.Item>
+							{({ active }) => (
+								<Link
+									href='/settings/admin'
+									className={classNames(
+										active ? 'bg-[#1E2936]' : '',
+										'flex items-center gap-1 px-4 py-2 text-sm text-gray-200 transition-colors border-t border-[#1E2936] font-semibold'
+									)}
+								>
+									<AdjustmentsHorizontalIcon className='h-5 w-5' /> Admin Settings
+								</Link>
+							)}
+						</Menu.Item>
+					}
 					<Menu.Item>
 						{({ active }) => (
 							<span
