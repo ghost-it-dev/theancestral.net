@@ -53,7 +53,7 @@ function UserDropdown({ user }: { user: UserType }) {
 					<Menu.Item>
 						{({ active }) => (
 							<Link
-								href='/settings/account'
+								href='/settings'
 								className={classNames(
 									active ? 'bg-[#1E2936]' : '',
 									'flex items-center gap-1 px-4 py-2 text-sm text-gray-200 transition-colors border-t border-[#1E2936] font-semibold'
@@ -63,21 +63,6 @@ function UserDropdown({ user }: { user: UserType }) {
 							</Link>
 						)}
 					</Menu.Item>
-					{user.role === 'admin' &&
-						<Menu.Item>
-							{({ active }) => (
-								<Link
-									href='/settings/admin'
-									className={classNames(
-										active ? 'bg-[#1E2936]' : '',
-										'flex items-center gap-1 px-4 py-2 text-sm text-gray-200 transition-colors border-t border-[#1E2936] font-semibold'
-									)}
-								>
-									<AdjustmentsHorizontalIcon className='h-5 w-5' /> Admin Settings
-								</Link>
-							)}
-						</Menu.Item>
-					}
 					<Menu.Item>
 						{({ active }) => (
 							<span

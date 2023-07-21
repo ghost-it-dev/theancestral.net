@@ -3,6 +3,7 @@ import { getPosts } from '../actions/posts'
 import { SpinnerCircular } from 'spinners-react'
 import moment from 'moment'
 import DashboardLayout from './(dashboard)/layout'
+import Button from '@/src/components/Button'
 
 export default async function Page() {
   const posts = await getPosts()
@@ -12,8 +13,11 @@ export default async function Page() {
     <DashboardLayout>
       <div className='bg-[#101826] lg:min-w-0 lg:flex-1'>
         <div className='border-b border-t border-[#1F2C37] py-4 pb-4 px-4 xl:border-t-0 xl:pt-6'>
-          <div className='flex items-center'>
+          <div className='flex items-center justify-between'>
             <h1 className='flex-1 text-gray-200 text-lg font-medium'>All Posts</h1>
+            <Button>
+              Create Post
+            </Button>
           </div>
         </div>
         {posts?.length !== 0 ?

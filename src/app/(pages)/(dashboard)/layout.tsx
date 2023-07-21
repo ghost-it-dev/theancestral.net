@@ -1,12 +1,7 @@
-import Navbar from '@/src/components/Navbar/Navbar';
-import classNames from 'classnames'
 import Image from 'next/image'
-import { getUserFromSession } from '../../actions/user';
-import Button from '@/src/components/Button';
+import Navbar from '@/src/components/Navbar/Navbar';
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
-	const user = await getUserFromSession()
-
 	return (
 		<main>
 			<div className='relative flex min-h-[100vh] flex-col'>
@@ -14,37 +9,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
 				{/* 3 column wrapper */}
 				<div className='mx-auto w-full max-w-7xl flex-grow lg:flex xl:px-8'>
 					{/* Left sidebar & main wrapper */}
-					<div className={classNames(user ? 'min-w-0 flex-1 bg-[#101826] xl:flex' : 'min-w-0 flex-1 bg-[#101826] xl:flex lg:border-l lg:border-[#1F2C37]')}>
-						{user && (
-							<div className='bg-[#101826] xl:w-64 xl:flex-shrink-0 xl:border-r xl:border-[#1F2C37]'>
-								<div className='py-6 px-4 sm:px-8 xl:pl-0'>
-									<div className='flex items-center justify-between'>
-										<div className='flex-1 space-y-4'>
-											<div className='flex items-center justify-between sm:space-y-0 xl:block xl:space-y-4'>
-												<div className='flex items-center space-x-3'>
-													<div className='h-12 w-12 flex-shrink-0'>
-														<Image
-															height={48}
-															width={48}
-															className='rounded-full'
-															src='https://avatars.githubusercontent.com/u/38229170?s=400&u=b6d25af34d7cd519ee3f69a701229dfe35ace5da&v=4'
-															alt=''
-														/>
-													</div>
-													<div>
-														<div className='text-sm font-medium text-gray-200'>{user.username}</div>
-														<span className='group flex items-center space-x-1.5 text-sm font-medium text-gray-300'>{user.name}</span>
-													</div>
-												</div>
-												<Button href={'/post/create'} className='xl:w-full'>
-													New Post
-												</Button>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						)}
+					<div className={'min-w-0 flex-1 bg-[#101826] xl:flex lg:border-l lg:border-[#1F2C37]'}>
 						{children}
 					</div>
 					{/* Activity feed */}
