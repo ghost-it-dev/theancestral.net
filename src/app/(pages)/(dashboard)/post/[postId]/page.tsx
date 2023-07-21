@@ -22,8 +22,12 @@ async function Page({ params }: PageProps) {
 					<>
 						<div className='border-b border-t border-[#1F2C37] p-4 xl:border-t-0'>
 							<div className='flex flex-col'>
-								<h1 className='flex-1 text-gray-200 text-lg font-medium'>{post.title}</h1>
-								<p className='text-gray-400 text-sm'>Posted by {post.authorName}</p>
+								<div className='flex justify-between items-center'>
+									<div>
+										<h1 className='flex-1 text-gray-200 text-lg font-medium'>{post.title}</h1>
+										<p className='text-gray-400 text-sm'>Posted by {post.authorName}</p>
+									</div>
+								</div>
 								<div className='mt-1 flex flex-row gap-1'>
 									<span className='flex items-center px-1.5 py-0.5 rounded-[4px] text-xs font-bold bg-[#1E2936] text-gray-300'>Ubuntu</span>
 									<span className='flex items-center px-1.5 py-0.5 rounded-[4px] text-xs font-bold bg-[#1E2936] text-gray-300'>Linux</span>

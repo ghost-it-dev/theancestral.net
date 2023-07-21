@@ -1,6 +1,5 @@
 'use client'
 import React, { useState, useTransition } from 'react';
-import Button from '../Button';
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 import Modal from '../Modal';
 import { UserType } from '../../app/types/User';
@@ -12,6 +11,7 @@ import { LoginFormData, loginSchema } from '../../app/actions/validations/auth';
 import { hasError } from '../../lib/hasError';
 import ErrorMessage from '../ErrorMessage';
 import UserDropdown from './UserDropdown';
+import Button from '../Button';
 
 function NavbarButtons({ user }: { user: UserType | null }) {
 	const [open, setOpen] = useState(false);

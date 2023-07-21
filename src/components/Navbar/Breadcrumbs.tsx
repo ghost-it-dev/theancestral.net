@@ -12,7 +12,7 @@ const Breadcrumbs = () => {
 	// Always include a breadcrumb for the home page
 	const breadcrumbs = [
 		{
-			name: 'Home',
+			name: 'Feed',
 			path: '/',
 		},
 	];
@@ -35,12 +35,12 @@ const Breadcrumbs = () => {
 	return (
 		<ol className='gap-1 flex flex-row items-center'>
 			{breadcrumbs.map(({ name, path }, index) => (
-				<>
+				<li className='flex items-center gap-1' key={path}>
 					{index === breadcrumbs.length - 1 ? (
-						<span className='text-gray-100 font-semibold'>{name}</span>
+						<span className='text-gray-100 font-semibold select-none'>{name}</span>
 					) : (
 						<Link
-							className='font-semibold transition-colors duration-300 text-gray-300 hover:text-gray-100'
+							className='font-semibold transition-colors duration-300 text-gray-300 hover:text-gray-100 select-none'
 							href={path}
 							key={index}
 						>
@@ -50,7 +50,7 @@ const Breadcrumbs = () => {
 					{index < breadcrumbs.length - 1 &&
 						<ChevronRightIcon className='h-5 w-5 flex-shrink-0 text-gray-400' aria-hidden='true' />
 					}
-				</>
+				</li>
 			))}
 		</ol>
 	);
