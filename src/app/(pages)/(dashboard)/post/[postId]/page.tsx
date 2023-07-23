@@ -2,8 +2,8 @@ import { getPostById } from '@/src/app/actions/posts'
 import ErrorMessage from '@/src/components/ErrorMessage'
 import { hasError } from '@/src/lib/hasError'
 import { SpinnerCircular } from 'spinners-react'
-import Markdown from 'marked-react';
 import { PencilSquareIcon, TrashIcon } from '@heroicons/react/20/solid';
+import MDViewer from '@/src/components/MDViewer';
 
 interface PageProps {
 	params: { postId: string }
@@ -42,12 +42,8 @@ async function Page({ params }: PageProps) {
 								</div>
 							</div>
 						</div>
-						<div className='my-4 px-4 text-gray-200'>
-							{/* Use marked to display mardown here, other lib is slow as fuck */}
-							<Markdown>
-								{post.description}
-							</Markdown>
-
+						<div className='my-4 xl:my-6 px-4 text-gray-200'>
+							<MDViewer text={post.description} />
 						</div>
 					</>
 					:

@@ -36,6 +36,7 @@
 .wmde-markdown h6,
 .wmde-markdown .footnotes ol {
 	color: #e5e7eb !important;
+	border-bottom: none !important;
 }
 
 .wmde-markdown hr {
@@ -116,7 +117,8 @@
 
 .w-md-editor-toolbar li > button:hover,
 .w-md-editor-toolbar li > button:focus,
-.w-md-editor-toolbar li.active > button {
+.w-md-editor-toolbar li.active > button,
+.wmde-markdown pre > code {
 	background-color: #1e2936 !important;
 	color: #e5e7eb !important;
 }
@@ -131,4 +133,19 @@ ol {
 
 ul {
 	list-style-type: disc;
+}
+
+.wmde-markdown blockquote {
+	color: #e5e7eb;
+	border-left: 0.25em solid #4b5563 !important;
+}
+
+.wmde-markdown blockquote > p {
+	color: #e5e7eb !important;
+}
+
+.wmde-markdown table th,
+.wmde-markdown table td {
+	border: 1px solid #4b5563 !important;
+	background-color: #1e2936 !important;
 }
