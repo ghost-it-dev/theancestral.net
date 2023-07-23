@@ -12,13 +12,11 @@ export default async function Page() {
   return (
     <DashboardLayout>
       <div className='bg-[#101826] lg:min-w-0 lg:flex-1'>
-        <div className='border-b border-t border-[#1F2C37] py-4 pb-4 px-4 xl:border-t-0 xl:pt-6'>
-          <div className='flex items-center justify-between'>
-            <h1 className='flex-1 text-gray-200 text-lg font-medium'>All Posts</h1>
-            <Button>
-              Create Post
-            </Button>
-          </div>
+        <div className='border-b border-t border-[#1F2C37] py-4 pb-4 px-4 xl:border-t-0 xl:pt-6 h-[105px] flex items-center justify-between'>
+          <h1 className='flex-1 text-gray-200 text-2xl font-medium'>All Posts</h1>
+          <Button href={'/create'}>
+            Create Post
+          </Button>
         </div>
         {posts?.length !== 0 ?
           <div className='divide-y divide-[#1F2C37] list-none'>
