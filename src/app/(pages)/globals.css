@@ -35,6 +35,9 @@
 .wmde-markdown h5,
 .wmde-markdown h6,
 .wmde-markdown .footnotes ol {
+	padding-bottom: 0.5rem !important;
+	margin-bottom: 0 !important;
+	margin-top: 0 !important;
 	color: #e5e7eb !important;
 	border-bottom: none !important;
 }
@@ -148,4 +151,12 @@ ul {
 .wmde-markdown table td {
 	border: 1px solid #4b5563 !important;
 	background-color: #1e2936 !important;
+}
+
+.w-md-editor-toolbar {
+	border-bottom: 1px solid #4b5563 !important;
+}
+
+.w-md-editor-preview {
+	box-shadow: inset 1px 0 0 0 #4b5563 !important;
 }
