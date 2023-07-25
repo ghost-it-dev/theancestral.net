@@ -4,7 +4,7 @@ import { Menu, Transition } from '@headlessui/react';
 import classNames from 'classnames';
 import { Fragment, useTransition } from 'react';
 import Image from 'next/image';
-import { ArrowRightOnRectangleIcon, AdjustmentsHorizontalIcon } from '@heroicons/react/20/solid';
+import { ArrowRightOnRectangleIcon } from '@heroicons/react/20/solid';
 import { Cog6ToothIcon, UserIcon } from '@heroicons/react/24/outline'
 import { logout } from '@/src/app/actions/auth';
 import Link from 'next/link';
@@ -20,9 +20,9 @@ function UserDropdown({ user }: { user: UserType }) {
 	}
 
 	return (
-		<Menu as="div" className="relative flex-shrink-0">
+		<Menu id={'menu'} as="div" className="relative flex-shrink-0">
 			<div>
-				<Menu.Button className="flex">
+				<Menu.Button id={'menu'} className="flex">
 					<span className="sr-only">Open user menu</span>
 					<Image src={'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg'} alt='avatar' width={36} height={36} className='rounded-full cursor-pointer' />
 				</Menu.Button>

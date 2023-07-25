@@ -7,6 +7,7 @@ import Post from '@/src/models/Post';
 import { redirect } from 'next/navigation';
 import mongoose from 'mongoose';
 import { PostCreateData, PostUpdateData } from './validations/posts';
+import { revalidatePath } from 'next/cache';
 
 async function getPosts(): Promise<PostType[] | []> {
 	dbConnect();
@@ -48,6 +49,7 @@ async function createPost(data: PostCreateData): Promise<PostType | { error: str
 		authorId: user._id
 	})
 
+	revalidatePath('/')
 	return JSON.parse(JSON.stringify(post));
 }
 
@@ -73,6 +75,7 @@ async function updatePostById(data: PostUpdateData): Promise<PostType | { error:
 	Object.assign(post, updatedFields);
 	await post.save();
 
+	revalidatePath(`/posts/${post._id}`)
 	return JSON.parse(JSON.stringify(post));
 }
 
@@ -89,6 +92,8 @@ async function deletePostById(_id: PostType['_id']): Promise<{ error?: string, m
 	if (user?.role !== 'admin' || user._id !== post.authorId) return { error: 'You do not have permission to delete this post' }
 
 	await Post.findByIdAndDelete(_id)
+
+	revalidatePath(`/`)
 	return { message: 'Post succesfully deleted' }
 }
 

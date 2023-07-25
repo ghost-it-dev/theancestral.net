@@ -11,7 +11,6 @@ import Modal from '../Modal';
 import Input from '../Input';
 
 function AuthModal({ open, setOpen }: { open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
-
 	const [isPending, startTransition] = useTransition();
 	const [error, setError] = useState<null | string>(null);
 	const { register, handleSubmit, reset, formState: { errors } } = useForm<LoginFormData>({ resolver: zodResolver(loginSchema) });

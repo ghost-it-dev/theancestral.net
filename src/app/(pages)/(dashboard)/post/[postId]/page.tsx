@@ -28,7 +28,7 @@ async function Page({ params }: PageProps) {
 									<h1 className='flex-1 text-gray-200 text-lg font-medium'>{post.title}</h1>
 									<div className='flex flex-col'>
 										<div className='flex gap-2'>
-											<PencilSquareIcon className='cursor-pointer transition-colors h-5 w-5 text-gray-300 hover:text-indigo-600' />
+											<PencilSquareIcon className='cursor-pointer  h-5 w-5 text-gray-300 hover:text-indigo-600' />
 											<TrashIcon className='cursor-pointer transition-colors h-5 w-5 text-gray-300 hover:text-red-600' />
 										</div>
 									</div>

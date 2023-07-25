@@ -2,11 +2,10 @@
 import User from '@/src/models/User';
 import { cookies, headers } from 'next/headers'
 import { UserType } from '../types/User';
-import dbConnect from "@/src/lib/dbConnection";
-import Session from "@/src/models/Session";
-import mongoose from "mongoose";
+import dbConnect from '@/src/lib/dbConnection';
+import Session from '@/src/models/Session';
+import mongoose from 'mongoose';
 import { UserCreateData } from './validations/user';
-import multer from 'multer';
 
 // Return the user object if the user is logged in, otherwise return null
 // Do all redirecting on the backend so we don't have to write a function on the frontend

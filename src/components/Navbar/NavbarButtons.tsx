@@ -5,7 +5,7 @@ import { UserType } from '../../app/types/User';
 import UserDropdown from './UserDropdown';
 import Button from '../Button';
 import dynamic from 'next/dynamic';
-const AuthModal = dynamic(() => import('../Forms/AuthModal'), { ssr: false });
+const AuthModal = dynamic(() => import('../Forms/AuthModal'));
 
 function NavbarButtons({ user }: { user: UserType | null }) {
 	const [open, setOpen] = useState(false);
