@@ -1,10 +1,13 @@
 import * as z from 'zod';
 
 const postCreateSchema = z.object({
-	title: z.string().nonempty('Title is required'),
-	description: z.string().nonempty('Description is required'),
-	tags: z.array(z.string()),
-	publicPost: z.boolean().optional()
+	title: z.string().nonempty('Please provide a title for your post.'),
+	description: z.string().nonempty('Please provide a description for your post.'),
+	tags: z.string().nonempty('Please provide at least one tag for your post'),
+	// tags: z.array(z.string()).nonempty("Please provide at least one tag for your post. If you're unsure, 'general' is a good start."),
+	publicPost: z.boolean().refine(value => typeof value === 'boolean', {
+		message: 'Please specify whether the post is public or private.'
+	})
 })
 
 type PostCreateData = z.infer<typeof postCreateSchema>
