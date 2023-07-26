@@ -4,11 +4,9 @@ import Button from '@/src/components/Button';
 import Input from '@/src/components/Input';
 import { Label } from '@/src/components/Label';
 import { LockClosedIcon, LockOpenIcon } from '@heroicons/react/20/solid';
-import rehypeSanitize from 'rehype-sanitize';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useController, useForm } from 'react-hook-form';
 import { PostCreateData, postCreateSchema } from '@/src/app/actions/validations/posts';
-import MDEditor from '@uiw/react-md-editor';
 import MDInput from '@/src/components/MDInput';
 
 
@@ -54,9 +52,7 @@ function Page() {
 					<Input label='Tags' {...register('tags')} error={errors.tags} />
 				</div>
 				<div>
-					<Label className='mb-1' label={'Description'} />
 					<MDInput descriptionField={descriptionField} error={errors.description} />
-
 				</div>
 			</div>
 		</div>

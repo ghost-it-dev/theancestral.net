@@ -4,11 +4,11 @@ import { login } from '@/src/app/actions/auth';
 import { LoginFormData, loginSchema } from '@/src/app/actions/validations/auth';
 import { hasError } from '@/src/lib/hasError';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ErrorMessage } from 'formik';
 import { useForm } from 'react-hook-form';
 import Button from '../Button';
 import Modal from '../Modal';
 import Input from '../Input';
+import ErrorMessage from '../ErrorMessage';
 
 function AuthModal({ open, setOpen }: { open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
 	const [isPending, startTransition] = useTransition();

@@ -1,7 +1,8 @@
-import MDEditor from '@uiw/react-md-editor';
 import { ControllerRenderProps, FieldError } from 'react-hook-form';
 import rehypeSanitize from 'rehype-sanitize';
 import { PostCreateData } from '../app/actions/validations/posts';
+import MDEditor from '@uiw/react-md-editor';
+import { Label } from './Label';
 
 interface MDInputProps {
 	descriptionField: ControllerRenderProps<PostCreateData, 'description'>;
@@ -11,6 +12,7 @@ interface MDInputProps {
 function MDInput({ descriptionField, error }: MDInputProps) {
 	return (
 		<>
+			<Label className='mb-1' label={'Description'} />
 			<MDEditor
 				value={descriptionField.value}
 				onChange={descriptionField.onChange}
