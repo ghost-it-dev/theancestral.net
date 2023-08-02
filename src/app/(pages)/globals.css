@@ -3,28 +3,28 @@
 @tailwind utilities;
 
 * {
-	outline: transparent !important;
+  outline: transparent !important;
 }
 
 /* width */
 ::-webkit-scrollbar {
-	width: 8px;
+  width: 8px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-	background: transparent;
+  background: transparent;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-	background: rgb(79 70 229);
-	border-radius: 10px;
+  background: rgb(79 70 229);
+  border-radius: 10px;
 }
 
 .wmde-markdown,
 .wmde-markdown-color {
-	background: transparent !important;
+  background: transparent !important;
 }
 
 .wmde-markdown,
@@ -35,16 +35,16 @@
 .wmde-markdown h5,
 .wmde-markdown h6,
 .wmde-markdown .footnotes ol {
-	padding-bottom: 0.5rem !important;
-	margin-bottom: 0 !important;
-	margin-top: 0 !important;
-	color: #e5e7eb !important;
-	border-bottom: none !important;
+  padding-bottom: 0.5rem !important;
+  margin-bottom: 0 !important;
+  margin-top: 0 !important;
+  color: #e5e7eb !important;
+  border-bottom: none !important;
 }
 
 .wmde-markdown hr {
-	border-bottom: 1px solid #e5e7eb;
-	background-color: #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+  background-color: #e5e7eb;
 }
 
 #horizontal-rules,
@@ -52,116 +52,116 @@
 #emphasis,
 .wmde-markdown h2,
 .wmde-markdown h1 {
-	border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .wmde-markdown a.anchor {
-	display: none;
+  display: none;
 }
 
 .wmde-markdown blockquote {
-	color: white;
-	border-left: 0.25em solid white;
+  color: white;
+  border-left: 0.25em solid white;
 }
 
 .wmde-markdown code,
 .wmde-markdown tt {
-	background-color: #364150;
-	color: #e5e7eb;
+  background-color: #364150;
+  color: #e5e7eb;
 }
 
 .wmde-markdown pre {
-	border-radius: 3px;
-	background-color: #364150;
+  border-radius: 3px;
+  background-color: #364150;
 }
 
 .wmde-markdown pre:hover .copied {
-	display: none;
+  display: none;
 }
 
 .wmde-markdown table tr,
 .wmde-markdown table tr:nth-child(2n) {
-	background-color: #364150;
-	border-top: none;
+  background-color: #364150;
+  border-top: none;
 }
 
 .wmde-markdown table th,
 .wmde-markdown table td {
-	border: 1px solid #465160;
+  border: 1px solid #465160;
 }
 
 .wmde-markdown table {
-	border-radius: 3px;
+  border-radius: 3px;
 }
 
 .wmde-markdown hr {
-	height: 0;
+  height: 0;
 }
 
 .w-md-editor-text-pre .punctuation {
-	color: white !important;
+  color: white !important;
 }
 
 .w-md-editor {
-	border: none !important;
-	background-color: #364150 !important;
-	color: #e5e7eb;
-	border-radius: 0.375rem;
+  border: none !important;
+  background-color: #364150 !important;
+  color: #e5e7eb;
+  border-radius: 0.375rem;
 }
 
 .w-md-editor-toolbar {
-	background-color: #364150 !important;
-	border-bottom: 1px solid #101826;
-	border-radius: 0.375rem 0.375rem 0 0;
+  background-color: #364150 !important;
+  border-bottom: 1px solid #101826;
+  border-radius: 0.375rem 0.375rem 0 0;
 }
 
 .w-md-editor-toolbar li > button {
-	color: #e5e7eb !important;
+  color: #e5e7eb !important;
 }
 
 .w-md-editor-toolbar li > button:hover,
 .w-md-editor-toolbar li > button:focus,
 .w-md-editor-toolbar li.active > button,
 .wmde-markdown pre > code {
-	background-color: #1e2936 !important;
-	color: #e5e7eb !important;
+  background-color: #1e2936 !important;
+  color: #e5e7eb !important;
 }
 
 .w-md-editor-preview {
-	box-shadow: inset 1px 0 0 0 #101826;
+  box-shadow: inset 1px 0 0 0 #101826;
 }
 
 ol {
-	list-style-type: decimal;
+  list-style-type: decimal;
 }
 
 ul {
-	list-style-type: disc;
+  list-style-type: disc;
 }
 
 .wmde-markdown blockquote {
-	color: #e5e7eb;
-	border-left: 0.25em solid #4b5563 !important;
+  color: #e5e7eb;
+  border-left: 0.25em solid #4b5563 !important;
 }
 
 .wmde-markdown blockquote > p {
-	color: #e5e7eb !important;
+  color: #e5e7eb !important;
 }
 
 .wmde-markdown table th,
 .wmde-markdown table td {
-	border: 1px solid #4b5563 !important;
-	background-color: #1e2936 !important;
+  border: 1px solid #4b5563 !important;
+  background-color: #1e2936 !important;
 }
 
 .w-md-editor-toolbar {
-	border-bottom: 1px solid #4b5563 !important;
+  border-bottom: 1px solid #4b5563 !important;
 }
 
 .w-md-editor-preview {
-	box-shadow: inset 1px 0 0 0 #4b5563 !important;
+  box-shadow: inset 1px 0 0 0 #4b5563 !important;
 }
 
 .w-md-editor {
-	height: 500px !important;
+  height: 500px !important;
 }

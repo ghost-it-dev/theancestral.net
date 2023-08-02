@@ -22,16 +22,16 @@ const userSchema = new Schema<UserInterface>(
     password: { type: String, required: true },
     role: { type: String, required: false, default: 'user' },
     postAmount: { type: Number, required: true, default: 0 },
-    profilePicture: { type: Buffer, default: null }
+    profilePicture: { type: Buffer, default: null },
   },
-  { versionKey: false, timestamps: true }
+  { versionKey: false, timestamps: true },
 );
 
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
 
-  this.password = await argon2id.hash(this.password)
-  return next()
-})
+  this.password = await argon2id.hash(this.password);
+  return next();
+});
 
 export default mongoose.models.User || model<UserInterface>('User', userSchema);

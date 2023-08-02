@@ -20,9 +20,9 @@ const postSchema = new Schema<PostInterface>(
     tags: { type: [String], default: [], required: false },
     authorId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     authorName: { type: String, required: true },
-    publicPost: { type: Boolean, default: false, required: true }
+    publicPost: { type: Boolean, default: false, required: true },
   },
-  { versionKey: false, timestamps: true }
+  { versionKey: false, timestamps: true },
 );
 
 postSchema.pre('save', async function (next) {
@@ -32,6 +32,5 @@ postSchema.pre('save', async function (next) {
   user.postAmount += 1;
   await user.save();
 });
-
 
 export default mongoose.models.Post || model<PostInterface>('Post', postSchema);

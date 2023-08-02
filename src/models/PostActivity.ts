@@ -12,7 +12,7 @@ const postSchema = new Schema<PostActivityInterface>(
     post: { type: Schema.Types.ObjectId, ref: 'Post', required: true },
     user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   },
-  { versionKey: false, timestamps: true }
+  { versionKey: false, timestamps: true },
 );
 
 export default mongoose.models.PostActivity || model<PostActivityInterface>('PostActivity', postSchema);

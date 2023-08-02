@@ -20,9 +20,9 @@ const sessionSchema = new Schema<SessionInterface>(
   {
     userID: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     expiresAt: { type: Date, required: true },
-    userAgent: { type: String, required: true }
+    userAgent: { type: String, required: true },
   },
-  { versionKey: false, timestamps: true }
+  { versionKey: false, timestamps: true },
 );
 
 // Create a TTL index on the expiresAt field
