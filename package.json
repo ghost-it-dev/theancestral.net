@@ -3,11 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "npx prettier --write ."
   },
   "dependencies": {
     "@headlessui/react": "^1.7.16",
@@ -17,8 +17,8 @@
     "argon2": "^0.30.3",
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
+    "class-variance-authority": "^0.7.0",
     "classnames": "^2.3.2",
-    "cva": "npm:class-variance-authority@^0.7.0",
     "dotenv": "^16.3.1",
     "eslint": "8.46.0",
     "eslint-config-next": "^13.4.12",
@@ -42,6 +42,7 @@
     "@types/node": "^20.4.5",
     "@types/react": "18.2.18",
     "@types/react-dom": "^18.2.7",
+    "eslint-config-prettier": "^9.0.0",
     "prettier": "^3.0.0"
   }
 }

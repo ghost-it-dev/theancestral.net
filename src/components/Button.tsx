@@ -1,5 +1,5 @@
 import React from 'react';
-import { cva, VariantProps } from 'cva';
+import { cva, VariantProps } from 'class-variance-authority';
 import ButtonOrLink, { ButtonOrLinkProps } from './ButtonOrLink';
 import classNames from 'classnames';
 import { SpinnerCircular } from 'spinners-react';

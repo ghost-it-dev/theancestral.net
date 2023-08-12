@@ -42,20 +42,18 @@ function Page() {
         <div className="flex flex-col flex-1">
           <h1 className="flex-1 text-gray-200 text-2xl font-medium">Create Post</h1>
           {publicPostField.value ? (
-            <div
-              onClick={() => publicPostField.onChange(!publicPostField.value)}
-              className="flex items-center gap-1 cursor-pointer"
-            >
-              <LockOpenIcon className="h-4 w-4 text-gray-300" />
-              <span className="text-gray-300 font-semibold text-base select-none">Public</span>
+            <div onClick={() => publicPostField.onChange(!publicPostField.value)}>
+              <span className="cursor-pointer flex gap-1 items-center">
+                <LockOpenIcon className="h-4 w-4 text-gray-300" />
+                <span className="text-gray-300 font-semibold text-base select-none">Public</span>
+              </span>
             </div>
           ) : (
-            <div
-              onClick={() => publicPostField.onChange(!publicPostField.value)}
-              className="flex items-center gap-1 cursor-pointer"
-            >
-              <LockClosedIcon className="h-4 w-4 text-gray-300" />
-              <span className="text-gray-300 font-semibold text-base select-none">Private</span>
+            <div onClick={() => publicPostField.onChange(!publicPostField.value)}>
+              <span className="cursor-pointer flex gap-1 items-center">
+                <LockClosedIcon className="h-4 w-4 text-gray-300" />
+                <span className="text-gray-300 font-semibold text-base select-none">Private</span>
+              </span>
             </div>
           )}
         </div>
