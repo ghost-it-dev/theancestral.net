@@ -1,21 +1,20 @@
 'use client';
-import { useState } from 'react';
 import Button from '@/src/components/Button';
 import Input from '@/src/components/Input';
-import { Label } from '@/src/components/Label';
 import { LockClosedIcon, LockOpenIcon } from '@heroicons/react/20/solid';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useController, useForm } from 'react-hook-form';
 import { PostCreateData, postCreateSchema } from '@/src/app/actions/validations/posts';
 import MDInput from '@/src/components/MDInput';
+import { createPost } from '@/src/app/actions/posts';
+import { redirect } from 'next/navigation';
 
+// Abstract out the form to have this page be server side
 function Page() {
-  const [isPublic, setIsPublic] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
     control,
-    reset,
     formState: { errors },
   } = useForm<PostCreateData>({ resolver: zodResolver(postCreateSchema) });
   const { field: descriptionField } = useController({
@@ -29,11 +28,9 @@ function Page() {
     defaultValue: false,
   });
 
-  console.log(errors);
   const handlePostCreate = handleSubmit(data => {
     console.log(data);
-    console.log(errors);
-    // reset();
+    createPost(data).catch(err => console.log(err));
   });
 
   return (

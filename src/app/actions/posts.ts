@@ -41,16 +41,19 @@ async function createPost(data: PostCreateData): Promise<PostType | { error: str
   if (!user) return { error: 'You must be logged in to create a post' };
   if (!data.title || !data.description) return { error: 'You must provide a title and description' };
 
-  const post = await Post.create({
+  await Post.create({
     title: data.title,
     tags: data.tags,
     description: data.description,
     publicPost: data.publicPost,
     authorId: user._id,
+    authorName: user.username,
   });
 
+
   revalidatePath('/');
-  return JSON.parse(JSON.stringify(post));
+  redirect('/')
+  // return JSON.parse(JSON.stringify(post));
 }
 
 async function updatePostById(data: PostUpdateData): Promise<PostType | { error: string }> {
@@ -77,7 +80,7 @@ async function updatePostById(data: PostUpdateData): Promise<PostType | { error:
   await post.save();
 
   revalidatePath(`/posts/${post._id}`);
-  return JSON.parse(JSON.stringify(post));
+  redirect(`/posts/${post._id}`)
 }
 
 async function deletePostById(_id: PostType['_id']): Promise<{ error?: string; message?: string }> {
@@ -96,7 +99,7 @@ async function deletePostById(_id: PostType['_id']): Promise<{ error?: string; m
   await Post.findByIdAndDelete(_id);
 
   revalidatePath(`/`);
-  return { message: 'Post succesfully deleted' };
+  redirect('/')
 }
 
 export { getPosts, getPostById, updatePostById, createPost, deletePostById };
