@@ -2,17 +2,28 @@
 import { deletePostById } from '@/src/app/actions/posts';
 import { PostType } from '@/src/app/types/Post';
 import Button from '@/src/components/Button';
+import ErrorMessage from '@/src/components/ErrorMessage';
 import Modal from '@/src/components/Modal';
+import { hasError } from '@/src/lib/hasError';
 import { PencilSquareIcon, TrashIcon } from '@heroicons/react/20/solid';
 import { useState } from 'react';
 
 const PostActions = ({ post }: { post: PostType }) => {
   const [showModal, setShowModal] = useState(false);
+  const [error, setError] = useState<null | string>(null);
+
+  const handleDelete = () => {
+    deletePostById(post._id).then(res => {
+      if (hasError(res)) return setError(res.error);
+    });
+  };
+
   return (
     <>
       <Modal isOpen={showModal} setIsOpen={setShowModal}>
         <div className="flex flex-col gap-2">
-          <span className="text-gray-200 text-xl font-semibold">Delete "{post.title}"</span>
+          {error && <ErrorMessage className="mb-2" message={error} />}
+          <span className="text-gray-200 text-xl font-semibold">Delete &quot;{post.title}&quot;</span>
           <span className="text-gray-300">
             This is a permanent operation. The post cannot be recovered once deleted.
           </span>
@@ -20,7 +31,7 @@ const PostActions = ({ post }: { post: PostType }) => {
             <Button onClick={() => setShowModal(false)} variant={'gray'}>
               Cancel
             </Button>
-            <Button onClick={() => deletePostById(post._id).then(res => console.log(res))} variant={'red'}>
+            <Button onClick={() => handleDelete()} variant={'red'}>
               Delete
             </Button>
           </div>
