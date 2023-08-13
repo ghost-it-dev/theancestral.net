@@ -5,8 +5,10 @@ import moment from 'moment';
 import DashboardLayout from './(dashboard)/layout';
 import Button from '@/src/components/Button';
 import { DocumentIcon } from '@heroicons/react/24/outline';
+import { getRequestRole } from '@/src/app/actions/user';
 
 export default async function Page() {
+  const role = await getRequestRole();
   const data = await getPosts(1, 5);
 
   // Use dashboard layout here because we can't move this file to src\app\(pages)\(dashboard)\feed.tsx
@@ -16,7 +18,7 @@ export default async function Page() {
         <div className="bg-[#101826] lg:min-w-0 lg:flex-1 h-full">
           <div className="border-b border-t border-[#1F2C37] py-4 pb-4 px-4 xl:border-t-0 xl:pt-6 h-[105px] flex items-center justify-between">
             <h1 className="flex-1 text-gray-200 text-2xl font-medium">All Posts</h1>
-            <Button href={'/create'}>Create Post</Button>
+            {role !== 'guest' && <Button href={'/create'}>Create Post</Button>}
           </div>
           {data.posts?.length !== 0 ? (
             <div className="divide-y divide-[#1F2C37] list-none">

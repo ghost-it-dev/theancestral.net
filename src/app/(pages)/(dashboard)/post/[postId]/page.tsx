@@ -14,7 +14,7 @@ async function Page({ params }: PageProps) {
   const user = await getUserFromSession();
   const post = await getPostById(params.postId);
 
-  // render error better
+  // redirect to error page
   if (hasError(post)) {
     return <ErrorMessage message={post.error} />;
   }

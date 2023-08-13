@@ -6,7 +6,7 @@ import { getRequestRole, getUserFromSession } from './user';
 import Post from '@/src/models/Post';
 import { redirect } from 'next/navigation';
 import mongoose from 'mongoose';
-import { PostCreateData, PostUpdateData } from './validations/posts';
+import { PostData } from './validations/posts';
 import { revalidatePath } from 'next/cache';
 
 async function getPosts(pageNumber: number, pageSize: number): Promise<{ posts?: PostType[]; totalCount: number }> {
@@ -20,7 +20,7 @@ async function getPosts(pageNumber: number, pageSize: number): Promise<{ posts?:
   const posts = await Post.find(query)
     .skip((pageNumber - 1) * pageSize)
     .limit(pageSize)
-    .sort({ createdAt: -1 });
+    .sort({ updatedAt: -1 });
 
   return {
     posts: JSON.parse(JSON.stringify(posts)),
@@ -41,7 +41,7 @@ async function getPostById(_id: PostType['_id']): Promise<PostType | { error: st
   return JSON.parse(JSON.stringify(post));
 }
 
-async function createPost(data: PostCreateData): Promise<PostType | { error: string }> {
+async function createPost(data: PostData): Promise<PostType | { error: string }> {
   dbConnect();
   const user = await getUserFromSession();
   if (!user) return { error: 'You must be logged in to create a post' };
@@ -60,14 +60,14 @@ async function createPost(data: PostCreateData): Promise<PostType | { error: str
   redirect('/');
 }
 
-async function updatePostById(data: PostUpdateData): Promise<PostType | { error: string }> {
+async function updatePostById(data: PostData, _id: string): Promise<PostType | { error: string }> {
   dbConnect();
   const user = await getUserFromSession();
   if (!user) return { error: 'You must be logged in to edit a post' };
 
-  const isValidPost = mongoose.isValidObjectId(data._id);
+  const isValidPost = mongoose.isValidObjectId(_id);
   if (!isValidPost) return { error: 'Invalid post id' };
-  const post = await Post.findOne({ _id: data._id });
+  const post = await Post.findById(_id);
   if (!post) return { error: 'Post not found' };
 
   if (user.role !== 'admin' && user._id !== post.authorId)
