@@ -4,6 +4,7 @@ import { SpinnerCircular } from 'spinners-react';
 import moment from 'moment';
 import DashboardLayout from './(dashboard)/layout';
 import Button from '@/src/components/Button';
+import { DocumentIcon } from '@heroicons/react/24/outline';
 
 export default async function Page() {
   const posts = await getPosts();
@@ -12,7 +13,7 @@ export default async function Page() {
   return (
     <>
       <DashboardLayout>
-        <div className="bg-[#101826] lg:min-w-0 lg:flex-1">
+        <div className="bg-[#101826] lg:min-w-0 lg:flex-1 h-full">
           <div className="border-b border-t border-[#1F2C37] py-4 pb-4 px-4 xl:border-t-0 xl:pt-6 h-[105px] flex items-center justify-between">
             <h1 className="flex-1 text-gray-200 text-2xl font-medium">All Posts</h1>
             <Button href={'/create'}>Create Post</Button>
@@ -56,7 +57,10 @@ export default async function Page() {
           ) : (
             <>
               {posts.length === 0 ? (
-                <span>No post</span>
+                <div className="w-full h-full flex items-center flex-col  p-4 lg:p-12">
+                  <DocumentIcon className="h-16 w-16 text-gray-400" />
+                  <p className="text-gray-300 text-lg">No posts found.</p>
+                </div>
               ) : (
                 <SpinnerCircular size={75} thickness={150} secondaryColor="rgba(0, 0, 0, .2)" color="#fff" />
               )}
