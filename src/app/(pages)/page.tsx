@@ -7,7 +7,7 @@ import Button from '@/src/components/Button';
 import { DocumentIcon } from '@heroicons/react/24/outline';
 
 export default async function Page() {
-  const posts = await getPosts();
+  const data = await getPosts(1, 5);
 
   // Use dashboard layout here because we can't move this file to src\app\(pages)\(dashboard)\feed.tsx
   return (
@@ -18,9 +18,9 @@ export default async function Page() {
             <h1 className="flex-1 text-gray-200 text-2xl font-medium">All Posts</h1>
             <Button href={'/create'}>Create Post</Button>
           </div>
-          {posts?.length !== 0 ? (
+          {data.posts?.length !== 0 ? (
             <div className="divide-y divide-[#1F2C37] list-none">
-              {posts?.map(post => (
+              {data.posts?.map(post => (
                 <a key={post._id} href={`/post/${post._id}`}>
                   <div className="group relative py-5 px-4 sm:py-6 hover:bg-[#1E2936] cursor-pointer transition-colors border-b border-[#1F2C37]">
                     <div className="flex items-end justify-between space-x-4">
@@ -56,7 +56,7 @@ export default async function Page() {
             </div>
           ) : (
             <>
-              {posts.length === 0 ? (
+              {data.totalCount === 0 ? (
                 <div className="w-full h-full flex items-center flex-col  p-4 lg:p-12">
                   <DocumentIcon className="h-16 w-16 text-gray-400" />
                   <p className="text-gray-300 text-lg">No posts found.</p>

@@ -9,17 +9,23 @@ import mongoose from 'mongoose';
 import { PostCreateData, PostUpdateData } from './validations/posts';
 import { revalidatePath } from 'next/cache';
 
-async function getPosts(): Promise<PostType[] | []> {
+async function getPosts(pageNumber: number, pageSize: number): Promise<{ posts: PostType[], totalCount: number }> {
   dbConnect();
   const reqRole = await getRequestRole();
 
-  // If the user is a guest, only return public posts
-  const publicPosts = await Post.find({ publicPost: true });
-  if (reqRole === 'guest') return publicPosts;
+  const query: any = {};
+  if (reqRole === 'guest') query.publicPost = true;
 
-  // If the user is an admin or user, return all posts
-  const privatePosts = await Post.find({ publicPost: false });
-  return JSON.parse(JSON.stringify([...publicPosts, ...privatePosts]));
+  const totalPostsCount = await Post.countDocuments(query);
+  const posts = await Post.find(query)
+    .skip((pageNumber - 1) * pageSize)
+    .limit(pageSize)
+    .sort({ createdAt: -1 });
+
+  return {
+    posts: JSON.parse(JSON.stringify(posts)),
+    totalCount: totalPostsCount
+  };
 }
 
 async function getPostById(_id: PostType['_id']): Promise<PostType | { error: string }> {
