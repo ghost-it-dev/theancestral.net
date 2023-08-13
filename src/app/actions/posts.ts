@@ -53,7 +53,6 @@ async function createPost(data: PostCreateData): Promise<PostType | { error: str
 
   revalidatePath('/');
   redirect('/')
-  // return JSON.parse(JSON.stringify(post));
 }
 
 async function updatePostById(data: PostUpdateData): Promise<PostType | { error: string }> {
@@ -79,8 +78,8 @@ async function updatePostById(data: PostUpdateData): Promise<PostType | { error:
   Object.assign(post, updatedFields);
   await post.save();
 
-  revalidatePath(`/posts/${post._id}`);
-  redirect(`/posts/${post._id}`)
+  revalidatePath(`/post/${post._id}`);
+  redirect(`/post/${post._id}`)
 }
 
 async function deletePostById(_id: PostType['_id']): Promise<{ error?: string; message?: string }> {
@@ -93,8 +92,7 @@ async function deletePostById(_id: PostType['_id']): Promise<{ error?: string; m
   const post = await Post.findOne({ _id });
   if (!post) return { error: 'Post not found' };
 
-  if (user?.role !== 'admin' || user._id !== post.authorId)
-    return { error: 'You do not have permission to delete this post' };
+  if (user?._id.toString() !== post.authorId.toString() && user?.role !== 'admin') return { error: 'You do not have permission to delete this post' };
 
   await Post.findByIdAndDelete(_id);
 

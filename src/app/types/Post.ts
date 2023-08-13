@@ -5,7 +5,7 @@ export interface PostType {
   description: string;
   link?: string;
   tags: string[];
-  authorID: UserType['_id'];
+  authorId: UserType['_id'];
   updatedAt: Date;
   authorName: string;
   publicPost: boolean;

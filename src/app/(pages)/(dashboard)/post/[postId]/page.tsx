@@ -2,14 +2,16 @@ import { getPostById } from '@/src/app/actions/posts';
 import ErrorMessage from '@/src/components/ErrorMessage';
 import { hasError } from '@/src/lib/hasError';
 import { SpinnerCircular } from 'spinners-react';
-import { PencilSquareIcon, TrashIcon } from '@heroicons/react/20/solid';
 import MDViewer from '@/src/components/MDViewer';
+import PostActions from './PostActions';
+import { getUserFromSession } from '@/src/app/actions/user';
 
 interface PageProps {
   params: { postId: string };
 }
 
 async function Page({ params }: PageProps) {
+  const user = await getUserFromSession();
   const post = await getPostById(params.postId);
 
   // render error better
@@ -26,12 +28,7 @@ async function Page({ params }: PageProps) {
               <div className="flex flex-col w-full">
                 <div className="flex justify-between items-center">
                   <h1 className="flex-1 text-gray-200 text-lg font-medium">{post.title}</h1>
-                  <div className="flex flex-col">
-                    <div className="flex gap-2">
-                      <PencilSquareIcon className="cursor-pointer  h-5 w-5 text-gray-300 hover:text-indigo-600" />
-                      <TrashIcon className="cursor-pointer transition-colors h-5 w-5 text-gray-300 hover:text-red-600" />
-                    </div>
-                  </div>
+                  {(user?.role === 'admin' || user?._id === post.authorId) && <PostActions post={post} />}
                 </div>
                 <div className="flex justify-between items-center">
                   <p className="text-gray-400 text-sm">Posted by {post.authorName}</p>
