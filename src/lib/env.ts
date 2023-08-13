@@ -1,4 +1,4 @@
-import { cleanEnv, str } from 'envalid'
+import { cleanEnv, str } from 'envalid';
 
 const env = cleanEnv(process.env, {
   DB_URI: str(),

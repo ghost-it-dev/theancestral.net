@@ -9,7 +9,7 @@ async function dbConnect() {
   }
 
   // Use new db connection
-  return await mongoose.connect(env.DB_URI as string);
+  return await mongoose.connect(env.DB_URI);
 }
 
 export default dbConnect;

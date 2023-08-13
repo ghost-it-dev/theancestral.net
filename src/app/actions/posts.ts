@@ -9,7 +9,7 @@ import mongoose from 'mongoose';
 import { PostCreateData, PostUpdateData } from './validations/posts';
 import { revalidatePath } from 'next/cache';
 
-async function getPosts(pageNumber: number, pageSize: number): Promise<{ posts?: PostType[], totalCount: number }> {
+async function getPosts(pageNumber: number, pageSize: number): Promise<{ posts?: PostType[]; totalCount: number }> {
   dbConnect();
   const reqRole = await getRequestRole();
 
@@ -24,7 +24,7 @@ async function getPosts(pageNumber: number, pageSize: number): Promise<{ posts?:
 
   return {
     posts: JSON.parse(JSON.stringify(posts)),
-    totalCount: totalPostsCount
+    totalCount: totalPostsCount,
   };
 }
 
@@ -56,9 +56,8 @@ async function createPost(data: PostCreateData): Promise<PostType | { error: str
     authorName: user.username,
   });
 
-
   revalidatePath('/');
-  redirect('/')
+  redirect('/');
 }
 
 async function updatePostById(data: PostUpdateData): Promise<PostType | { error: string }> {
@@ -85,7 +84,7 @@ async function updatePostById(data: PostUpdateData): Promise<PostType | { error:
   await post.save();
 
   revalidatePath(`/post/${post._id}`);
-  redirect(`/post/${post._id}`)
+  redirect(`/post/${post._id}`);
 }
 
 async function deletePostById(_id: PostType['_id']): Promise<{ error?: string; message?: string }> {
@@ -98,12 +97,13 @@ async function deletePostById(_id: PostType['_id']): Promise<{ error?: string; m
   const post = await Post.findOne({ _id });
   if (!post) return { error: 'Post not found' };
 
-  if (user?._id.toString() !== post.authorId.toString() && user?.role !== 'admin') return { error: 'You do not have permission to delete this post' };
+  if (user?._id.toString() !== post.authorId.toString() && user?.role !== 'admin')
+    return { error: 'You do not have permission to delete this post' };
 
   await Post.findByIdAndDelete(_id);
 
   revalidatePath(`/`);
-  redirect('/')
+  redirect('/');
 }
 
 export { getPosts, getPostById, updatePostById, createPost, deletePostById };
