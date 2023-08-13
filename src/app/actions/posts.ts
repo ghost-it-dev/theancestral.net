@@ -9,7 +9,7 @@ import mongoose from 'mongoose';
 import { PostCreateData, PostUpdateData } from './validations/posts';
 import { revalidatePath } from 'next/cache';
 
-async function getPosts(pageNumber: number, pageSize: number): Promise<{ posts: PostType[], totalCount: number }> {
+async function getPosts(pageNumber: number, pageSize: number): Promise<{ posts?: PostType[], totalCount: number }> {
   dbConnect();
   const reqRole = await getRequestRole();
 

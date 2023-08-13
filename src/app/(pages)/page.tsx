@@ -57,7 +57,7 @@ export default async function Page() {
           ) : (
             <>
               {data.totalCount === 0 ? (
-                <div className="w-full h-full flex items-center flex-col  p-4 lg:p-12">
+                <div className="w-full flex items-center flex-col p-4 lg:p-12 gap-2">
                   <DocumentIcon className="h-16 w-16 text-gray-400" />
                   <p className="text-gray-300 text-lg">No posts found.</p>
                 </div>
