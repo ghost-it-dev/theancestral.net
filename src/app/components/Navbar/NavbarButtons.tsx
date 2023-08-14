@@ -1,11 +1,11 @@
 'use client';
 import React, { useState } from 'react';
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
-import { UserType } from '../../app/types/User';
 import UserDropdown from './UserDropdown';
 import Button from '../Button';
 import dynamic from 'next/dynamic';
-const AuthModal = dynamic(() => import('../Forms/AuthModal'));
+import { UserType } from '@/src/app/types/User';
+const AuthModal = dynamic(() => import('@/src/app/components/Forms/AuthModal'));
 
 function NavbarButtons({ user }: { user: UserType | null }) {
   const [open, setOpen] = useState(false);

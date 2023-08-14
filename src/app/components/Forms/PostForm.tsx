@@ -1,11 +1,11 @@
 'use client';
-import Button from '@/src/components/Button';
-import Input from '@/src/components/Input';
+import Button from '@/src/app/components/Button';
+import Input from '@/src/app/components/Input';
 import { LockClosedIcon, LockOpenIcon } from '@heroicons/react/20/solid';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useController, useForm } from 'react-hook-form';
 import { PostData, postSchema } from '@/src/app/actions/validations/posts';
-import MDInput from '@/src/components/MDInput';
+import MDInput from '@/src/app/components/MDInput';
 import { createPost, updatePostById } from '@/src/app/actions/posts';
 import { PostType } from '@/src/app/types/Post';
 import { useState } from 'react';

@@ -1,8 +1,8 @@
 import { getPostById } from '@/src/app/actions/posts';
-import ErrorMessage from '@/src/components/ErrorMessage';
+import ErrorMessage from '@/src/app/components/ErrorMessage';
 import { hasError } from '@/src/lib/hasError';
 import { SpinnerCircular } from 'spinners-react';
-import MDViewer from '@/src/components/MDViewer';
+import MDViewer from '@/src/app/components/MDViewer';
 import PostActions from './PostActions';
 import { getUserFromSession } from '@/src/app/actions/user';
 

@@ -1,4 +1,4 @@
-import PostCreate from '@/src/components/Forms/PostForm';
+import PostCreate from '@/src/app/components/Forms/PostForm';
 
 function Page() {
   return (

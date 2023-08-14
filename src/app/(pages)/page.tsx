@@ -3,7 +3,7 @@ import { getPosts } from '../actions/posts';
 import { SpinnerCircular } from 'spinners-react';
 import moment from 'moment';
 import DashboardLayout from './(dashboard)/layout';
-import Button from '@/src/components/Button';
+import Button from '@/src/app/components/Button';
 import { DocumentIcon } from '@heroicons/react/24/outline';
 import { getRequestRole } from '@/src/app/actions/user';
 

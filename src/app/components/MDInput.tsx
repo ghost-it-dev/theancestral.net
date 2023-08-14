@@ -1,11 +1,11 @@
 import { ControllerRenderProps, FieldError } from 'react-hook-form';
 import rehypeSanitize from 'rehype-sanitize';
-import { PostCreateData } from '../app/actions/validations/posts';
+import { PostData } from '@/src/app/actions/validations/posts';
 import MDEditor from '@uiw/react-md-editor';
 import { Label } from './Label';
 
 interface MDInputProps {
-  descriptionField: ControllerRenderProps<PostCreateData, 'description'>;
+  descriptionField: ControllerRenderProps<PostData, 'description'>;
   error?: FieldError;
 }
 

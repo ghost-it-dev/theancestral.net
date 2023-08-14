@@ -69,7 +69,7 @@ function UserDropdown({ user }: { user: UserType }) {
               </Link>
             )}
           </Menu.Item>
-          <Menu.Item>
+          <Menu.Item disabled={isPending}>
             {({ active }) => (
               <span
                 onClick={() => handleLogout()}

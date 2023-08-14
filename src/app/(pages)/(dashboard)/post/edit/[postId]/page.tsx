@@ -1,7 +1,7 @@
 import { getPostById } from '@/src/app/actions/posts';
 import { getUserFromSession } from '@/src/app/actions/user';
-import ErrorMessage from '@/src/components/ErrorMessage';
-import PostCreate from '@/src/components/Forms/PostForm';
+import ErrorMessage from '@/src/app/components/ErrorMessage';
+import PostCreate from '@/src/app/components/Forms/PostForm';
 import { hasError } from '@/src/lib/hasError';
 import { redirect } from 'next/navigation';
 

@@ -1,5 +1,5 @@
 import { getUserById } from '@/src/app/actions/user';
-import ErrorMessage from '@/src/components/ErrorMessage';
+import ErrorMessage from '@/src/app/components/ErrorMessage';
 import { hasError } from '@/src/lib/hasError';
 
 interface PageProps {

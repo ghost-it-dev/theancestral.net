@@ -1,7 +1,7 @@
 import React from 'react';
 import NavbarButtons from './NavbarButtons';
-import { getUserFromSession } from '../../app/actions/user';
 import Breadcrumbs from './Breadcrumbs';
+import { getUserFromSession } from '@/src/app/actions/user';
 
 async function Navbar() {
   const user = await getUserFromSession();

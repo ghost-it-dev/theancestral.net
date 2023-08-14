@@ -1,9 +1,9 @@
 'use client';
 import { deletePostById } from '@/src/app/actions/posts';
 import { PostType } from '@/src/app/types/Post';
-import Button from '@/src/components/Button';
-import ErrorMessage from '@/src/components/ErrorMessage';
-import Modal from '@/src/components/Modal';
+import Button from '@/src/app/components/Button';
+import ErrorMessage from '@/src/app/components/ErrorMessage';
+import Modal from '@/src/app/components/Modal';
 import { hasError } from '@/src/lib/hasError';
 import { PencilSquareIcon, TrashIcon } from '@heroicons/react/20/solid';
 import { useState } from 'react';

@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Navbar from '@/src/components/Navbar/Navbar';
+import Navbar from '@/src/app/components/Navbar/Navbar';
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
