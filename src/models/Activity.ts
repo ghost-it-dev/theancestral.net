@@ -15,4 +15,4 @@ const postSchema = new Schema<PostActivityInterface>(
   { versionKey: false, timestamps: true },
 );
 
-export default mongoose.models.PostActivity || model<PostActivityInterface>('PostActivity', postSchema);
+export default mongoose.models.PostActivity || model<PostActivityInterface>('yActivity', postSchema);
