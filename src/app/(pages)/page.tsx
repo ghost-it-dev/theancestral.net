@@ -6,6 +6,7 @@ import DashboardLayout from './(dashboard)/layout';
 import Button from '@/src/app/components/Button';
 import { DocumentIcon } from '@heroicons/react/24/outline';
 import { getRequestRole } from '@/src/app/actions/user';
+import Link from 'next/link';
 
 export default async function Page() {
   const role = await getRequestRole();
@@ -23,7 +24,7 @@ export default async function Page() {
           {data.posts?.length !== 0 ? (
             <div className="divide-y divide-[#1F2C37] list-none">
               {data.posts?.map(post => (
-                <a key={post._id} href={`/post/${post._id}`}>
+                <Link key={post._id} href={`/post/${post._id}`}>
                   <div className="group relative py-5 px-4 sm:py-6 hover:bg-[#1E2936] cursor-pointer transition-colors border-b border-[#1F2C37]">
                     <div className="flex items-end justify-between space-x-4">
                       <div className="min-w-0 space-y-1">
@@ -53,7 +54,7 @@ export default async function Page() {
                       </div>
                     </div>
                   </div>
-                </a>
+                </Link>
               ))}
             </div>
           ) : (

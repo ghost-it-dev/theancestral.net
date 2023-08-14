@@ -1,10 +1,11 @@
 'use client';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { ChevronRightIcon } from '@heroicons/react/20/solid';
 
 const Breadcrumbs = () => {
   const pathName = usePathname();
+  const router = useRouter();
 
   // Get the current path and split it into segments
   const pathSegments = pathName.split('/').filter(p => p);
@@ -38,6 +39,14 @@ const Breadcrumbs = () => {
         <li className="flex items-center gap-1" key={path}>
           {index === breadcrumbs.length - 1 ? (
             <span className="text-gray-100 font-semibold select-none">{name}</span>
+          ) : index === 1 ? (
+            <button
+              className="font-semibold transition-colors duration-300 text-gray-300 hover:text-gray-100 select-none"
+              onClick={() => router.back()}
+              key={index}
+            >
+              {name}
+            </button>
           ) : (
             <Link
               className="font-semibold transition-colors duration-300 text-gray-300 hover:text-gray-100 select-none"

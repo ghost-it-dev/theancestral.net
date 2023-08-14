@@ -7,6 +7,7 @@ import Modal from '@/src/app/components/Modal';
 import { hasError } from '@/src/lib/hasError';
 import { PencilSquareIcon, TrashIcon } from '@heroicons/react/20/solid';
 import { useState } from 'react';
+import Link from 'next/link';
 
 const PostActions = ({ post }: { post: PostType }) => {
   const [showModal, setShowModal] = useState(false);
@@ -38,7 +39,9 @@ const PostActions = ({ post }: { post: PostType }) => {
         </div>
       </Modal>
       <div className="flex gap-2">
-        <PencilSquareIcon className="cursor-pointer transition-colors h-5 w-5 text-gray-300 hover:text-indigo-600" />
+        <Link href={`/post/${post._id}/edit`}>
+          <PencilSquareIcon className="cursor-pointer transition-colors h-5 w-5 text-gray-300 hover:text-indigo-600" />
+        </Link>
         <TrashIcon
           onClick={() => setShowModal(true)}
           className="cursor-pointer transition-colors h-5 w-5 text-gray-300 hover:text-red-600"

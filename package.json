@@ -13,6 +13,7 @@
     "@headlessui/react": "^1.7.16",
     "@heroicons/react": "^2.0.18",
     "@hookform/resolvers": "^3.1.1",
+    "@marketsystems/nextjs13-appdir-breadcrumbs": "^1.0.4",
     "@uiw/react-md-editor": "^3.23.4",
     "argon2": "^0.30.3",
     "autoprefixer": "10.4.14",
