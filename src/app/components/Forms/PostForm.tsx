@@ -10,6 +10,20 @@ import { createPost, updatePostById } from '@/src/app/actions/posts';
 import { PostType } from '@/src/app/types/Post';
 import { useState } from 'react';
 import { hasError } from '@/src/lib/hasError';
+import Select from 'react-select';
+import { Label } from '../Label';
+
+// Fetch tags from server
+export interface Tags {
+  value: string;
+  label: string;
+}
+
+export const test: Tags[] = [
+  { value: 'test1', label: 'test1' },
+  { value: 'test2', label: 'test2' },
+  { value: 'test3', label: 'test3' },
+];
 
 const PostForm = ({ isEditing, post }: { isEditing: boolean; post?: PostType }) => {
   // Display this error somwhere
@@ -83,7 +97,13 @@ const PostForm = ({ isEditing, post }: { isEditing: boolean; post?: PostType }) 
             {...register('title')}
             error={errors.title}
           />
-          <Input defaultValue={isEditing ? post?.tags : ''} label="Tags" {...register('tags')} error={errors.tags} />
+          {/* <Input defaultValue={isEditing ? post?.tags : ''} label="Tags" {...register('tags')} error={errors.tags} /> */}
+          <div>
+            <Label label="asd">
+              {/* Style this */}
+              <Select isMulti options={test} />
+            </Label>
+          </div>
         </div>
         <div>
           <MDInput descriptionField={descriptionField} error={errors.description} />
