@@ -10,20 +10,8 @@ import { createPost, updatePostById } from '@/src/app/actions/posts';
 import { PostType } from '@/src/app/types/Post';
 import { useState } from 'react';
 import { hasError } from '@/src/lib/hasError';
-import Select from 'react-select';
 import { Label } from '../Label';
-
-// Fetch tags from server
-export interface Tags {
-  value: string;
-  label: string;
-}
-
-export const test: Tags[] = [
-  { value: 'test1', label: 'test1' },
-  { value: 'test2', label: 'test2' },
-  { value: 'test3', label: 'test3' },
-];
+import CreatableSelect from 'react-select/creatable';
 
 const PostForm = ({ isEditing, post, tags }: { isEditing: boolean; post?: PostType; tags: PostType['tags'][] }) => {
   // Display this error somwhere
@@ -101,7 +89,7 @@ const PostForm = ({ isEditing, post, tags }: { isEditing: boolean; post?: PostTy
           <div>
             <Label label="asd">
               {/* Style this */}
-              <Select isMulti options={test} />
+              <CreatableSelect isMulti options={tags.map(tag => ({ value: tag, label: tag }))} />
             </Label>
           </div>
         </div>
