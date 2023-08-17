@@ -28,6 +28,12 @@ async function getPosts(pageNumber: number, pageSize: number): Promise<{ posts?:
   };
 }
 
+async function getTags(): Promise<PostType['tags']> {
+  const tags = await Post.distinct('tags');
+
+  return tags;
+}
+
 async function getPostById(_id: PostType['_id']): Promise<PostType | { error: string }> {
   dbConnect();
   const reqRole = await getRequestRole();
@@ -106,4 +112,4 @@ async function deletePostById(_id: PostType['_id']): Promise<{ error?: string; m
   redirect('/');
 }
 
-export { getPosts, getPostById, updatePostById, createPost, deletePostById };
+export { getPosts, getTags, getPostById, updatePostById, createPost, deletePostById };

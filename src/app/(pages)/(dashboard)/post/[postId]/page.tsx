@@ -33,12 +33,14 @@ async function Page({ params }: PageProps) {
                 <div className="flex justify-between items-center">
                   <p className="text-gray-400 text-sm">Posted by {post.authorName}</p>
                   <div className="mt-1 flex flex-row gap-1">
-                    <span className="flex items-center px-1.5 py-0.5 rounded-[4px] text-xs font-bold bg-[#1E2936] text-gray-300">
-                      Ubuntu
-                    </span>
-                    <span className="flex items-center px-1.5 py-0.5 rounded-[4px] text-xs font-bold bg-[#1E2936] text-gray-300">
-                      Linux
-                    </span>
+                    {post.tags.map(tag => (
+                      <span
+                        key={tag}
+                        className="flex items-center px-1.5 py-0.5 rounded-[4px] text-xs font-bold bg-[#1E2936] text-gray-300 group-hover:bg-[#101826] transition-colors"
+                      >
+                        {tag}
+                      </span>
+                    ))}
                   </div>
                 </div>
               </div>

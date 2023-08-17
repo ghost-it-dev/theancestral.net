@@ -1,5 +1,5 @@
 import removeMD from '@/src/lib/removeMD';
-import { getPosts } from '../actions/posts';
+import { getPosts, getTags } from '../actions/posts';
 import { SpinnerCircular } from 'spinners-react';
 import moment from 'moment';
 import DashboardLayout from './(dashboard)/layout';
@@ -11,6 +11,8 @@ import Link from 'next/link';
 export default async function Page() {
   const role = await getRequestRole();
   const data = await getPosts(1, 5);
+  const tags = await getTags();
+  console.log(tags);
 
   // Use dashboard layout here because we can't move this file to src\app\(pages)\(dashboard)\feed.tsx
   return (
@@ -37,12 +39,12 @@ export default async function Page() {
                       </div>
                       <div className="hidden flex-shrink-0 flex-col items-end space-y-2 sm:flex">
                         <div className="flex flex-row gap-1">
-                          {['Windows', 'Linux', 'MacOS'].map(os => (
+                          {post.tags.map(tag => (
                             <span
-                              key={os}
+                              key={tag}
                               className="flex items-center px-1.5 py-0.5 rounded-[4px] text-xs font-bold bg-[#1E2936] text-gray-300 group-hover:bg-[#101826] transition-colors"
                             >
-                              {os}
+                              {tag}
                             </span>
                           ))}
                         </div>
