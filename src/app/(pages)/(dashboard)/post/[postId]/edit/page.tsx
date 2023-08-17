@@ -1,4 +1,4 @@
-import { getPostById } from '@/src/app/actions/posts';
+import { getPostById, getTags } from '@/src/app/actions/posts';
 import { getUserFromSession } from '@/src/app/actions/user';
 import ErrorMessage from '@/src/app/components/ErrorMessage';
 import PostForm from '@/src/app/components/Forms/PostForm';
@@ -12,6 +12,7 @@ interface PageProps {
 async function Page({ params }: PageProps) {
   const user = await getUserFromSession();
   const post = await getPostById(params.postId);
+  const tags = await getTags();
 
   // redirect to error page
   if (hasError(post)) {
@@ -24,7 +25,7 @@ async function Page({ params }: PageProps) {
 
   return (
     <div className="bg-[#101826] lg:min-w-0 lg:flex-1">
-      <PostForm isEditing={true} post={post} />
+      <PostForm tags={tags} isEditing={true} post={post} />
     </div>
   );
 }

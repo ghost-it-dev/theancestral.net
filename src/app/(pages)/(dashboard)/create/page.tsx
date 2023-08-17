@@ -1,9 +1,12 @@
+import { getTags } from '@/src/app/actions/posts';
 import PostForm from '@/src/app/components/Forms/PostForm';
 
-function Page() {
+async function Page() {
+  const tags = await getTags();
+
   return (
     <div className="bg-[#101826] lg:min-w-0 lg:flex-1">
-      <PostForm isEditing={false} />
+      <PostForm tags={tags} isEditing={false} />
     </div>
   );
 }

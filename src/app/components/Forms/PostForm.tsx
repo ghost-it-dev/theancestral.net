@@ -25,7 +25,7 @@ export const test: Tags[] = [
   { value: 'test3', label: 'test3' },
 ];
 
-const PostForm = ({ isEditing, post }: { isEditing: boolean; post?: PostType }) => {
+const PostForm = ({ isEditing, post, tags }: { isEditing: boolean; post?: PostType; tags: PostType['tags'][] }) => {
   // Display this error somwhere
   const [error, setError] = useState<null | string>(null);
 
