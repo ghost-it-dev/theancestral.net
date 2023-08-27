@@ -36,6 +36,12 @@ const PostForm = ({ isEditing, post, tags }: { isEditing: boolean; post?: PostTy
     defaultValue: isEditing ? post?.publicPost : false,
   });
 
+  const { field: tagsField } = useController({
+    name: 'tags',
+    control,
+    defaultValue: isEditing ? post?.tags : [],
+  });
+
   const handlePostCreate = handleSubmit(data => {
     createPost(data).then(res => {
       if (hasError(res)) setError(res.error);
@@ -87,9 +93,13 @@ const PostForm = ({ isEditing, post, tags }: { isEditing: boolean; post?: PostTy
           />
           {/* <Input defaultValue={isEditing ? post?.tags : ''} label="Tags" {...register('tags')} error={errors.tags} /> */}
           <div>
-            <Label label="asd">
+            <Label label="Tags">
               {/* Style this */}
-              <CreatableSelect isMulti options={tags.map(tag => ({ value: tag, label: tag }))} />
+              <CreatableSelect
+                onChange={data => tagsField.onChange([...data].map(({ value }) => value))}
+                isMulti
+                options={tags.map(tag => ({ value: tag, label: tag }))}
+              />
             </Label>
           </div>
         </div>

@@ -11,8 +11,6 @@ import Link from 'next/link';
 export default async function Page() {
   const role = await getRequestRole();
   const data = await getPosts(1, 5);
-  const tags = await getTags();
-  console.log(tags);
 
   // Use dashboard layout here because we can't move this file to src\app\(pages)\(dashboard)\feed.tsx
   return (

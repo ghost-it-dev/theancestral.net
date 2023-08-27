@@ -36,13 +36,11 @@ async function getTags(): Promise<PostType['tags'][]> {
 
 async function getPostById(_id: PostType['_id']): Promise<PostType | { error: string }> {
   dbConnect();
-  const reqRole = await getRequestRole();
   const isValidPost = mongoose.isValidObjectId(_id);
   if (!isValidPost) return { error: 'Invalid post id' };
   const post: PostType | null = await Post.findOne({ _id });
 
   if (!post) return { error: 'Post not found' };
-  if (reqRole === 'guest' && !post.publicPost) return redirect('/');
 
   return JSON.parse(JSON.stringify(post));
 }

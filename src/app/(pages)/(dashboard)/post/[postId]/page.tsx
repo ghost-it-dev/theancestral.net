@@ -4,7 +4,8 @@ import { hasError } from '@/src/lib/hasError';
 import { SpinnerCircular } from 'spinners-react';
 import MDViewer from '@/src/app/components/MDViewer';
 import PostActions from './PostActions';
-import { getUserFromSession } from '@/src/app/actions/user';
+import { getRequestRole, getUserFromSession } from '@/src/app/actions/user';
+import { redirect } from 'next/navigation';
 
 interface PageProps {
   params: { postId: string };
@@ -13,11 +14,14 @@ interface PageProps {
 async function Page({ params }: PageProps) {
   const user = await getUserFromSession();
   const post = await getPostById(params.postId);
+  const reqRole = await getRequestRole();
 
   // redirect to error page
   if (hasError(post)) {
     return <ErrorMessage message={post.error} />;
   }
+
+  if (reqRole === 'guest' && !post.publicPost) return redirect('/');
 
   return (
     <div className="bg-[#101826] lg:min-w-0 lg:flex-1">
