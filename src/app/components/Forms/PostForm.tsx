@@ -13,7 +13,7 @@ import { hasError } from '@/src/lib/hasError';
 import { Label } from '../Label';
 import CreatableSelect from 'react-select/creatable';
 
-const PostForm = ({ isEditing, post, tags }: { isEditing: boolean; post?: PostType; tags: PostType['tags'][] }) => {
+const PostForm = ({ isEditing, post, tags }: { isEditing: boolean; post?: PostType; tags: PostType['tags'] }) => {
   // Display this error somwhere
   const [error, setError] = useState<null | string>(null);
 
@@ -91,11 +91,12 @@ const PostForm = ({ isEditing, post, tags }: { isEditing: boolean; post?: PostTy
             {...register('title')}
             error={errors.title}
           />
-          {/* <Input defaultValue={isEditing ? post?.tags : ''} label="Tags" {...register('tags')} error={errors.tags} /> */}
           <div>
             <Label label="Tags">
               {/* Style this */}
+              {/* We should have no validations errors for this since it's not required and will always be an array */}
               <CreatableSelect
+                defaultValue={isEditing ? post?.tags.map(tag => ({ value: tag, label: tag })) : []}
                 onChange={data => tagsField.onChange([...data].map(({ value }) => value))}
                 isMulti
                 options={tags.map(tag => ({ value: tag, label: tag }))}

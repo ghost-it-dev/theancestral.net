@@ -12,7 +12,7 @@ interface MDInputProps {
 function MDInput({ descriptionField, error }: MDInputProps) {
   return (
     <>
-      <Label htmlFor="w-md-editor-text-input" className="mb-1" label={'Description'} />
+      <Label className="mb-1" label={'Description'} />
       <MDEditor
         value={descriptionField.value}
         onChange={descriptionField.onChange}

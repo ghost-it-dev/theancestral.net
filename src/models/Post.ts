@@ -4,7 +4,7 @@ import User from './User';
 export interface PostInterface {
   title: string;
   description: string;
-  tags: string[];
+  tags: string[] | [];
   authorId: Types.ObjectId;
   authorName: string;
   publicPost: boolean;
@@ -17,7 +17,7 @@ const postSchema = new Schema<PostInterface>(
   {
     title: { type: String, required: true },
     description: { type: String, required: true },
-    tags: { type: [String], default: [], required: false },
+    tags: { type: [String] || [], default: [], required: false },
     authorId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     authorName: { type: String, required: true },
     publicPost: { type: Boolean, default: false, required: true },
