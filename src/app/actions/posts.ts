@@ -28,7 +28,7 @@ async function getPosts(pageNumber: number, pageSize: number): Promise<{ posts?:
   };
 }
 
-async function getTags(): Promise<PostType['tags'][]> {
+async function getTags(): Promise<PostType['tags']> {
   const tags = await Post.distinct('tags');
 
   return tags;
