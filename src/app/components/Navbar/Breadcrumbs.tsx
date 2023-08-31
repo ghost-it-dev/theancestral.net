@@ -13,7 +13,7 @@ const Breadcrumbs = () => {
   // Always include a breadcrumb for the home page
   const breadcrumbs = [
     {
-      name: 'Feed',
+      name: 'Home',
       path: '/',
     },
   ];
