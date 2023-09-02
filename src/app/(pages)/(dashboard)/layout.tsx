@@ -24,8 +24,8 @@ export default async function DashboardLayout({ children }: { children: React.Re
                   <li className="py-4">
                     <div className="flex space-x-3">
                       <Image
-                        height={0}
-                        width={0}
+                        height={24}
+                        width={24}
                         className="rounded-full h-6 w-6"
                         src="https://avatars.githubusercontent.com/u/38229170?s=400&u=b6d25af34d7cd519ee3f69a701229dfe35ace5da&v=4"
                         alt=""
@@ -44,8 +44,8 @@ export default async function DashboardLayout({ children }: { children: React.Re
                   <li className="py-4">
                     <div className="flex space-x-3">
                       <Image
-                        height={0}
-                        width={0}
+                        height={24}
+                        width={24}
                         className="rounded-full h-6 w-6"
                         src="https://avatars.githubusercontent.com/u/38229170?s=400&u=b6d25af34d7cd519ee3f69a701229dfe35ace5da&v=4"
                         alt=""
@@ -64,8 +64,8 @@ export default async function DashboardLayout({ children }: { children: React.Re
                   <li className="py-4">
                     <div className="flex space-x-3">
                       <Image
-                        height={0}
-                        width={0}
+                        height={24}
+                        width={24}
                         className="rounded-full h-6 w-6"
                         src="https://avatars.githubusercontent.com/u/38229170?s=400&u=b6d25af34d7cd519ee3f69a701229dfe35ace5da&v=4"
                         alt=""
