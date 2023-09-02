@@ -8,11 +8,11 @@ export interface PostActivityInterface {
 
 const postSchema = new Schema<PostActivityInterface>(
   {
-    action: { type: String, required: true },
+    action: { type: String, enum: ['delete', 'update', 'create'], required: true },
     post: { type: Schema.Types.ObjectId, ref: 'Post', required: true },
     user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   },
-  { versionKey: false, timestamps: true },
+  { versionKey: false, timestamps: true, collection: 'activity' },
 );
 
-export default mongoose.models.PostActivity || model<PostActivityInterface>('yActivity', postSchema);
+export default mongoose.models.Activity || model<PostActivityInterface>('Activity', postSchema);

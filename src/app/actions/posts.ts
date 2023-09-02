@@ -8,6 +8,7 @@ import { redirect } from 'next/navigation';
 import mongoose from 'mongoose';
 import { PostData } from './validations/posts';
 import { revalidatePath } from 'next/cache';
+import Activity from '@/src/models/Activity';
 
 async function getPosts(pageNumber: number, pageSize: number): Promise<{ posts?: PostType[]; totalCount: number }> {
   dbConnect();
@@ -51,13 +52,19 @@ async function createPost(data: PostData): Promise<PostType | { error: string }>
   if (!user) return { error: 'You must be logged in to create a post' };
   if (!data.title || !data.description) return { error: 'You must provide a title and description' };
 
-  await Post.create({
+  const post = await Post.create({
     title: data.title,
     tags: data.tags,
     description: data.description,
     publicPost: data.publicPost,
     authorId: user._id,
     authorName: user.username,
+  });
+
+  await Activity.create({
+    action: 'create',
+    post: post._id,
+    user: user._id,
   });
 
   revalidatePath('/');
@@ -87,6 +94,12 @@ async function updatePostById(data: PostData, _id: string): Promise<PostType | {
   Object.assign(post, updatedFields);
   await post.save();
 
+  await Activity.create({
+    action: 'update',
+    post: post._id,
+    user: user._id,
+  });
+
   revalidatePath(`/post/${post._id}`);
   redirect(`/post/${post._id}`);
 }
@@ -101,10 +114,15 @@ async function deletePostById(_id: PostType['_id']): Promise<{ error?: string; m
   const post = await Post.findOne({ _id });
   if (!post) return { error: 'Post not found' };
 
-  if (user?._id.toString() !== post.authorId.toString() && user?.role !== 'admin')
-    return { error: 'You do not have permission to delete this post' };
+  if (user?._id.toString() !== post.authorId.toString() && user?.role !== 'admin' || !user) return { error: 'You do not have permission to delete this post' };
 
   await Post.findByIdAndDelete(_id);
+
+  await Activity.create({
+    action: 'delete',
+    post: post._id,
+    user: user._id,
+  });
 
   revalidatePath(`/`);
   redirect('/');

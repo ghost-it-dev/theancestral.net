@@ -1,7 +1,10 @@
 import Image from 'next/image';
 import Navbar from '@/src/app/components/Navbar/Navbar';
+// import { getAllActivity } from '../../actions/activity';
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
+  // const activity = await getAllActivity();
+
   return (
     <main>
       <div className="relative flex min-h-[100vh] flex-col">
