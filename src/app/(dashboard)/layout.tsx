@@ -1,12 +1,16 @@
 import Image from 'next/image';
-import Navbar from '@/src/app/components/Navbar/Navbar';
-// import { getAllActivity } from '../../actions/activity';
+import Navbar from '@/src/components/Navbar/Navbar';
+import { DocumentIcon } from '@heroicons/react/20/solid';
+import Button from '@/src/components/Button';
+import removeMD from '@/src/lib/removeMD';
+import moment from 'moment';
+import Link from 'next/link';
+import { SpinnerCircular } from 'spinners-react';
+import { getPosts } from '@/src/actions/posts';
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
-  // const activity = await getAllActivity();
-
   return (
-    <main>
+    <>
       <div className="relative flex min-h-[100vh] flex-col">
         <Navbar />
         {/* 3 column wrapper */}
@@ -93,6 +97,6 @@ export default async function DashboardLayout({ children }: { children: React.Re
           </div>
         </div>
       </div>
-    </main>
+    </>
   );
 }

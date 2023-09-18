@@ -1,7 +1,7 @@
 'use client';
 import { useState, useTransition } from 'react';
-import { login } from '@/src/app/actions/auth';
-import { LoginFormData, loginSchema } from '@/src/app/actions/validations/auth';
+import { login } from '@/src/actions/auth';
+import { LoginFormData, loginSchema } from '@/src/actions/validations/auth';
 import { hasError } from '@/src/lib/hasError';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
