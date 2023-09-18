@@ -6,16 +6,17 @@ import { Fragment, useTransition } from 'react';
 import Image from 'next/image';
 import { ArrowRightOnRectangleIcon } from '@heroicons/react/20/solid';
 import { Cog6ToothIcon, UserIcon } from '@heroicons/react/24/outline';
-import { logout } from '@/src/app/actions/auth';
+import { logout } from '@/src/actions/auth';
 import Link from 'next/link';
-import { UserType } from '@/src/app/types/User';
+import { UserType } from '@/src/types/User';
+import { redirect } from 'next/navigation'
 
 function UserDropdown({ user }: { user: UserType }) {
   const [isPending, startTransition] = useTransition();
 
   const handleLogout = () => {
     startTransition(() => {
-      logout();
+      logout().finally(redirect('/'))
     });
   };
 

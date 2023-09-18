@@ -1,10 +1,10 @@
-import { getPostById } from '@/src/app/actions/posts';
-import ErrorMessage from '@/src/app/components/ErrorMessage';
+import { getPostById } from '@/src/actions/posts';
+import ErrorMessage from '@/src/components/ErrorMessage';
 import { hasError } from '@/src/lib/hasError';
 import { SpinnerCircular } from 'spinners-react';
-import MDViewer from '@/src/app/components/MDViewer';
+import MDViewer from '@/src/components/MDViewer';
 import PostActions from './PostActions';
-import { getRequestRole, getUserFromSession } from '@/src/app/actions/user';
+import { getRequestRole, getUserFromSession } from '@/src/actions/user';
 import { redirect } from 'next/navigation';
 
 interface PageProps {
