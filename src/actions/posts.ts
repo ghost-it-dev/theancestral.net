@@ -114,7 +114,8 @@ async function deletePostById(_id: PostType['_id']): Promise<{ error?: string; m
   const post = await Post.findOne({ _id });
   if (!post) return { error: 'Post not found' };
 
-  if (user?._id.toString() !== post.authorId.toString() && user?.role !== 'admin' || !user) return { error: 'You do not have permission to delete this post' };
+  if ((user?._id.toString() !== post.authorId.toString() && user?.role !== 'admin') || !user)
+    return { error: 'You do not have permission to delete this post' };
 
   await Post.findByIdAndDelete(_id);
 

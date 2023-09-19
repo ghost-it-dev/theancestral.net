@@ -9,14 +9,14 @@ import { Cog6ToothIcon, UserIcon } from '@heroicons/react/24/outline';
 import { logout } from '@/src/actions/auth';
 import Link from 'next/link';
 import { UserType } from '@/src/types/User';
-import { redirect } from 'next/navigation'
+import { redirect } from 'next/navigation';
 
 function UserDropdown({ user }: { user: UserType }) {
   const [isPending, startTransition] = useTransition();
 
   const handleLogout = () => {
     startTransition(() => {
-      logout().finally(redirect('/'))
+      logout().finally(redirect('/'));
     });
   };
 
