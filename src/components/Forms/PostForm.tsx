@@ -7,13 +7,13 @@ import { useController, useForm } from 'react-hook-form';
 import { PostData, postSchema } from '@/src/actions/validations/posts';
 import MDInput from '@/src/components/MDInput';
 import { createPost, updatePostById } from '@/src/actions/posts';
-import { PostType } from '@/src/types/Post';
 import { useState } from 'react';
 import { hasError } from '@/src/lib/hasError';
 import { Label } from '../Label';
 import CreatableSelect from 'react-select/creatable';
+import { PostInterface } from '@/src/models/Post';
 
-const PostForm = ({ isEditing, post, tags }: { isEditing: boolean; post?: PostType; tags: PostType['tags'] }) => {
+const PostForm = ({ isEditing, post, tags }: { isEditing: boolean; post?: PostInterface; tags: PostInterface['tags'] }) => {
   // Display this error somwhere
   const [error, setError] = useState<null | string>(null);
 
@@ -49,9 +49,11 @@ const PostForm = ({ isEditing, post, tags }: { isEditing: boolean; post?: PostTy
   });
 
   const handlePostUpdate = handleSubmit(data => {
-    updatePostById(data, post?._id ?? '').then(res => {
-      if (hasError(res)) setError(res.error);
-    });
+    if (post?._id) {
+      updatePostById(data, post._id).then(res => {
+        if (hasError(res)) setError(res.error);
+      });
+    }
   });
 
   return (

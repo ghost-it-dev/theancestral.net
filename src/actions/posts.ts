@@ -1,16 +1,15 @@
 'use server';
 
 import dbConnect from '@/src/lib/dbConnection';
-import { PostType } from '../types/Post';
 import { getRequestRole, getUserFromSession } from './user';
-import Post from '@/src/models/Post';
+import Post, { PostInterface } from '@/src/models/Post';
 import { redirect } from 'next/navigation';
 import mongoose from 'mongoose';
 import { PostData } from './validations/posts';
 import { revalidatePath } from 'next/cache';
 import Activity from '@/src/models/Activity';
 
-async function getPosts(pageNumber: number, pageSize: number): Promise<{ posts?: PostType[]; totalCount: number }> {
+async function getPosts(pageNumber: number, pageSize: number): Promise<{ posts?: PostInterface[]; totalCount: number }> {
   dbConnect();
   const reqRole = await getRequestRole();
 
@@ -29,24 +28,24 @@ async function getPosts(pageNumber: number, pageSize: number): Promise<{ posts?:
   };
 }
 
-async function getTags(): Promise<PostType['tags']> {
+async function getTags(): Promise<PostInterface['tags']> {
   const tags = await Post.distinct('tags');
 
   return tags;
 }
 
-async function getPostById(_id: PostType['_id']): Promise<PostType | { error: string }> {
+async function getPostById(_id: PostInterface['_id']): Promise<PostInterface | { error: string }> {
   dbConnect();
   const isValidPost = mongoose.isValidObjectId(_id);
   if (!isValidPost) return { error: 'Invalid post id' };
-  const post: PostType | null = await Post.findOne({ _id });
+  const post: PostInterface | null = await Post.findOne({ _id });
 
   if (!post) return { error: 'Post not found' };
 
   return JSON.parse(JSON.stringify(post));
 }
 
-async function createPost(data: PostData): Promise<PostType | { error: string }> {
+async function createPost(data: PostData): Promise<PostInterface | { error: string }> {
   dbConnect();
   const user = await getUserFromSession();
   if (!user) return { error: 'You must be logged in to create a post' };
@@ -71,7 +70,7 @@ async function createPost(data: PostData): Promise<PostType | { error: string }>
   redirect('/');
 }
 
-async function updatePostById(data: PostData, _id: string): Promise<PostType | { error: string }> {
+async function updatePostById(data: PostData, _id: PostInterface['_id']): Promise<PostInterface | { error: string }> {
   dbConnect();
   const user = await getUserFromSession();
   if (!user) return { error: 'You must be logged in to edit a post' };
@@ -84,7 +83,7 @@ async function updatePostById(data: PostData, _id: string): Promise<PostType | {
   if (user.role !== 'admin' && user._id !== post.authorId)
     return { error: 'You do not have permission to edit this post' };
 
-  const updatedFields: Partial<PostType> = {
+  const updatedFields: Partial<PostInterface> = {
     title: data.title || post.title,
     description: data.description || post.description,
     publicPost: data.hasOwnProperty('publicPost') ? data.publicPost : post.publicPost,
@@ -104,7 +103,7 @@ async function updatePostById(data: PostData, _id: string): Promise<PostType | {
   redirect(`/post/${post._id}`);
 }
 
-async function deletePostById(_id: PostType['_id']): Promise<{ error?: string; message?: string }> {
+async function deletePostById(_id: PostInterface['_id']): Promise<{ error?: string; message?: string }> {
   dbConnect();
   const user = await getUserFromSession();
 

@@ -1,6 +1,5 @@
 'use client';
 import { deletePostById } from '@/src/actions/posts';
-import { PostType } from '@/src/types/Post';
 import Button from '@/src/components/Button';
 import ErrorMessage from '@/src/components/ErrorMessage';
 import Modal from '@/src/components/Modal';
@@ -8,8 +7,9 @@ import { hasError } from '@/src/lib/hasError';
 import { PencilSquareIcon, TrashIcon } from '@heroicons/react/20/solid';
 import { useState } from 'react';
 import Link from 'next/link';
+import { PostInterface } from '@/src/models/Post';
 
-const PostActions = ({ post }: { post: PostType }) => {
+const PostActions = ({ post }: { post: PostInterface }) => {
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState<null | string>(null);
 

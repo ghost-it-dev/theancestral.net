@@ -1,20 +1,19 @@
 'use server';
-import User from '@/src/models/User';
+import User, { UserInterface } from '@/src/models/User';
 import { cookies, headers } from 'next/headers';
-import { UserType } from '../types/User';
 import dbConnect from '@/src/lib/dbConnection';
 import Session from '@/src/models/Session';
 import mongoose from 'mongoose';
 import { UserCreateData } from './validations/user';
 
 // Return the user object if the user is logged in, otherwise return null
-async function getUserFromSession(): Promise<UserType | null> {
+async function getUserFromSession(): Promise<Omit<UserInterface, 'password'> | null> {
   dbConnect();
   const sessionCookie = cookies().get('session')?.value;
   const isValidSession = mongoose.isValidObjectId(sessionCookie);
   const session = await Session.findOne({ _id: isValidSession ? sessionCookie : null });
   if (!session) return null;
-  const user = await User.findById(session.userID).select(['-password', '-session']);
+  const user = await User.findById(session.userID).select(['-password']);
 
   if (session && session?.userAgent !== headers().get('user-agent')) {
     await Session.findByIdAndDelete(sessionCookie);
@@ -26,12 +25,12 @@ async function getUserFromSession(): Promise<UserType | null> {
 }
 
 // Return the role of the user making the request
-async function getRequestRole(): Promise<UserType['role']> {
+async function getRequestRole(): Promise<UserInterface['role'] | 'guest'> {
   const user = await getUserFromSession();
   return user?.role || 'guest';
 }
 
-async function getUserById(_id: UserType['_id']): Promise<UserType | { error: string }> {
+async function getUserById(_id: UserInterface['_id']): Promise<UserInterface | { error: string }> {
   dbConnect();
   const isValidPost = mongoose.isValidObjectId(_id);
   if (!isValidPost) return { error: 'Invalid post id' };
@@ -42,7 +41,7 @@ async function getUserById(_id: UserType['_id']): Promise<UserType | { error: st
   return user;
 }
 
-async function deleteUserById(_id: UserType['_id']): Promise<{ error?: string; message?: string }> {
+async function deleteUserById(_id: UserInterface['_id']): Promise<{ error?: string; message?: string }> {
   dbConnect();
   const reqRole = await getRequestRole();
   if (reqRole !== 'admin') return { error: 'You do not have permission to delete this user' };

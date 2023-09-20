@@ -8,10 +8,10 @@ import { ArrowRightOnRectangleIcon } from '@heroicons/react/20/solid';
 import { Cog6ToothIcon, UserIcon } from '@heroicons/react/24/outline';
 import { logout } from '@/src/actions/auth';
 import Link from 'next/link';
-import { UserType } from '@/src/types/User';
 import { redirect } from 'next/navigation';
+import { UserInterface } from '@/src/models/User';
 
-function UserDropdown({ user }: { user: UserType }) {
+function UserDropdown({ user }: { user: Omit<UserInterface, 'password'> }) {
   const [isPending, startTransition] = useTransition();
 
   const handleLogout = () => {
