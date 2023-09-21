@@ -1,12 +1,14 @@
-import { getPostById, getTags } from '@/src/app/actions/posts';
-import { getRequestRole, getUserFromSession } from '@/src/app/actions/user';
-import ErrorMessage from '@/src/app/components/ErrorMessage';
-import PostForm from '@/src/app/components/Forms/PostForm';
+
+import { getPostById, getTags } from '@/src/actions/posts';
+import { getUserFromSession, getRequestRole } from '@/src/actions/user';
+import ErrorMessage from '@/src/components/ErrorMessage';
+import PostForm from '@/src/components/Forms/PostForm';
 import { hasError } from '@/src/lib/hasError';
+import { PostInterface } from '@/src/models/Post';
 import { redirect } from 'next/navigation';
 
 interface PageProps {
-  params: { postId: string };
+  params: { postId: PostInterface['_id'] };
 }
 
 async function Page({ params }: PageProps) {
