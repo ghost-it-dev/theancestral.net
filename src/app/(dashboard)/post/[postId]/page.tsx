@@ -6,9 +6,10 @@ import MDViewer from '@/src/components/MDViewer';
 import PostActions from './PostActions';
 import { getRequestRole, getUserFromSession } from '@/src/actions/user';
 import { redirect } from 'next/navigation';
+import { Types } from 'mongoose';
 
 interface PageProps {
-  params: { postId: string };
+  params: { postId: Types.ObjectId };
 }
 
 async function Page({ params }: PageProps) {

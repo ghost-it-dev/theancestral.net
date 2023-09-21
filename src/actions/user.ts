@@ -8,96 +8,65 @@ import { UserCreateData } from './validations/user';
 
 // Return the user object if the user is logged in, otherwise return null
 async function getUserFromSession(): Promise<Omit<UserInterface, 'password'> | null> {
-  try {
-    dbConnect();
+  dbConnect();
+  const sessionCookie = cookies().get('session')?.value;
+  const isValidSession = mongoose.isValidObjectId(sessionCookie);
+  const session = await Session.findOne({ _id: isValidSession ? sessionCookie : null });
+  if (!session) return null;
+  const user = await User.findById(session.userID).select(['-password']);
 
-    const sessionCookie = cookies().get('session')?.value;
-    const isValidSession = mongoose.isValidObjectId(sessionCookie);
-
-    const session = await Session.findOne({ _id: isValidSession ? sessionCookie : null });
-
-    if (!session) return null;
-
-    if (session?.userAgent !== headers().get('user-agent')) {
-      await Session.findByIdAndDelete(sessionCookie);
-      return null;
-    }
-
-    const user = await User.findById(session.userID).select(['-password']);
-
-    if (!user) return null;
-
-    return JSON.parse(JSON.stringify(user));
-  } catch (error) {
-    throw new Error('Failed to get user from session');
+  if (session && session?.userAgent !== headers().get('user-agent')) {
+    await Session.findByIdAndDelete(sessionCookie);
+    return null;
   }
+
+  if (!user) return null;
+  return JSON.parse(JSON.stringify(user));
 }
 
 // Return the role of the user making the request
 async function getRequestRole(): Promise<UserInterface['role'] | 'guest'> {
-  try {
-    const user = await getUserFromSession();
-    return user?.role || 'guest';
-  } catch (error) {
-    throw new Error('Failed to get request role');
-  }
+  const user = await getUserFromSession();
+  return user?.role || 'guest';
 }
 
-async function getUserById(_id: UserInterface['_id']): Promise<UserInterface> {
-  try {
-    dbConnect();
+async function getUserById(_id: UserInterface['_id']): Promise<UserInterface | { error: string }> {
+  dbConnect();
+  const isValidPost = mongoose.isValidObjectId(_id);
+  if (!isValidPost) return { error: 'Invalid post id' };
 
-    const isValidPost = mongoose.isValidObjectId(_id);
-    if (!isValidPost) throw new Error('Invalid post id');
+  const user = await User.findOne({ _id }).select(['-password', '-session']);
+  if (!user) return { error: 'User not found' };
 
-    const user = await User.findOne({ _id }).select(['-password', '-session']);
-
-    if (!user) throw new Error('User not found');
-
-    return user;
-  } catch (error) {
-    throw new Error('Failed to get user by id');
-  }
+  return user;
 }
 
-async function deleteUserById(_id: UserInterface['_id']): Promise<{ message: string }> {
-  try {
-    dbConnect();
+async function deleteUserById(_id: UserInterface['_id']): Promise<{ error?: string; message?: string }> {
+  dbConnect();
+  const reqRole = await getRequestRole();
+  if (reqRole !== 'admin') return { error: 'You do not have permission to delete this user' };
+  const user = await User.findOne({ _id });
+  if (!user) return { error: 'User not found' };
 
-    const reqRole = await getRequestRole();
-    if (reqRole !== 'admin') return new Error('You do not have permission to delete this user');
-
-    const user = await User.findOne({ _id });
-
-    if (!user) return new Error('User not found');
-
-    await User.findByIdAndDelete(_id);
-    return { message: 'User successfully deleted' };
-  } catch (error) {
-    throw new Error('Failed to delete user by id');
-  }
+  await User.findByIdAndDelete(_id);
+  return { message: 'User succesfully deleted' };
 }
 
-async function createUser(data: UserCreateData): Promise<{ message: string }> {
-  try {
-    dbConnect();
+async function createUser(data: UserCreateData): Promise<{ message?: string; error?: string }> {
+  dbConnect();
+  const reqRole = await getRequestRole();
+  if (reqRole !== 'admin') return { error: 'You do not have permission to create a user' };
 
-    const reqRole = await getRequestRole();
-    if (reqRole !== 'admin') return new Error('You do not have permission to create a user');
+  const user = new User({
+    email: data.email,
+    name: data.name,
+    password: data.password,
+    username: data.username,
+    role: data.role,
+  });
 
-    const user = new User({
-      email: data.email,
-      name: data.name,
-      password: data.password,
-      username: data.username,
-      role: data.role,
-    });
-
-    await user.save();
-    return { message: 'User successfully created' };
-  } catch (error) {
-    throw new Error('Failed to create user');
-  }
+  await user.save();
+  return { message: 'User succesfully created' };
 }
 
 async function getUserSessions(): Promise<SessionInterface[]> {
@@ -127,4 +96,4 @@ async function invalidateSessionById(_id: SessionInterface['_id']): Promise<{ me
   }
 }
 
-export { getUserFromSession, createUser, getUserById, deleteUserById, getRequestRole };
+export { getUserFromSession, createUser, getUserById, deleteUserById, getRequestRole, getUserSessions, invalidateSessionById };
