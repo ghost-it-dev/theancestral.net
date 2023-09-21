@@ -1,9 +1,10 @@
 import { getUserById } from '@/src/actions/user';
 import ErrorMessage from '@/src/components/ErrorMessage';
 import { hasError } from '@/src/lib/hasError';
+import { UserInterface } from '@/src/models/User';
 
 interface PageProps {
-  params: { userId: string };
+  params: { userId: UserInterface['_id'] };
 }
 
 async function Page({ params }: PageProps) {
