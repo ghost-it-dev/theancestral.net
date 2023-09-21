@@ -17,7 +17,6 @@ async function Page({ params }: PageProps) {
   const tags = await getTags();
   const reqRole = await getRequestRole();
 
-  // redirect to error page
   if (hasError(post)) {
     return <ErrorMessage message={post.error} />;
   }

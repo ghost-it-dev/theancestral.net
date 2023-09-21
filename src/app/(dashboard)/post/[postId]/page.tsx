@@ -18,7 +18,7 @@ async function Page({ params }: PageProps) {
   const post = await getPostById(params.postId);
   const reqRole = await getRequestRole();
 
-  // redirect to error page
+  // I think I want to change this to a modal or something
   if (hasError(post)) {
     return <ErrorMessage message={post.error} />;
   }

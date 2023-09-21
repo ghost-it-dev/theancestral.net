@@ -10,7 +10,6 @@ interface PageProps {
 async function Page({ params }: PageProps) {
   const user = await getUserById(params.userId);
 
-  // redirect to error page
   if (hasError(user)) {
     return <ErrorMessage message={user.error} />;
   }
