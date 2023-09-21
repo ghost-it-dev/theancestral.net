@@ -7,6 +7,7 @@ export interface SessionInterface {
   userAgent: string;
   updatedAt: Date;
   createdAt: Date;
+  _id: Types.ObjectId;
 }
 
 // When any of the following happen invalidate the session:
