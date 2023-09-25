@@ -96,4 +96,12 @@ async function invalidateSessionById(_id: SessionInterface['_id']): Promise<{ me
   }
 }
 
-export { getUserFromSession, createUser, getUserById, deleteUserById, getRequestRole, getUserSessions, invalidateSessionById };
+export {
+  getUserFromSession,
+  createUser,
+  getUserById,
+  deleteUserById,
+  getRequestRole,
+  getUserSessions,
+  invalidateSessionById,
+};

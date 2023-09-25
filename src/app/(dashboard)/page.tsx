@@ -1,14 +1,12 @@
 import Button from '@/src/components/Button';
 import removeMD from '@/src/lib/removeMD';
 import { DocumentIcon } from '@heroicons/react/24/outline';
-import { data } from 'autoprefixer';
 import moment from 'moment';
 import Link from 'next/link';
 import { SpinnerCircular } from 'spinners-react';
 import { getPosts } from '@/src/actions/posts';
-import DashboardLayout from './layout';
 
-export default async function Dashboard() {
+export default async function Page() {
   const data = await getPosts(1, 5);
   return (
     <div className="bg-[#101826] lg:min-w-0 lg:flex-1 h-full">
@@ -18,8 +16,8 @@ export default async function Dashboard() {
       </div>
       {data.posts?.length !== 0 ? (
         <div className="divide-y divide-[#1F2C37] list-none">
-          {data.posts?.map(post => (
-            <Link key={post._id} href={`/post/${post._id}`}>
+          {data.posts?.map((post, index) => (
+            <Link key={index} href={`/post/${post._id}`}>
               <div className="group relative py-5 px-4 sm:py-6 hover:bg-[#1E2936] cursor-pointer transition-colors border-b border-[#1F2C37]">
                 <div className="flex items-end justify-between space-x-4">
                   <div className="min-w-0 space-y-1">

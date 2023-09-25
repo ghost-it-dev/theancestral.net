@@ -13,7 +13,15 @@ import { Label } from '../Label';
 import CreatableSelect from 'react-select/creatable';
 import { PostInterface } from '@/src/models/Post';
 
-const PostForm = ({ isEditing, post, tags }: { isEditing: boolean; post?: PostInterface; tags: PostInterface['tags'] }) => {
+const PostForm = ({
+  isEditing,
+  post,
+  tags,
+}: {
+  isEditing: boolean;
+  post?: PostInterface;
+  tags: PostInterface['tags'];
+}) => {
   // Display this error somwhere
   const [error, setError] = useState<null | string>(null);
 
