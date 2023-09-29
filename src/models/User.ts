@@ -11,6 +11,8 @@ export interface UserInterface {
   updatedAt: Date;
   createdAt: Date;
   _id: Types.ObjectId;
+  // Image name in minio
+  profilePicture: string;
 }
 
 const userSchema = new Schema<UserInterface>(
@@ -19,8 +21,9 @@ const userSchema = new Schema<UserInterface>(
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    role: { type: String, required: false, default: 'user' },
+    role: { type: String, required: true, default: 'user' },
     postAmount: { type: Number, required: true, default: 0 },
+    profilePicture: { type: String, required: true, default: 'default.png' },
   },
   { versionKey: false, timestamps: true },
 );

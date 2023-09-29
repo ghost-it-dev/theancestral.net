@@ -7,6 +7,7 @@ const subNavigation = [
 ]
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
+
 	return (
 		<>
 			<div className="relative flex min-h-[100vh] flex-col">

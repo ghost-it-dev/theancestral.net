@@ -1,3 +1,4 @@
+import { getProfilePicture } from '@/src/actions/minio'
 import { getUserFromSession } from '@/src/actions/user'
 import Button from '@/src/components/Button'
 import Section from '@/src/components/Section'
@@ -7,6 +8,8 @@ import { redirect } from 'next/navigation'
 
 export default async function Page() {
 	const user = await getUserFromSession();
+	// const pfp = await getProfilePicture();
+
 	if (!user) redirect('/')
 
 	return (
@@ -19,7 +22,7 @@ export default async function Page() {
 								height={48}
 								width={48}
 								className="rounded-full h-18 w-18"
-								src="https://avatars.githubusercontent.com/u/38229170?s=400&u=b6d25af34d7cd519ee3f69a701229dfe35ace5da&v=4"
+								src={"https://avatars.githubusercontent.com/u/38229170?s=400&u=b6d25af34d7cd519ee3f69a701229dfe35ace5da&v=4"}
 								alt=""
 							/>
 							<div className='flex flex-col'>
@@ -51,9 +54,6 @@ export default async function Page() {
 							<div className='flex items-center gap-3'>
 								<span className='text-white text-sm'>●●●●●●</span>
 								<div className='flex gap-2'>
-									<Button size='square' variant='gray'>
-										<EyeIcon className='h-4 w-4 text-gray-100' />
-									</Button>
 									<Button size='square' variant='gray'>
 										<PencilIcon className='h-4 w-4 text-gray-100' />
 									</Button>
