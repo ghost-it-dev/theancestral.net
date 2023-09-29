@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { Fragment, useTransition } from 'react';
 import Image from 'next/image';
 import { ArrowRightOnRectangleIcon } from '@heroicons/react/20/solid';
-import { Cog6ToothIcon, UserIcon } from '@heroicons/react/24/outline';
+import { AdjustmentsHorizontalIcon, Cog6ToothIcon, UserIcon } from '@heroicons/react/24/outline';
 import { logout } from '@/src/actions/auth';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
@@ -57,6 +57,21 @@ function UserDropdown({ user }: { user: Omit<UserInterface, 'password'> }) {
               </Link>
             )}
           </Menu.Item>
+          {user.role === 'admin' && (
+            <Menu.Item>
+              {({ active }) => (
+                <Link
+                  href="/admin"
+                  className={classNames(
+                    active ? 'bg-[#1E2936]' : '',
+                    'flex items-center gap-1 px-4 py-2 text-sm text-gray-200 transition-colors border-t border-[#1E2936] font-semibold',
+                  )}
+                >
+                  <AdjustmentsHorizontalIcon className="h-5 w-5" /> Admin Settings
+                </Link>
+              )}
+            </Menu.Item>
+          )}
           <Menu.Item>
             {({ active }) => (
               <Link

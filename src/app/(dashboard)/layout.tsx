@@ -9,9 +9,9 @@ export default async function DashboardLayout({ children }: { children: React.Re
         {/* 3 column wrapper */}
         <div className="mx-auto w-full max-w-7xl flex-grow lg:flex xl:px-8">
           {/* Left sidebar & main wrapper */}
-          <div className={'min-w-0 flex-1 bg-[#101826] xl:flex lg:border-l lg:border-[#1F2C37]'}>{children}</div>
+          <main className={'min-w-0 flex-1 bg-[#101826] xl:flex lg:border-l lg:border-[#1F2C37]'}>{children}</main>
           {/* Activity feed */}
-          <div className="bg-[#101826] lg:flex-shrink-0 lg:border-l lg:border-[#1F2C37] px-4 lg:px-8 xl:pr-0">
+          <aside className="bg-[#101826] lg:flex-shrink-0 lg:border-l lg:border-[#1F2C37] px-4 lg:px-8 xl:pr-0">
             <div className="lg:w-80">
               <div className="pt-6 pb-2">
                 <h2 className="text-sm text-gray-200 font-semibold">Activity</h2>
@@ -87,7 +87,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
                 </div>
               </div>
             </div>
-          </div>
+          </aside>
         </div>
       </div>
     </>
