@@ -6,7 +6,7 @@ import getActivityActionText from '@/src/lib/getActivityActionText';
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const postActivity = await getAllPostActivity();
-  console.log(postActivity)
+
   return (
     <>
       <div className="relative flex min-h-[100vh] flex-col">
@@ -53,4 +53,4 @@ export default async function DashboardLayout({ children }: { children: React.Re
       </div>
     </>
   );
-}
+};

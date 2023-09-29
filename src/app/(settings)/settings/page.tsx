@@ -4,6 +4,8 @@ import Section from '@/src/components/Section';
 import { EyeIcon, PencilIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
+import ChangeEmail from './ChangeEmail';
+import ChangePassword from './ChangePassword';
 
 export default async function Page() {
   const user = await getUserFromSession();
@@ -34,31 +36,8 @@ export default async function Page() {
             <Button>Edit</Button>
           </div>
           <div className="w-full p-3 flex flex-col gap-2 rounded-md bg-transparent border border-[#1F2C37] shadow-md mt-2 ">
-            <div className="w-full flex items-center justify-between border-b border-[#1F2C37] pb-2">
-              <span className="text-sm text-gray-100">Email</span>
-              <div className="flex items-center gap-3">
-                <span className="text-white text-sm">●●●●●●</span>
-                <div className="flex gap-2">
-                  <Button size="square" variant="gray">
-                    <EyeIcon className="h-4 w-4 text-gray-100" />
-                  </Button>
-                  <Button size="square" variant="gray">
-                    <PencilIcon className="h-4 w-4 text-gray-100" />
-                  </Button>
-                </div>
-              </div>
-            </div>
-            <div className="w-full flex items-center justify-between">
-              <span className="text-sm text-gray-100">Password</span>
-              <div className="flex items-center gap-3">
-                <span className="text-white text-sm">●●●●●●</span>
-                <div className="flex gap-2">
-                  <Button size="square" variant="gray">
-                    <PencilIcon className="h-4 w-4 text-gray-100" />
-                  </Button>
-                </div>
-              </div>
-            </div>
+            <ChangeEmail user={user} />
+            <ChangePassword user={user} />
           </div>
         </Section>
       </div>

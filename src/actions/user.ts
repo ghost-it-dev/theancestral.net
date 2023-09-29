@@ -2,11 +2,11 @@
 import User, { UserInterface } from '@/src/models/User';
 import { cookies, headers } from 'next/headers';
 import dbConnect from '@/src/lib/dbConnection';
-import Session, { SessionInterface } from '@/src/models/Session';
+import Session from '@/src/models/Session';
 import mongoose from 'mongoose';
-import { UserCreateData } from './validations/user';
-import { revalidatePath } from 'next/cache';
+import { UpdatePasswordData, UserCreateData } from './validations/user';
 import { logout } from './auth';
+import argon2id from 'argon2';
 
 // Return the user object if the user is logged in, otherwise return null
 async function getUserFromSession(): Promise<Omit<UserInterface, 'password'> | null> {
@@ -31,6 +31,20 @@ async function getUserFromSession(): Promise<Omit<UserInterface, 'password'> | n
 async function getRequestRole(): Promise<UserInterface['role'] | 'guest'> {
   const user = await getUserFromSession();
   return user?.role || 'guest';
+}
+
+async function changePassword(data: UpdatePasswordData, _id: UserInterface['_id']): Promise<{ error?: string; message?: string }> {
+  dbConnect();
+  const user = await User.findById(_id);
+  if (!user) return { error: 'You must be logged in to change your password' };
+
+  const validPassword = await argon2id.verify(user.password, data.currentPassword);
+  if (!validPassword) return { error: 'Invalid password' };
+
+  user.password = data.newPassword;
+  await user.save();
+
+  return { message: 'Password changed successfully' };
 }
 
 async function getUserById(_id: UserInterface['_id']): Promise<UserInterface | { error: string }> {
@@ -77,5 +91,6 @@ export {
   createUser,
   getUserById,
   deleteUserById,
-  getRequestRole
+  getRequestRole,
+  changePassword
 };
