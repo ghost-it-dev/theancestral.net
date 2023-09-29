@@ -7,6 +7,7 @@ import PostActions from './PostActions';
 import { getRequestRole, getUserFromSession } from '@/src/actions/user';
 import { redirect } from 'next/navigation';
 import { PostInterface } from '@/src/models/Post';
+import { revalidatePath } from 'next/cache';
 
 interface PageProps {
   params: { postId: PostInterface['_id'] };
@@ -22,7 +23,7 @@ async function Page({ params }: PageProps) {
     return <ErrorMessage message={post.error} />;
   }
 
-  if (reqRole === 'guest' && !post.publicPost) return redirect('/');
+  if (reqRole === 'guest' && !post.publicPost) redirect('/');
 
   return (
     <div className="bg-[#101826] lg:min-w-0 lg:flex-1">

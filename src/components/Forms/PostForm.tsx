@@ -53,7 +53,6 @@ const PostForm = ({
 
   const handlePostCreate = handleSubmit(data => {
     startTransition(() => {
-
       createPost(data).then(res => {
         if (hasError(res)) setError(res.error);
       });
@@ -93,9 +92,13 @@ const PostForm = ({
         </div>
         <div className="flex gap-2">
           {isEditing ? (
-            <Button isLoading={isPending} onClick={() => handlePostUpdate()}>Update</Button>
+            <Button isLoading={isPending} onClick={() => handlePostUpdate()}>
+              Update
+            </Button>
           ) : (
-            <Button isLoading={isPending} onClick={() => handlePostCreate()}>Post</Button>
+            <Button isLoading={isPending} onClick={() => handlePostCreate()}>
+              Post
+            </Button>
           )}
         </div>
       </div>

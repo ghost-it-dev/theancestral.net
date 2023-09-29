@@ -1,5 +1,4 @@
 'use server';
-
 import dbConnect from '@/src/lib/dbConnection';
 import Session from '@/src/models/Session';
 import User from '@/src/models/User';

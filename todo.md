@@ -12,3 +12,4 @@ Backend:
 
 - Store pfps somewhere
 - Log errors to file
+- more checks on backend to see if a user is allowed to do something, return error unathenticated if not

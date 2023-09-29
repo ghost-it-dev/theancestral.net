@@ -1,5 +1,4 @@
 'use server';
-
 import dbConnect from '@/src/lib/dbConnection';
 import { getRequestRole, getUserFromSession } from './user';
 import Post, { PostInterface } from '@/src/models/Post';
@@ -14,6 +13,7 @@ async function getPosts(
   pageSize: number,
 ): Promise<{ posts?: PostInterface[]; totalCount: number }> {
   dbConnect();
+  await getUserFromSession();
   const reqRole = await getRequestRole();
 
   const query: any = {};

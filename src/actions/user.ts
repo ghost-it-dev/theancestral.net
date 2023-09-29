@@ -76,29 +76,10 @@ async function createUser(data: UserCreateData): Promise<{ message?: string; err
   return { message: 'User succesfully created' };
 }
 
-async function getUserSessions(): Promise<SessionInterface[]> {
-  dbConnect();
-  const user = await getUserFromSession();
-  const sessions = await Session.find({ userID: user?._id }).select(['-sessionToken']);
-
-  return sessions;
-}
-
-async function invalidateSessionById(_id: string): Promise<{ error?: string } | undefined> {
-  dbConnect();
-  const session = await Session.findById(_id);
-  if (!session) return { error: 'Session not found' };
-
-  await Session.findByIdAndDelete(_id);
-  revalidatePath('/sessions')
-}
-
 export {
   getUserFromSession,
   createUser,
   getUserById,
   deleteUserById,
-  getRequestRole,
-  getUserSessions,
-  invalidateSessionById,
+  getRequestRole
 };

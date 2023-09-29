@@ -1,3 +1,4 @@
+'use server';
 import dbConnect from '@/src/lib/dbConnection';
 import Activity from '@/src/models/Activity';
 
