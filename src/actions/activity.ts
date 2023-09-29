@@ -1,12 +1,12 @@
 'use server';
 import dbConnect from '@/src/lib/dbConnection';
-import Activity from '@/src/models/Activity';
+import PostActivity, { PostActivityInterface } from '@/src/models/PostActivity';
 
-async function getAllActivity() {
+async function getAllPostActivity(): Promise<PostActivityInterface[]> {
   dbConnect();
-  const activity = await Activity.find().sort({ createdAt: -1 });
+  const activity = await PostActivity.find().sort({ createdAt: -1 }).limit(5);
 
   return JSON.parse(JSON.stringify(activity));
 }
 
-export { getAllActivity };
+export { getAllPostActivity };

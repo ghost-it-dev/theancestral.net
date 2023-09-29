@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation';
 import mongoose from 'mongoose';
 import { PostData } from './validations/posts';
 import { revalidatePath } from 'next/cache';
-import Activity from '@/src/models/Activity';
+import PostActivity from '@/src/models/PostActivity';
 
 async function getPosts(
   pageNumber: number,
@@ -63,10 +63,11 @@ async function createPost(data: PostData): Promise<PostInterface | { error: stri
     authorName: user.username,
   });
 
-  await Activity.create({
+  await PostActivity.create({
     action: 'create',
-    post: post._id,
-    user: user._id,
+    postId: post._id,
+    postTitle: post.title,
+    username: user.username,
   });
 
   revalidatePath('/');
@@ -96,10 +97,11 @@ async function updatePostById(data: PostData, _id: PostInterface['_id']): Promis
   Object.assign(post, updatedFields);
   await post.save();
 
-  await Activity.create({
+  await PostActivity.create({
     action: 'update',
-    post: post._id,
-    user: user._id,
+    postId: post._id,
+    postTitle: post.title,
+    username: user.username,
   });
 
   revalidatePath(`/post/${post._id}`);
@@ -116,16 +118,16 @@ async function deletePostById(_id: PostInterface['_id']): Promise<{ error?: stri
   const post = await Post.findOne({ _id });
   if (!post) return { error: 'Post not found' };
 
-  if ((user?._id.toString() !== post.authorId.toString() && user?.role !== 'admin') || !user)
-    return { error: 'You do not have permission to delete this post' };
+  if ((user?._id.toString() !== post.authorId.toString() && user?.role !== 'admin') || !user) return { error: 'You do not have permission to delete this post' };
+
+  await PostActivity.create({
+    action: 'delete',
+    postId: post._id,
+    postTitle: post.title,
+    username: user.username,
+  });
 
   await Post.findByIdAndDelete(_id);
-
-  await Activity.create({
-    action: 'delete',
-    post: post._id,
-    user: user._id,
-  });
 
   revalidatePath(`/`);
   redirect('/');

@@ -1,7 +1,12 @@
 import Image from 'next/image';
 import Navbar from '@/src/components/Navbar/Navbar';
+import { getAllPostActivity } from '@/src/actions/activity';
+import moment from 'moment';
+import getActivityActionText from '@/src/lib/getActivityActionText';
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
+  const postActivity = await getAllPostActivity();
+  console.log(postActivity)
   return (
     <>
       <div className="relative flex min-h-[100vh] flex-col">
@@ -18,73 +23,29 @@ export default async function DashboardLayout({ children }: { children: React.Re
               </div>
               <div>
                 <ul role="list" className="divide-y divide-[#1F2C37] list-none">
-                  <li className="py-4">
-                    <div className="flex space-x-3">
-                      <Image
-                        height={24}
-                        width={24}
-                        className="rounded-full h-6 w-6"
-                        src="https://avatars.githubusercontent.com/u/38229170?s=400&u=b6d25af34d7cd519ee3f69a701229dfe35ace5da&v=4"
-                        alt=""
-                      />
-                      <div className="flex-1 space-y-1">
-                        <div className="flex items-center justify-between">
-                          <h3 className="text-sm text-gray-200 font-medium">You</h3>
-                          <p className="text-sm text-gray-300">1h</p>
+                  {postActivity.map(activity => (
+                    <li className="py-4">
+                      <div className="flex space-x-3">
+                        <Image
+                          height={24}
+                          width={24}
+                          className="rounded-full h-6 w-6"
+                          src="https://avatars.githubusercontent.com/u/38229170?s=400&u=b6d25af34d7cd519ee3f69a701229dfe35ace5da&v=4"
+                          alt=""
+                        />
+                        <div className="flex-1 space-y-1">
+                          <div className="flex items-center justify-between">
+                            <h3 className="text-sm text-gray-200 font-medium">{activity.username}</h3>
+                            <p className="text-sm text-gray-300">{moment(activity.createdAt).fromNow()}</p>
+                          </div>
+                          <p className="text-sm text-gray-300">
+                            {getActivityActionText(activity.action)} post <span className="text-indigo-400 font-bold cursor-pointer">{activity.postTitle}</span>
+                          </p>
                         </div>
-                        <p className="text-sm text-gray-300">
-                          Created post <span className="text-indigo-400 font-bold cursor-pointer">cool post name</span>
-                        </p>
                       </div>
-                    </div>
-                  </li>
-                  <li className="py-4">
-                    <div className="flex space-x-3">
-                      <Image
-                        height={24}
-                        width={24}
-                        className="rounded-full h-6 w-6"
-                        src="https://avatars.githubusercontent.com/u/38229170?s=400&u=b6d25af34d7cd519ee3f69a701229dfe35ace5da&v=4"
-                        alt=""
-                      />
-                      <div className="flex-1 space-y-1">
-                        <div className="flex items-center justify-between">
-                          <h3 className="text-sm text-gray-200 font-medium">You</h3>
-                          <p className="text-sm text-gray-300">1h</p>
-                        </div>
-                        <p className="text-sm text-gray-300">
-                          Created post <span className="text-indigo-400 font-bold cursor-pointer">cool post name</span>
-                        </p>
-                      </div>
-                    </div>
-                  </li>
-                  <li className="py-4">
-                    <div className="flex space-x-3">
-                      <Image
-                        height={24}
-                        width={24}
-                        className="rounded-full h-6 w-6"
-                        src="https://avatars.githubusercontent.com/u/38229170?s=400&u=b6d25af34d7cd519ee3f69a701229dfe35ace5da&v=4"
-                        alt=""
-                      />
-                      <div className="flex-1 space-y-1">
-                        <div className="flex items-center justify-between">
-                          <h3 className="text-sm text-gray-200 font-medium">You</h3>
-                          <p className="text-sm text-gray-300">1h</p>
-                        </div>
-                        <p className="text-sm text-gray-300">
-                          Created post <span className="text-indigo-400 font-bold cursor-pointer">cool post name</span>
-                        </p>
-                      </div>
-                    </div>
-                  </li>
+                    </li>
+                  ))}
                 </ul>
-                <div className="py-4 text-sm text-right">
-                  <a href="#" className="font-semibold text-gray-200">
-                    View all activity
-                    <span aria-hidden="true"> &rarr;</span>
-                  </a>
-                </div>
               </div>
             </div>
           </aside>
