@@ -17,10 +17,6 @@ async function getUserFromSession(): Promise<Omit<UserInterface, 'password'> | n
   if (!session) return null;
   const user = await User.findById(session.userID).select(['-password']);
 
-  // Update the last used date of the session
-  session.lastUsed = new Date();
-  await session.save();
-
   // If the user agent doesn't match the session user agent, delete the session
   if (session && session?.userAgent !== headers().get('user-agent')) {
     await logout();

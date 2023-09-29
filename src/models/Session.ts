@@ -6,7 +6,6 @@ export interface SessionInterface {
   userAgent: string;
   updatedAt: Date;
   createdAt: Date;
-  lastUsed: Date;
   _id: Types.ObjectId;
 }
 
@@ -21,9 +20,7 @@ const sessionSchema = new Schema<SessionInterface>(
   {
     userID: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     expiresAt: { type: Date, required: true },
-    userAgent: { type: String, required: true },
-    // When the session is created the user is logged in
-    lastUsed: { type: Date, required: true },
+    userAgent: { type: String, required: true }
   },
   { versionKey: false, timestamps: true },
 );
