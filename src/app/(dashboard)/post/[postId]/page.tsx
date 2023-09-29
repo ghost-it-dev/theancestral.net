@@ -6,7 +6,6 @@ import MDViewer from '@/src/components/MDViewer';
 import PostActions from './PostActions';
 import { getRequestRole, getUserFromSession } from '@/src/actions/user';
 import { redirect } from 'next/navigation';
-import { Types } from 'mongoose';
 import { PostInterface } from '@/src/models/Post';
 
 interface PageProps {

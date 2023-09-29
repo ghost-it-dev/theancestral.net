@@ -7,7 +7,7 @@ import { useController, useForm } from 'react-hook-form';
 import { PostData, postSchema } from '@/src/actions/validations/posts';
 import MDInput from '@/src/components/MDInput';
 import { createPost, updatePostById } from '@/src/actions/posts';
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import { hasError } from '@/src/lib/hasError';
 import { Label } from '../Label';
 import CreatableSelect from 'react-select/creatable';
@@ -24,6 +24,7 @@ const PostForm = ({
 }) => {
   // Display this error somwhere
   const [error, setError] = useState<null | string>(null);
+  const [isPending, startTransition] = useTransition();
 
   const {
     register,
@@ -51,17 +52,22 @@ const PostForm = ({
   });
 
   const handlePostCreate = handleSubmit(data => {
-    createPost(data).then(res => {
-      if (hasError(res)) setError(res.error);
+    startTransition(() => {
+
+      createPost(data).then(res => {
+        if (hasError(res)) setError(res.error);
+      });
     });
   });
 
   const handlePostUpdate = handleSubmit(data => {
-    if (post?._id) {
-      updatePostById(data, post._id).then(res => {
-        if (hasError(res)) setError(res.error);
-      });
-    }
+    startTransition(() => {
+      if (post?._id) {
+        updatePostById(data, post._id).then(res => {
+          if (hasError(res)) setError(res.error);
+        });
+      }
+    });
   });
 
   return (
@@ -87,9 +93,9 @@ const PostForm = ({
         </div>
         <div className="flex gap-2">
           {isEditing ? (
-            <Button onClick={() => handlePostUpdate()}>Update</Button>
+            <Button isLoading={isPending} onClick={() => handlePostUpdate()}>Update</Button>
           ) : (
-            <Button onClick={() => handlePostCreate()}>Post</Button>
+            <Button isLoading={isPending} onClick={() => handlePostCreate()}>Post</Button>
           )}
         </div>
       </div>

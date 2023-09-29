@@ -30,6 +30,7 @@ async function login(data: LoginFormData) {
     userID: user._id,
     expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30), // Add 30 days to the current date
     userAgent: headers().get('user-agent'),
+    lastUsed: new Date(Date.now()),
   });
 
   await session.save();

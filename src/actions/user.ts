@@ -5,6 +5,8 @@ import dbConnect from '@/src/lib/dbConnection';
 import Session, { SessionInterface } from '@/src/models/Session';
 import mongoose from 'mongoose';
 import { UserCreateData } from './validations/user';
+import { revalidatePath } from 'next/cache';
+import { logout } from './auth';
 
 // Return the user object if the user is logged in, otherwise return null
 async function getUserFromSession(): Promise<Omit<UserInterface, 'password'> | null> {
@@ -15,8 +17,13 @@ async function getUserFromSession(): Promise<Omit<UserInterface, 'password'> | n
   if (!session) return null;
   const user = await User.findById(session.userID).select(['-password']);
 
+  // Update the last used date of the session
+  session.lastUsed = new Date();
+  await session.save();
+
+  // If the user agent doesn't match the session user agent, delete the session
   if (session && session?.userAgent !== headers().get('user-agent')) {
-    await Session.findByIdAndDelete(sessionCookie);
+    await logout();
     return null;
   }
 
@@ -70,30 +77,20 @@ async function createUser(data: UserCreateData): Promise<{ message?: string; err
 }
 
 async function getUserSessions(): Promise<SessionInterface[]> {
-  try {
-    dbConnect();
+  dbConnect();
+  const user = await getUserFromSession();
+  const sessions = await Session.find({ userID: user?._id }).select(['-sessionToken']);
 
-    const user = await getUserFromSession();
-    const sessions = await Session.find({ userID: user?._id });
-
-    return sessions;
-  } catch (error) {
-    throw new Error('Failed to get user sessions');
-  }
+  return sessions;
 }
 
-async function invalidateSessionById(_id: SessionInterface['_id']): Promise<{ message: string }> {
-  try {
-    dbConnect();
+async function invalidateSessionById(_id: string): Promise<{ error?: string } | undefined> {
+  dbConnect();
+  const session = await Session.findById(_id);
+  if (!session) return { error: 'Session not found' };
 
-    const session = await Session.findById(_id);
-    if (!session) return new Error('Session not found');
-
-    await Session.findByIdAndDelete(_id);
-    return { message: 'Session successfully invalidated' };
-  } catch (error) {
-    throw new Error('Failed to invalidate session by id');
-  }
+  await Session.findByIdAndDelete(_id);
+  revalidatePath('/sessions')
 }
 
 export {

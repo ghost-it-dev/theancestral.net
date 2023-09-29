@@ -2,11 +2,11 @@ import mongoose, { Schema, model, Types } from 'mongoose';
 
 export interface SessionInterface {
   userID: Types.ObjectId;
-  sessionToken: string;
   expiresAt: Date;
   userAgent: string;
   updatedAt: Date;
   createdAt: Date;
+  lastUsed: Date;
   _id: Types.ObjectId;
 }
 
@@ -22,6 +22,8 @@ const sessionSchema = new Schema<SessionInterface>(
     userID: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     expiresAt: { type: Date, required: true },
     userAgent: { type: String, required: true },
+    // When the session is created the user is logged in
+    lastUsed: { type: Date, required: true },
   },
   { versionKey: false, timestamps: true },
 );
