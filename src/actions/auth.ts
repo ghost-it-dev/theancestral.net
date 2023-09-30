@@ -44,8 +44,7 @@ async function login(data: LoginFormData) {
 }
 
 async function logout() {
-  if (!cookies().get('session') || cookies().get('session')?.value === '')
-    return { message: 'Successfully logged out' };
+  if (!cookies().get('session') || cookies().get('session')?.value === '') return { message: 'Successfully logged out' };
 
   dbConnect();
   await Session.findByIdAndDelete(cookies().get('session')?.value);

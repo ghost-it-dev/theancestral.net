@@ -4,9 +4,8 @@ import { UserInterface } from "@/src/models/User";
 import { EyeIcon, PencilIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 
-function ChangeEmail({ user }: { user: Omit<UserInterface, 'password'> }) {
+function ViewEmail({ user }: { user: Omit<UserInterface, 'password'> }) {
 	const [emailVisible, setEmailVisible] = useState(false);
-	const [visible, setVisible] = useState(false);
 
 	return (
 		<div className="w-full flex items-center justify-between border-b border-[#1F2C37] pb-2">
@@ -17,13 +16,10 @@ function ChangeEmail({ user }: { user: Omit<UserInterface, 'password'> }) {
 					<Button onClick={() => setEmailVisible(!emailVisible)} size="square" variant="gray">
 						<EyeIcon className="h-4 w-4 text-gray-100" />
 					</Button>
-					<Button size="square" variant="gray">
-						<PencilIcon className="h-4 w-4 text-gray-100" />
-					</Button>
 				</div>
 			</div>
 		</div>
 	);
 };
 
-export default ChangeEmail;
+export default ViewEmail;

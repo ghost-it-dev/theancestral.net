@@ -5,7 +5,7 @@ import moment from 'moment';
 import getActivityActionText from '@/src/lib/getActivityActionText';
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const postActivity = await getAllPostActivity();
+  const postActivity = await getAllPostActivity({ limit: 5 });
 
   return (
     <>
@@ -24,7 +24,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
               <div>
                 <ul role="list" className="divide-y divide-[#1F2C37] list-none">
                   {postActivity.map(activity => (
-                    <li className="py-4">
+                    <li key={activity._id.toString()} className="py-4">
                       <div className="flex space-x-3">
                         <Image
                           height={24}

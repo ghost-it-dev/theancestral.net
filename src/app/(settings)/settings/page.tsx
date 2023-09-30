@@ -1,16 +1,13 @@
 import { getUserFromSession } from '@/src/actions/user';
 import Button from '@/src/components/Button';
 import Section from '@/src/components/Section';
-import { EyeIcon, PencilIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
-import ChangeEmail from './ChangeEmail';
-import ChangePassword from './ChangePassword';
+import UpdatePassword from './UpdatePassword';
+import ViewEmail from './ViewEmail';
 
 export default async function Page() {
   const user = await getUserFromSession();
-  // const pfp = await getProfilePicture();
-
   if (!user) redirect('/');
 
   return (
@@ -36,8 +33,8 @@ export default async function Page() {
             <Button>Edit</Button>
           </div>
           <div className="w-full p-3 flex flex-col gap-2 rounded-md bg-transparent border border-[#1F2C37] shadow-md mt-2 ">
-            <ChangeEmail user={user} />
-            <ChangePassword user={user} />
+            <ViewEmail user={user} />
+            <UpdatePassword user={user} />
           </div>
         </Section>
       </div>

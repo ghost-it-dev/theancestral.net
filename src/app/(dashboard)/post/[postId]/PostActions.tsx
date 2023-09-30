@@ -3,7 +3,7 @@ import { deletePostById } from '@/src/actions/posts';
 import Button from '@/src/components/Button';
 import ErrorMessage from '@/src/components/ErrorMessage';
 import Modal from '@/src/components/Modal';
-import { hasError } from '@/src/lib/hasError';
+import { hasError } from '@/src/lib/response';
 import { PencilSquareIcon, TrashIcon } from '@heroicons/react/20/solid';
 import { useState } from 'react';
 import Link from 'next/link';

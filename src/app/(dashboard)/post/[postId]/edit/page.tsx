@@ -2,9 +2,8 @@ import { getPostById, getTags } from '@/src/actions/posts';
 import { getUserFromSession } from '@/src/actions/user';
 import ErrorMessage from '@/src/components/ErrorMessage';
 import PostForm from '@/src/components/Forms/PostForm';
-import { hasError } from '@/src/lib/hasError';
+import { hasError } from '@/src/lib/response';
 import { PostInterface } from '@/src/models/Post';
-import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 interface PageProps {

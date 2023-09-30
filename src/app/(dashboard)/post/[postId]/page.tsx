@@ -1,13 +1,12 @@
 import { getPostById } from '@/src/actions/posts';
 import ErrorMessage from '@/src/components/ErrorMessage';
-import { hasError } from '@/src/lib/hasError';
+import { hasError } from '@/src/lib/response';
 import { SpinnerCircular } from 'spinners-react';
 import MDViewer from '@/src/components/MDViewer';
 import PostActions from './PostActions';
 import { getRequestRole, getUserFromSession } from '@/src/actions/user';
 import { redirect } from 'next/navigation';
 import { PostInterface } from '@/src/models/Post';
-import { revalidatePath } from 'next/cache';
 
 interface PageProps {
   params: { postId: PostInterface['_id'] };

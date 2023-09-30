@@ -1,6 +1,6 @@
 import { getUserById } from '@/src/actions/user';
 import ErrorMessage from '@/src/components/ErrorMessage';
-import { hasError } from '@/src/lib/hasError';
+import { hasError } from '@/src/lib/response';
 import { UserInterface } from '@/src/models/User';
 
 interface PageProps {

@@ -8,7 +8,7 @@ import { PostData, postSchema } from '@/src/actions/validations/posts';
 import MDInput from '@/src/components/MDInput';
 import { createPost, updatePostById } from '@/src/actions/posts';
 import { useState, useTransition } from 'react';
-import { hasError } from '@/src/lib/hasError';
+import { hasError } from '@/src/lib/response';
 import { Label } from '../Label';
 import CreatableSelect from 'react-select/creatable';
 import { PostInterface } from '@/src/models/Post';
