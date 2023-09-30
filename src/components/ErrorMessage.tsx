@@ -5,7 +5,7 @@ function ErrorMessage({ message, className }: { message: string; className?: str
     <div>
       <div
         className={classNames(
-          'px-2 py-1 rounded-sm border-l-4 border-red-400 rounded-l-none bg-[#364150] text-gray-200 rounded-l-0 w-full h-auto',
+          'px-2 py-1 rounded-md border-l-2 border-red-400 bg-red-400 bg-opacity-20 text-opacity-100 text-white rounded-l-none w-full h-auto',
           className,
         )}
       >
