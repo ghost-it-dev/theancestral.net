@@ -5,7 +5,7 @@ import moment from 'moment';
 import getActivityActionText from '@/src/lib/getActivityActionText';
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const postActivity = await getAllPostActivity({ limit: 5 });
+  const postActivity = await getAllPostActivity({ pageNumber: 1, pageSize: 5 });
 
   return (
     <>
