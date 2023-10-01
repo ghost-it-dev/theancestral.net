@@ -1,13 +1,18 @@
 import Button from '@/src/components/Button';
 import removeMD from '@/src/lib/removeMD';
-import { DocumentIcon } from '@heroicons/react/24/outline';
 import moment from 'moment';
 import Link from 'next/link';
 import { SpinnerCircular } from 'spinners-react';
 import { getPosts } from '@/src/actions/posts';
+import { DocumentIcon } from '@heroicons/react/24/outline';
+import Pagination from '@/src/components/Pagination';
 
-export default async function Page() {
-  const data = await getPosts(1, 5);
+export default async function Page({ searchParams }: { searchParams: { [key: string]: string | undefined } }) {
+  const page = searchParams.page ? parseInt(searchParams.page) : 1;
+  const pageSize = 1;
+  const data = await getPosts(page, pageSize);
+  const totalPages = Math.ceil(data.totalCount / pageSize);
+
   return (
     <div className="bg-[#101826] lg:min-w-0 lg:flex-1 h-full">
       <div className="border-b border-t border-[#1F2C37] py-4 pb-4 px-4 xl:border-t-0 xl:pt-6 h-[105px] flex items-center justify-between">
@@ -51,16 +56,20 @@ export default async function Page() {
           ))}
         </div>
       ) : (
-        <>
+        <div className="w-full flex items-center flex-col p-4 lg:p-12 gap-2">
           {data.totalCount === 0 ? (
-            <div className="w-full flex items-center flex-col p-4 lg:p-12 gap-2">
+            <>
               <DocumentIcon className="h-16 w-16 text-gray-400" />
               <p className="text-gray-300 text-lg">No posts found.</p>
-            </div>
+            </>
           ) : (
             <SpinnerCircular size={75} thickness={150} secondaryColor="rgba(0, 0, 0, .2)" color="#fff" />
           )}
-        </>
+        </div>
+      )}
+
+      {totalPages > 1 && (
+        <Pagination currentPage={page} totalPages={totalPages} />
       )}
     </div>
   );
