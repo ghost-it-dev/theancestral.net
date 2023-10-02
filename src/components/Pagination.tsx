@@ -7,15 +7,18 @@ interface PaginationProps {
 	totalPages: number;
 }
 
-// Add ellpsis to pagination eventually
 const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages }) => {
 	const renderPaginationLinks = () => {
 		const links = [];
+		const startPage = currentPage > 1 ? currentPage - 1 : 1;
+		const endPage = currentPage < totalPages - 1 ? currentPage + 1 : totalPages;
 
-		for (let i = 1; i <= totalPages; i++) {
+		for (let i = startPage; i <= endPage; i++) {
 			links.push(
 				<Link key={i} href={`/?page=${i}`}>
-					<Button disabled={currentPage == i} size="pagination" variant="gray" className='select-none'>{i}</Button>
+					<Button disabled={currentPage === i} size="pagination" variant="gray" className="select-none">
+						{i}
+					</Button>
 				</Link>
 			);
 		}
