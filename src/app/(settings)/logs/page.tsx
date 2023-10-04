@@ -21,7 +21,7 @@ export default async function Page({
       <div className="space-y-6 sm:px-6 lg:col-span-9 lg:px-0">
         <Section title="View Logs" description="Access logs and track activity across all posts">
           {postActivity.map(activity => (
-            <div className="text-white">{activity._id.toString()}</div>
+            <div key={activity._id.toString()} className="text-white">{activity._id.toString()}</div>
           ))}
         </Section>
         <Link

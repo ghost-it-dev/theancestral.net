@@ -2,8 +2,7 @@
 const nextConfig = {
   experimental: {
     serverActions: true,
-    esmExternals: 'loose',
-    typedRoutes: true,
+    esmExternals: 'loose'
   },
   images: {
     remotePatterns: [
