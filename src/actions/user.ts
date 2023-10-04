@@ -33,7 +33,10 @@ async function getRequestRole(): Promise<UserInterface['role'] | 'guest'> {
   return user?.role || 'guest';
 }
 
-async function updatePassword(data: UpdatePasswordData, _id: UserInterface['_id']): Promise<{ error?: string; message?: string }> {
+async function updatePassword(
+  data: UpdatePasswordData,
+  _id: UserInterface['_id'],
+): Promise<{ error?: string; message?: string }> {
   dbConnect();
   const user = await User.findById(_id);
   if (!user) return { error: 'You must be logged in to change your password' };
@@ -86,11 +89,4 @@ async function createUser(data: UserCreateData): Promise<{ message?: string; err
   return { message: 'User succesfully created' };
 }
 
-export {
-  getUserFromSession,
-  createUser,
-  getUserById,
-  deleteUserById,
-  getRequestRole,
-  updatePassword
-};
+export { getUserFromSession, createUser, getUserById, deleteUserById, getRequestRole, updatePassword };

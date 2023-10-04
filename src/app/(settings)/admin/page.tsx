@@ -11,7 +11,10 @@ export default async function Page() {
   return (
     <>
       <div className="space-y-6 sm:px-6 lg:col-span-9 lg:px-0">
-        <Section title="Manage Posts" description="Oversee posts across all users, with capabilities to delete and modify posts.">
+        <Section
+          title="Manage Posts"
+          description="Oversee posts across all users, with capabilities to delete and modify posts."
+        >
           {/* Table here */}
         </Section>
         <Section title="Manage Users" description="Add, modify, or remove users.">

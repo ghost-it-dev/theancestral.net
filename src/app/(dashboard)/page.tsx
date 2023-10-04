@@ -9,7 +9,7 @@ import Pagination from '@/src/components/Pagination';
 
 export default async function Page({ searchParams }: { searchParams: { [key: string]: string | undefined } }) {
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
-  const pageSize = 1;
+  const pageSize = 15;
   const data = await getPosts(page, pageSize);
   const totalPages = Math.ceil(data.totalCount / pageSize);
 
@@ -67,10 +67,7 @@ export default async function Page({ searchParams }: { searchParams: { [key: str
           )}
         </div>
       )}
-
-      {totalPages > 1 && (
-        <Pagination currentPage={page} totalPages={totalPages} />
-      )}
+      {totalPages > 1 && <Pagination currentPage={page} totalPages={totalPages} />}
     </div>
   );
 }

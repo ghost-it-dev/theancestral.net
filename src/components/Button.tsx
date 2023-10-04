@@ -16,7 +16,7 @@ const buttonStyles = cva(
       size: {
         normal: 'px-4 py-2 text-sm rounded-md',
         square: 'p-2 text-xs rounded',
-        pagination: 'h-8 w-8 flex items-center justify-center rounded'
+        pagination: 'h-8 w-8 flex items-center justify-center rounded',
       },
       isLoading: {
         true: `text-transparent cursor-not-allowed`,
@@ -29,7 +29,7 @@ const buttonStyles = cva(
   },
 );
 
-interface Props extends ButtonOrLinkProps, VariantProps<typeof buttonStyles> { }
+interface Props extends ButtonOrLinkProps, VariantProps<typeof buttonStyles> {}
 
 const Button: React.FC<Props> = ({ variant, size, isLoading, className, ...props }) => {
   return (

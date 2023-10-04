@@ -39,7 +39,8 @@ export default async function DashboardLayout({ children }: { children: React.Re
                             <p className="text-sm text-gray-300">{moment(activity.createdAt).fromNow()}</p>
                           </div>
                           <p className="text-sm text-gray-300">
-                            {getActivityActionText(activity.action)} post <span className="text-indigo-400 font-bold cursor-pointer">{activity.postTitle}</span>
+                            {getActivityActionText(activity.action)} post{' '}
+                            <span className="text-indigo-400 font-bold cursor-pointer">{activity.postTitle}</span>
                           </p>
                         </div>
                       </div>
@@ -53,4 +54,4 @@ export default async function DashboardLayout({ children }: { children: React.Re
       </div>
     </>
   );
-};
+}

@@ -9,14 +9,16 @@ const userCreateSchema = z.object({
 });
 type UserCreateData = z.infer<typeof userCreateSchema>;
 
-const updatePasswordSchema = z.object({
-  currentPassword: z.string().nonempty('Current password is required'),
-  newPassword: z.string().nonempty('New password is required'),
-  confirmNewPassword: z.string().nonempty('Confirm new password is required'),
-}).refine(({ newPassword, confirmNewPassword }) => newPassword === confirmNewPassword, {
-  message: "Passwords don't match",
-  path: ['confirmNewPassword'],
-});
+const updatePasswordSchema = z
+  .object({
+    currentPassword: z.string().nonempty('Current password is required'),
+    newPassword: z.string().nonempty('New password is required'),
+    confirmNewPassword: z.string().nonempty('Confirm new password is required'),
+  })
+  .refine(({ newPassword, confirmNewPassword }) => newPassword === confirmNewPassword, {
+    message: "Passwords don't match",
+    path: ['confirmNewPassword'],
+  });
 
 type UpdatePasswordData = z.infer<typeof updatePasswordSchema>;
 

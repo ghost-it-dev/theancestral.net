@@ -36,8 +36,8 @@ function AuthModal({ open, setOpen }: { open: boolean; setOpen: React.Dispatch<R
       {error && <ErrorMessage className="mb-2" message={error} />}
       <span className="text-white text-xl font-semibold">Log In</span>
       <form onSubmit={handleLogin} className="flex flex-col gap-2 mt-2">
-        <Input label="Email" error={errors.email} {...register("email")} type="email" />
-        <Input label="Password" error={errors.password} {...register("password")} type="password" />
+        <Input label="Email" error={errors.email} {...register('email')} type="email" />
+        <Input label="Password" error={errors.password} {...register('password')} type="password" />
         <Button type="submit" disabled={isPending}>
           Log In
         </Button>

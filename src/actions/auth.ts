@@ -28,7 +28,7 @@ async function login(data: LoginFormData) {
   const session = await Session.create({
     userID: user._id,
     expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30), // Add 30 days to the current date
-    userAgent: headers().get('user-agent')
+    userAgent: headers().get('user-agent'),
   });
 
   await session.save();
@@ -44,7 +44,8 @@ async function login(data: LoginFormData) {
 }
 
 async function logout() {
-  if (!cookies().get('session') || cookies().get('session')?.value === '') return { message: 'Successfully logged out' };
+  if (!cookies().get('session') || cookies().get('session')?.value === '')
+    return { message: 'Successfully logged out' };
 
   dbConnect();
   await Session.findByIdAndDelete(cookies().get('session')?.value);

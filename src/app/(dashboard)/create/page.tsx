@@ -7,7 +7,7 @@ async function Page() {
   const tags = await getTags();
   const user = await getUserFromSession();
 
-  if (!user || user?.role !== 'admin') redirect('/')
+  if (!user || user?.role !== 'admin') redirect('/');
 
   return (
     <div className="bg-[#101826] lg:min-w-0 lg:flex-1">
