@@ -38,7 +38,7 @@ async function Page({ params }: PageProps) {
                 <div className="flex justify-between items-center">
                   <p className="text-gray-400 text-sm">Posted by {post.authorName}</p>
                   <div className="mt-1 flex flex-row gap-1">
-                    {post.tags.map(tag => (
+                    {post.tags.slice(0, 3).map(tag => (
                       <span
                         key={tag}
                         className="flex items-center px-1.5 py-0.5 rounded-[4px] text-xs font-bold bg-[#1E2936] text-gray-300 group-hover:bg-[#101826] transition-colors"
@@ -46,6 +46,11 @@ async function Page({ params }: PageProps) {
                         {tag}
                       </span>
                     ))}
+                    {post.tags.length > 3 && (
+                      <span className="flex items-center px-1.5 py-0.5 rounded-[4px] text-xs font-bold bg-[#1E2936] text-gray-300 group-hover:bg-[#101826] transition-colors">
+                        +{post.tags.length - 3}
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
