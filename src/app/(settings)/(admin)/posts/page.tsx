@@ -4,7 +4,6 @@ import { redirect } from 'next/navigation';
 
 export default async function Page() {
   const user = await getUserFromSession();
-  // const pfp = await getProfilePicture();
 
   if (!user) redirect('/');
 
@@ -15,9 +14,6 @@ export default async function Page() {
           title="Manage Posts"
           description="Oversee posts across all users, with capabilities to delete and modify posts."
         >
-          {/* Table here */}
-        </Section>
-        <Section title="Manage Users" description="Add, modify, or remove users.">
           {/* Table here */}
         </Section>
       </div>

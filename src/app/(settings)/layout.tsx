@@ -1,11 +1,6 @@
 import { getUserFromSession } from '@/src/actions/user';
 import Navbar from '@/src/components/Navbar/Navbar';
-import {
-  AdjustmentsHorizontalIcon,
-  CogIcon,
-  DocumentMagnifyingGlassIcon,
-  UserCircleIcon,
-} from '@heroicons/react/24/outline';
+import { DocumentMagnifyingGlassIcon, DocumentTextIcon, UserCircleIcon, UsersIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -23,16 +18,28 @@ export default async function DashboardLayout({ children }: { children: React.Re
                   {user?.role === 'admin' && (
                     <>
                       <Link
-                        href={'/admin'}
+                        href={'/users'}
                         className={
                           'group rounded-md px-3 py-2 flex items-center text-sm font-medium bg-[#1E2936] text-gray-100 hover:text-gray-300'
                         }
                       >
-                        <AdjustmentsHorizontalIcon
+                        <UsersIcon
                           className={'flex-shrink-0 mr-2 h-6 w-6 text-gray-100 group-hover:text-gray-300'}
                           aria-hidden="true"
                         />
-                        <span className="truncate">Admin Settings</span>
+                        <span className="truncate">Manage Users</span>
+                      </Link>
+                      <Link
+                        href={'/posts'}
+                        className={
+                          'group rounded-md px-3 py-2 flex items-center text-sm font-medium bg-[#1E2936] text-gray-100 hover:text-gray-300'
+                        }
+                      >
+                        <DocumentTextIcon
+                          className={'flex-shrink-0 mr-2 h-6 w-6 text-gray-100 group-hover:text-gray-300'}
+                          aria-hidden="true"
+                        />
+                        <span className="truncate">Manage Posts</span>
                       </Link>
                       <Link
                         href={'/logs'}

@@ -19,10 +19,10 @@ export default async function DashboardLayout({ children }: { children: React.Re
           <aside className="bg-[#101826] lg:flex-shrink-0 lg:border-l lg:border-[#1F2C37] px-4 lg:px-8 xl:pr-0">
             <div className="lg:w-80">
               <div className="pt-6 pb-2">
-                <h2 className="text-sm text-gray-200 font-semibold">Activity</h2>
+                <h2 className="text-sm text-gray-200 font-semibold select-none">Activity</h2>
               </div>
               <div>
-                <ul role="list" className="divide-y divide-[#1F2C37] list-none">
+                <ul role="list" className="divide-y divide-[#1F2C37] list-none select-none">
                   {postActivity.map(activity => (
                     <li key={activity._id.toString()} className="py-4">
                       <div className="flex space-x-3">
@@ -40,7 +40,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
                           </div>
                           <p className="text-sm text-gray-300">
                             {getActivityActionText(activity.action)} post{' '}
-                            <span className="text-indigo-400 font-bold cursor-pointer">{activity.postTitle}</span>
+                            <span className="text-indigo-400 font-bold">{activity.postTitle}</span>
                           </p>
                         </div>
                       </div>

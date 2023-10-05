@@ -1,7 +1,7 @@
 'use client';
 import Button from '@/src/components/Button';
 import { UserInterface } from '@/src/models/User';
-import { EyeIcon, PencilIcon } from '@heroicons/react/24/outline';
+import { EyeIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 
 function ViewEmail({ user }: { user: Omit<UserInterface, 'password'> }) {

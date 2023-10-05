@@ -10,7 +10,13 @@ import Modal from '../Modal';
 import Input from '../Input';
 import ErrorMessage from '../ErrorMessage';
 
-function AuthModal({ open, setOpen }: { open: boolean; setOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
+function AuthModal({
+  isOpen,
+  setIsOpen,
+}: {
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<null | string>(null);
   const {
@@ -26,13 +32,13 @@ function AuthModal({ open, setOpen }: { open: boolean; setOpen: React.Dispatch<R
         if (hasError(res)) return setError(res.error);
 
         reset();
-        setOpen(false);
+        setIsOpen(false);
       });
     });
   });
 
   return (
-    <Modal isOpen={open} setIsOpen={setOpen}>
+    <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
       {error && <ErrorMessage className="mb-2" message={error} />}
       <span className="text-white text-xl font-semibold">Log In</span>
       <form onSubmit={handleLogin} className="flex flex-col gap-2 mt-2">

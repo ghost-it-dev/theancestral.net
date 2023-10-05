@@ -4,12 +4,12 @@ import moment from 'moment';
 import Link from 'next/link';
 import { SpinnerCircular } from 'spinners-react';
 import { getPosts } from '@/src/actions/posts';
-import { DocumentIcon } from '@heroicons/react/24/outline';
+import { DocumentTextIcon } from '@heroicons/react/24/outline';
 import Pagination from '@/src/components/Pagination';
 
 export default async function Page({ searchParams }: { searchParams: { [key: string]: string | undefined } }) {
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
-  const pageSize = 15;
+  const pageSize = 20;
   const data = await getPosts(page, pageSize);
   const totalPages = Math.ceil(data.totalCount / pageSize);
 
@@ -59,7 +59,7 @@ export default async function Page({ searchParams }: { searchParams: { [key: str
         <div className="w-full flex items-center flex-col p-4 lg:p-12 gap-2">
           {data.totalCount === 0 ? (
             <>
-              <DocumentIcon className="h-16 w-16 text-gray-400" />
+              <DocumentTextIcon className="h-16 w-16 text-gray-400" />
               <p className="text-gray-300 text-lg">No posts found.</p>
             </>
           ) : (
