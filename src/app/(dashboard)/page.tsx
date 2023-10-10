@@ -9,7 +9,7 @@ import Pagination from '@/src/components/Pagination';
 import { getRequestRole } from '@/src/actions/user';
 
 export default async function Page({ searchParams }: { searchParams: { [key: string]: string | undefined } }) {
-  const role = await getRequestRole();
+  const reqRole = await getRequestRole();
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
   const pageSize = 20;
   const data = await getPosts(page, pageSize);
@@ -19,7 +19,7 @@ export default async function Page({ searchParams }: { searchParams: { [key: str
     <div className="bg-[#101826] lg:min-w-0 lg:flex-1 h-full">
       <div className="border-b border-t border-[#1F2C37] py-4 pb-4 px-4 xl:border-t-0 xl:pt-6 h-[105px] flex items-center justify-between">
         <h1 className="flex-1 text-gray-200 text-2xl font-medium">All Posts</h1>
-        {!(role === 'guest') && (
+        {!(reqRole === 'guest') && (
           <Button href={'/create'}>Create Post</Button>
         )}
       </div>

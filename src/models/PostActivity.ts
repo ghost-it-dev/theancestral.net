@@ -7,6 +7,7 @@ export interface PostActivityInterface {
   postId: Types.ObjectId;
   postTitle: PostInterface['title'];
   username: UserInterface['username'];
+  publicPost: boolean;
   createdAt: Date;
   updatedAt: Date;
   _id: Types.ObjectId;
@@ -18,6 +19,7 @@ const postActivitySchema = new Schema<PostActivityInterface>(
     postTitle: { type: String, required: true },
     postId: { type: Schema.Types.ObjectId, ref: 'Post', required: true },
     username: { type: String, required: true },
+    publicPost: { type: Boolean, required: true }
   },
   { versionKey: false, timestamps: true, collection: 'postActivity' },
 );
