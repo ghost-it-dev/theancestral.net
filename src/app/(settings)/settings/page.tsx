@@ -12,7 +12,7 @@ export default async function Page() {
 
   return (
     <>
-      <div className="space-y-6 sm:px-6 lg:col-span-9 lg:px-0">
+      <div className="space-y-6 lg:col-span-9 px-0">
         <Section title="Account Details" description="View email and change password for your account.">
           <div className="w-full p-3 flex justify-between items-center rounded-md bg-transparent border border-[#1F2C37] shadow-md">
             <div className="flex flex-row gap-2">

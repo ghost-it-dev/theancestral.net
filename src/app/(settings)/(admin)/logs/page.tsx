@@ -1,38 +1,58 @@
 import { getAllPostActivity } from '@/src/actions/activity';
 import { getUserFromSession } from '@/src/actions/user';
+import Section from '@/src/components/Section';
+import getActivityActionText from '@/src/lib/getActivityActionText';
+import { ClipboardIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/20/solid';
+import classNames from 'classnames';
+import moment from 'moment';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
+export default async function Page() {
   const user = await getUserFromSession();
-  const page = searchParams.page ? parseInt(searchParams.page as string) : 1;
-  const postActivity = await getAllPostActivity({ pageNumber: page, pageSize: 5 });
+  const activity = await getAllPostActivity({ pageNumber: 1, pageSize: 10 });
 
   if (!user) redirect('/');
 
   return (
     <>
-      <div className="space-y-6 sm:px-6 lg:col-span-9 lg:px-0">
-        <table>
-          <tr>
-            <th>Company</th>
-            <th>Contact</th>
-            <th>Country</th>
-          </tr>
-          <tr>
-            <td>Alfreds Futterkiste</td>
-            <td>Maria Anders</td>
-            <td>Germany</td>
-          </tr>
-          <tr>
-            <td>Centro comercial Moctezuma</td>
-            <td>Francisco Chang</td>
-            <td>Mexico</td>
-          </tr>
-        </table>
+      <div className="space-y-6 lg:col-span-9 px-0">
+        <Section title="Account Details" description="View email and change password for your account.">
+          <table className="min-w-full divide-y rounded-md divide-[#fff]">
+            <thead className="bg-[#1E2936]">
+              <tr>
+                <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-200">
+                  Username
+                </th>
+                <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-200">
+                  Action
+                </th>
+                <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-200">
+                  Post
+                </th>
+                <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-200">
+                  Date
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-[#1F2C37] bg-[#1E2936]">
+              {activity.map((item) => (
+                <tr>
+                  <td className="w-auto max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-200">
+                    {item.username}
+                  </td>
+                  <td className='px-3 py-4 text-sm text-gray-200'>
+                    {getActivityActionText(item.action)}
+                  </td>
+                  <td className="px-3 py-4 text-sm text-indigo-400 font-bold">
+                    <Link href={`/post/${item.postId}`}>{item.postTitle}</Link>
+                  </td>
+                  <td className="px-3 py-4 text-sm text-gray-200">{moment(item.createdAt).format('L')}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </Section>
       </div>
     </>
   );
