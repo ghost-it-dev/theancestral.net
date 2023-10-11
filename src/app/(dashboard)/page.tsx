@@ -3,7 +3,7 @@ import removeMD from '@/src/lib/removeMD';
 import moment from 'moment';
 import Link from 'next/link';
 import { SpinnerCircular } from 'spinners-react';
-import { getPosts } from '@/src/actions/posts';
+import { getPosts } from '@/src/actions/post';
 import { DocumentTextIcon } from '@heroicons/react/24/outline';
 import Pagination from '@/src/components/Pagination';
 import { getRequestRole } from '@/src/actions/user';

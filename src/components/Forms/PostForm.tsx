@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useController, useForm } from 'react-hook-form';
 import { PostData, postSchema } from '@/src/actions/validations/posts';
 import MDInput from '@/src/components/MDInput';
-import { createPost, updatePostById } from '@/src/actions/posts';
+import { createPost, updatePostById } from '@/src/actions/post';
 import { useState, useTransition } from 'react';
 import { hasError } from '@/src/lib/response';
 import { Label } from '../Label';

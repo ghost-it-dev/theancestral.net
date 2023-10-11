@@ -1,5 +1,5 @@
 'use client';
-import { deletePostById } from '@/src/actions/posts';
+import { deletePostById } from '@/src/actions/post';
 import Button from '@/src/components/Button';
 import ErrorMessage from '@/src/components/ErrorMessage';
 import Modal from '@/src/components/Modal';

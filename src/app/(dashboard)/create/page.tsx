@@ -1,4 +1,4 @@
-import { getTags } from '@/src/actions/posts';
+import { getTags } from '@/src/actions/post';
 import { getUserFromSession } from '@/src/actions/user';
 import PostForm from '@/src/components/Forms/PostForm';
 import { redirect } from 'next/navigation';

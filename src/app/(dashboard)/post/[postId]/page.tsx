@@ -1,4 +1,4 @@
-import { getPostById } from '@/src/actions/posts';
+import { getPostById } from '@/src/actions/post';
 import ErrorMessage from '@/src/components/ErrorMessage';
 import { hasError } from '@/src/lib/response';
 import { SpinnerCircular } from 'spinners-react';
