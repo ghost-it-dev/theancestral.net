@@ -16,14 +16,14 @@ function NavbarButtons({ user }: { user: Omit<UserInterface, 'password'> | null 
     <>
       <AuthModal isOpen={authOpen} setIsOpen={setAuthOpen} />
       <Modal isOpen={searchOpen} setIsOpen={setSearchOpen}>
-        <span className="text-white text-xl font-semibold">Search for a user or post</span>
+        <span className='text-white text-xl font-semibold'>Search for a user or post</span>
       </Modal>
-      <div className="flex flex-row gap-3">
-        <div className="p-2 cursor-pointer flex items-center justify-center rounded-full bg-[#364150] hover:bg-[#465160] transition-all ease-linear">
+      <div className='flex flex-row gap-3'>
+        <div className='p-2 cursor-pointer flex items-center justify-center rounded-full bg-[#364150] hover:bg-[#465160] transition-all ease-linear'>
           <MagnifyingGlassIcon
             onClick={() => setSearchOpen(!searchOpen)}
-            className="h-5 w-5 text-gray-200"
-            aria-hidden="true"
+            className='h-5 w-5 text-gray-200'
+            aria-hidden='true'
           />
         </div>
         {user ? (

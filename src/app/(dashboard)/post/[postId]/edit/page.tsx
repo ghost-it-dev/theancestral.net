@@ -22,7 +22,7 @@ async function Page({ params }: PageProps) {
   if (!user || user?.role !== 'admin' || user?._id !== post.authorId) redirect('/');
 
   return (
-    <div className="bg-[#101826] lg:min-w-0 lg:flex-1">
+    <div className='bg-[#101826] lg:min-w-0 lg:flex-1'>
       <PostForm tags={tags} isEditing={true} post={post} />
     </div>
   );

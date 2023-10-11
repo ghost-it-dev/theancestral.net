@@ -8,13 +8,13 @@ export default async function DashboardLayout({ children }: { children: React.Re
 
   return (
     <>
-      <div className="relative flex min-h-[100vh] flex-col">
+      <div className='relative flex min-h-[100vh] flex-col'>
         <Navbar />
-        <main className="mx-auto w-full max-w-7xl flex-grow flex px-4 xl:px-8 py-6">
-          <div className="lg:grid lg:grid-cols-12 lg:gap-x-5 w-full">
-            <aside className="lg:col-span-3">
-              <nav className="space-y-2">
-                <div className="space-y-1 border-b-2 border-[#1E2936] pb-2">
+        <main className='mx-auto w-full max-w-7xl flex-grow flex px-4 xl:px-8 py-6'>
+          <div className='lg:grid lg:grid-cols-12 lg:gap-x-5 w-full'>
+            <aside className='lg:col-span-3'>
+              <nav className='space-y-2'>
+                <div className='space-y-1 border-b-2 border-[#1E2936] pb-2'>
                   {user?.role === 'admin' && (
                     <>
                       <Link
@@ -25,9 +25,9 @@ export default async function DashboardLayout({ children }: { children: React.Re
                       >
                         <UsersIcon
                           className={'flex-shrink-0 mr-2 h-6 w-6 text-gray-100 group-hover:text-gray-300'}
-                          aria-hidden="true"
+                          aria-hidden='true'
                         />
-                        <span className="truncate">Manage Users</span>
+                        <span className='truncate'>Manage Users</span>
                       </Link>
                       <Link
                         href={'/posts'}
@@ -37,9 +37,9 @@ export default async function DashboardLayout({ children }: { children: React.Re
                       >
                         <DocumentTextIcon
                           className={'flex-shrink-0 mr-2 h-6 w-6 text-gray-100 group-hover:text-gray-300'}
-                          aria-hidden="true"
+                          aria-hidden='true'
                         />
-                        <span className="truncate">Manage Posts</span>
+                        <span className='truncate'>Manage Posts</span>
                       </Link>
                       <Link
                         href={'/logs'}
@@ -49,15 +49,15 @@ export default async function DashboardLayout({ children }: { children: React.Re
                       >
                         <DocumentMagnifyingGlassIcon
                           className={'flex-shrink-0 mr-2 h-6 w-6 text-gray-100 group-hover:text-gray-300'}
-                          aria-hidden="true"
+                          aria-hidden='true'
                         />
-                        <span className="truncate">Logs</span>
+                        <span className='truncate'>Logs</span>
                       </Link>
                     </>
                   )}
                 </div>
 
-                <div className="space-y-1">
+                <div className='space-y-1'>
                   <Link
                     href={'/settings'}
                     className={
@@ -66,9 +66,9 @@ export default async function DashboardLayout({ children }: { children: React.Re
                   >
                     <UserCircleIcon
                       className={'flex-shrink-0 mr-2 h-6 w-6 text-gray-100 group-hover:text-gray-300'}
-                      aria-hidden="true"
+                      aria-hidden='true'
                     />
-                    <span className="truncate">Account Settings</span>
+                    <span className='truncate'>Account Settings</span>
                   </Link>
                 </div>
               </nav>

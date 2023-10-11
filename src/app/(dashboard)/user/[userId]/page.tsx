@@ -14,7 +14,7 @@ async function Page({ params }: PageProps) {
     return <ErrorMessage message={user.error} />;
   }
 
-  return <div className="bg-[#101826] lg:min-w-0 lg:flex-1">{user.name}</div>;
+  return <div className='bg-[#101826] lg:min-w-0 lg:flex-1'>{user.name}</div>;
 }
 
 export default Page;

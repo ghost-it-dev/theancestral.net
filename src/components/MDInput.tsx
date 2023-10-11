@@ -12,7 +12,7 @@ interface MDInputProps {
 function MDInput({ descriptionField, error }: MDInputProps) {
   return (
     <>
-      <Label className="mb-1" label={'Description'} />
+      <Label className='mb-1' label={'Description'} />
       <MDEditor
         value={descriptionField.value}
         onChange={descriptionField.onChange}
@@ -21,7 +21,7 @@ function MDInput({ descriptionField, error }: MDInputProps) {
           rehypePlugins: [rehypeSanitize],
         }}
       />
-      <p className="text-xs text-red-200 mt-0.5">{error?.message}</p>
+      <p className='text-xs text-red-200 mt-0.5'>{error?.message}</p>
     </>
   );
 }

@@ -16,7 +16,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages }) => {
     for (let i = startPage; i <= endPage; i++) {
       links.push(
         <Link key={i} href={`/?page=${i}`}>
-          <Button disabled={currentPage === i} size="pagination" variant="gray" className="select-none">
+          <Button disabled={currentPage === i} size='pagination' variant='gray' className='select-none'>
             {i}
           </Button>
         </Link>,
@@ -27,19 +27,19 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages }) => {
   };
 
   return (
-    <div className="flex justify-center my-5 gap-1">
+    <div className='flex justify-center my-5 gap-1'>
       {currentPage > 1 && (
         <Link href={`/?page=${currentPage - 1}`}>
-          <Button size="pagination" variant="gray" className="select-none">
-            <ChevronLeftIcon className="h-5 w-5" />
+          <Button size='pagination' variant='gray' className='select-none'>
+            <ChevronLeftIcon className='h-5 w-5' />
           </Button>
         </Link>
       )}
       {renderPaginationLinks()}
       {currentPage < totalPages && (
         <Link href={`/?page=${currentPage + 1}`}>
-          <Button size="pagination" variant="gray" className="select-none">
-            <ChevronRightIcon className="h-5 w-5" />
+          <Button size='pagination' variant='gray' className='select-none'>
+            <ChevronRightIcon className='h-5 w-5' />
           </Button>
         </Link>
       )}
