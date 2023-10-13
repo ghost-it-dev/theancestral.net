@@ -68,7 +68,7 @@ async function createPost(data: PostData): Promise<PostInterface | { error: stri
     postId: post._id,
     postTitle: post.title,
     username: user.username,
-    publicPost: post.publicPost
+    publicPost: post.publicPost,
   });
 
   revalidatePath('/');
@@ -103,7 +103,7 @@ async function updatePostById(data: PostData, _id: PostInterface['_id']): Promis
     postId: post._id,
     postTitle: post.title,
     username: user.username,
-    publicPost: post.publicPost
+    publicPost: post.publicPost,
   });
 
   revalidatePath(`/post/${post._id}`);
@@ -128,7 +128,7 @@ async function deletePostById(_id: PostInterface['_id']): Promise<{ error?: stri
     postId: post._id,
     postTitle: post.title,
     username: user.username,
-    publicPost: post.publicPost
+    publicPost: post.publicPost,
   });
 
   await Post.findByIdAndDelete(_id);
