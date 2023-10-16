@@ -36,7 +36,7 @@ const Button: React.FC<Props> = ({ variant, size, isLoading, className, ...props
     <>
       {isLoading ? (
         <ButtonOrLink className={classNames(buttonStyles({ variant, size, isLoading }), className)} {...props}>
-          <div className='flex justify-center items-center w-full h-full left-0 top-0'>
+          <div className='left-0 top-0 flex h-full w-full items-center justify-center'>
             <SpinnerCircular size={20} thickness={200} secondaryColor='rgba(0, 0, 0, .2)' color='#fff' />
           </div>
         </ButtonOrLink>

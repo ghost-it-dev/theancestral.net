@@ -9,7 +9,7 @@ export default async function Page() {
 
   return (
     <>
-      <div className='space-y-6 lg:col-span-9 px-0'>
+      <div className='space-y-6 px-0 lg:col-span-9'>
         <Section
           title='Manage Posts'
           description='Oversee posts across all users, with capabilities to delete and modify posts.'

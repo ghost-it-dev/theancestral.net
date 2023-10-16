@@ -10,8 +10,8 @@ export default async function DashboardLayout({ children }: { children: React.Re
     <>
       <div className='relative flex min-h-[100vh] flex-col'>
         <Navbar />
-        <main className='mx-auto w-full max-w-7xl flex-grow flex px-4 xl:px-8 py-6'>
-          <div className='lg:grid lg:grid-cols-12 lg:gap-x-5 w-full'>
+        <main className='mx-auto flex w-full max-w-7xl flex-grow px-4 py-6 xl:px-8'>
+          <div className='w-full lg:grid lg:grid-cols-12 lg:gap-x-5'>
             <aside className='lg:col-span-3'>
               <nav className='space-y-2'>
                 <div className='space-y-1 border-b-2 border-[#1E2936] pb-2'>
@@ -20,11 +20,11 @@ export default async function DashboardLayout({ children }: { children: React.Re
                       <Link
                         href={'/users'}
                         className={
-                          'group rounded-md px-3 py-2 flex items-center text-sm font-medium bg-[#1E2936] text-gray-100 hover:text-gray-300'
+                          'group flex items-center rounded-md bg-[#1E2936] px-3 py-2 text-sm font-medium text-gray-100 hover:text-gray-300'
                         }
                       >
                         <UsersIcon
-                          className={'flex-shrink-0 mr-2 h-6 w-6 text-gray-100 group-hover:text-gray-300'}
+                          className={'mr-2 h-6 w-6 flex-shrink-0 text-gray-100 group-hover:text-gray-300'}
                           aria-hidden='true'
                         />
                         <span className='truncate'>Manage Users</span>
@@ -32,11 +32,11 @@ export default async function DashboardLayout({ children }: { children: React.Re
                       <Link
                         href={'/posts'}
                         className={
-                          'group rounded-md px-3 py-2 flex items-center text-sm font-medium bg-[#1E2936] text-gray-100 hover:text-gray-300'
+                          'group flex items-center rounded-md bg-[#1E2936] px-3 py-2 text-sm font-medium text-gray-100 hover:text-gray-300'
                         }
                       >
                         <DocumentTextIcon
-                          className={'flex-shrink-0 mr-2 h-6 w-6 text-gray-100 group-hover:text-gray-300'}
+                          className={'mr-2 h-6 w-6 flex-shrink-0 text-gray-100 group-hover:text-gray-300'}
                           aria-hidden='true'
                         />
                         <span className='truncate'>Manage Posts</span>
@@ -44,11 +44,11 @@ export default async function DashboardLayout({ children }: { children: React.Re
                       <Link
                         href={'/logs'}
                         className={
-                          'group rounded-md px-3 py-2 flex items-center text-sm font-medium bg-[#1E2936] text-gray-100 hover:text-gray-300'
+                          'group flex items-center rounded-md bg-[#1E2936] px-3 py-2 text-sm font-medium text-gray-100 hover:text-gray-300'
                         }
                       >
                         <DocumentMagnifyingGlassIcon
-                          className={'flex-shrink-0 mr-2 h-6 w-6 text-gray-100 group-hover:text-gray-300'}
+                          className={'mr-2 h-6 w-6 flex-shrink-0 text-gray-100 group-hover:text-gray-300'}
                           aria-hidden='true'
                         />
                         <span className='truncate'>Logs</span>
@@ -61,11 +61,11 @@ export default async function DashboardLayout({ children }: { children: React.Re
                   <Link
                     href={'/settings'}
                     className={
-                      'group rounded-md px-3 py-2 flex items-center text-sm font-medium bg-[#1E2936] text-gray-100 hover:text-gray-300'
+                      'group flex items-center rounded-md bg-[#1E2936] px-3 py-2 text-sm font-medium text-gray-100 hover:text-gray-300'
                     }
                   >
                     <UserCircleIcon
-                      className={'flex-shrink-0 mr-2 h-6 w-6 text-gray-100 group-hover:text-gray-300'}
+                      className={'mr-2 h-6 w-6 flex-shrink-0 text-gray-100 group-hover:text-gray-300'}
                       aria-hidden='true'
                     />
                     <span className='truncate'>Account Settings</span>

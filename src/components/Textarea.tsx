@@ -14,14 +14,14 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextAreaProps>(({ label, ...pro
           <textarea
             ref={ref}
             {...props}
-            className='block w-full rounded-md border-2 border-transparent bg-[#364150] py-2 px-3 leading-5 text-gray-300 placeholder-gray-300 sm:text-sm ring-0 outline-none focus:ring-0 active:border-indigo-600 focus:border-indigo-600 resize-none'
+            className='block w-full resize-none rounded-md border-2 border-transparent bg-[#364150] px-3 py-2 leading-5 text-gray-300 placeholder-gray-300 outline-none ring-0 focus:border-indigo-600 focus:ring-0 active:border-indigo-600 sm:text-sm'
           />
         </Label>
       ) : (
         <textarea
           ref={ref}
           {...props}
-          className='block w-full rounded-md border-2 border-transparent bg-[#364150] py-2 px-3 leading-5 text-gray-300 placeholder-gray-300 sm:text-sm ring-0 outline-none focus:ring-0 active:border-indigo-600 focus:border-indigo-600 resize-none'
+          className='block w-full resize-none rounded-md border-2 border-transparent bg-[#364150] px-3 py-2 leading-5 text-gray-300 placeholder-gray-300 outline-none ring-0 focus:border-indigo-600 focus:ring-0 active:border-indigo-600 sm:text-sm'
         />
       )}
     </>

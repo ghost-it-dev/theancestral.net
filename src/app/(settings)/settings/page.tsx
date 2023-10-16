@@ -12,27 +12,27 @@ export default async function Page() {
 
   return (
     <>
-      <div className='space-y-6 lg:col-span-9 px-0'>
+      <div className='space-y-6 px-0 lg:col-span-9'>
         <Section title='Account Details' description='View email and change password for your account.'>
-          <div className='w-full p-3 flex justify-between items-center rounded-md bg-transparent border border-[#1F2C37] shadow-md'>
+          <div className='flex w-full items-center justify-between rounded-md border border-[#1F2C37] bg-transparent p-3 shadow-md'>
             <div className='flex flex-row gap-2'>
               <Image
                 height={48}
                 width={48}
-                className='rounded-full h-18 w-18'
+                className='h-18 w-18 rounded-full'
                 src={
                   'https://avatars.githubusercontent.com/u/38229170?s=400&u=b6d25af34d7cd519ee3f69a701229dfe35ace5da&v=4'
                 }
                 alt=''
               />
               <div className='flex flex-col'>
-                <span className='text-xl text-gray-100 font-medium'>{user.username}</span>
-                <span className='text-xs text-gray-300 capitalize'>{user.role}</span>
+                <span className='text-xl font-medium text-gray-100'>{user.username}</span>
+                <span className='text-xs capitalize text-gray-300'>{user.role}</span>
               </div>
             </div>
             <Button>Edit</Button>
           </div>
-          <div className='w-full p-3 flex flex-col gap-2 rounded-md bg-transparent border border-[#1F2C37] shadow-md mt-2 '>
+          <div className='mt-2 flex w-full flex-col gap-2 rounded-md border border-[#1F2C37] bg-transparent p-3 shadow-md '>
             <ViewEmail user={user} />
             <UpdatePassword user={user} />
           </div>

@@ -27,7 +27,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages }) => {
   };
 
   return (
-    <div className='flex justify-center my-5 gap-1'>
+    <div className='my-5 flex justify-center gap-1'>
       {currentPage > 1 && (
         <Link href={`/?page=${currentPage - 1}`}>
           <Button size='pagination' variant='gray' className='select-none'>

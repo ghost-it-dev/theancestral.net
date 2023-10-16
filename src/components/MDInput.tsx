@@ -21,7 +21,7 @@ function MDInput({ descriptionField, error }: MDInputProps) {
           rehypePlugins: [rehypeSanitize],
         }}
       />
-      <p className='text-xs text-red-200 mt-0.5'>{error?.message}</p>
+      <p className='mt-0.5 text-xs text-red-200'>{error?.message}</p>
     </>
   );
 }

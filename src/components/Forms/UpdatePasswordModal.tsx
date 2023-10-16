@@ -43,12 +43,12 @@ function UpdatePasswordModal({
   return (
     <Modal isOpen={open} setIsOpen={setOpen}>
       {error && <ErrorMessage className='mb-2' message={error} />}
-      <span className='text-white text-xl font-semibold'>Update Password</span>
-      <form onSubmit={handleUpdatePassword} className='flex flex-col gap-2 mt-2'>
+      <span className='text-xl font-semibold text-white'>Update Password</span>
+      <form onSubmit={handleUpdatePassword} className='mt-2 flex flex-col gap-2'>
         <Input label='Current Password' error={errors.currentPassword} {...register('currentPassword')} />
         <Input label='New Password' error={errors.newPassword} {...register('newPassword')} />
         <Input label='Confirm New Password' error={errors.confirmNewPassword} {...register('confirmNewPassword')} />
-        <Button type='submit' className='w-full mt-2'>
+        <Button type='submit' className='mt-2 w-full'>
           Update
         </Button>
       </form>

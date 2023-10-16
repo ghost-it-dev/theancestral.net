@@ -34,14 +34,14 @@ const Breadcrumbs = () => {
   });
 
   return (
-    <ol className='gap-1 flex flex-row items-center'>
+    <ol className='flex flex-row items-center gap-1'>
       {breadcrumbs.map(({ name, path }, index) => (
         <li className='flex items-center gap-1' key={path}>
           {index === breadcrumbs.length - 1 ? (
-            <span className='text-gray-100 font-semibold select-none'>{name}</span>
+            <span className='select-none font-semibold text-gray-100'>{name}</span>
           ) : index === 1 ? (
             <button
-              className='font-semibold transition-colors duration-300 text-gray-300 hover:text-gray-100 select-none'
+              className='select-none font-semibold text-gray-300 transition-colors duration-300 hover:text-gray-100'
               onClick={() => router.back()}
               key={index}
             >
@@ -49,7 +49,7 @@ const Breadcrumbs = () => {
             </button>
           ) : (
             <Link
-              className='font-semibold transition-colors duration-300 text-gray-300 hover:text-gray-100 select-none'
+              className='select-none font-semibold text-gray-300 transition-colors duration-300 hover:text-gray-100'
               href={path}
               key={index}
             >

@@ -19,39 +19,39 @@ export default async function DashboardLayout({ children }: { children: React.Re
           <main
             className={classNames(
               postActivity.length !== 0
-                ? 'min-w-0 flex-1 bg-[#101826] xl:flex lg:border-l lg:border-[#1F2C37]'
-                : 'min-w-0 flex-1 bg-[#101826] xl:flex lg:border-x lg:border-[#1F2C37]',
+                ? 'min-w-0 flex-1 bg-[#101826] lg:border-l lg:border-[#1F2C37] xl:flex'
+                : 'min-w-0 flex-1 bg-[#101826] lg:border-x lg:border-[#1F2C37] xl:flex',
             )}
           >
             {children}
           </main>
           {/* Activity feed */}
           {postActivity.length !== 0 && (
-            <aside className='bg-[#101826] lg:flex-shrink-0 lg:border-l lg:border-[#1F2C37] px-4 lg:px-8 xl:pr-0'>
+            <aside className='bg-[#101826] px-4 lg:flex-shrink-0 lg:border-l lg:border-[#1F2C37] lg:px-8 xl:pr-0'>
               <div className='lg:w-80'>
-                <div className='pt-6 pb-2'>
-                  <h2 className='text-sm text-gray-200 font-semibold select-none'>Activity</h2>
+                <div className='pb-2 pt-6'>
+                  <h2 className='select-none text-sm font-semibold text-gray-200'>Activity</h2>
                 </div>
                 <div>
-                  <ul role='list' className='divide-y divide-[#1F2C37] list-none select-none'>
+                  <ul role='list' className='select-none list-none divide-y divide-[#1F2C37]'>
                     {postActivity.map(activity => (
                       <li key={activity._id.toString()} className='py-4'>
                         <div className='flex space-x-3'>
                           <Image
                             height={24}
                             width={24}
-                            className='rounded-full h-6 w-6'
+                            className='h-6 w-6 rounded-full'
                             src='https://avatars.githubusercontent.com/u/38229170?s=400&u=b6d25af34d7cd519ee3f69a701229dfe35ace5da&v=4'
                             alt=''
                           />
                           <div className='flex-1 space-y-1'>
                             <div className='flex items-center justify-between'>
-                              <h3 className='text-sm text-gray-200 font-medium'>{activity.username}</h3>
+                              <h3 className='text-sm font-medium text-gray-200'>{activity.username}</h3>
                               <p className='text-sm text-gray-300'>{moment(activity.createdAt).fromNow()}</p>
                             </div>
                             <p className='text-sm text-gray-300'>
                               {getActivityActionText(activity.action)} post{' '}
-                              <span className='text-indigo-400 font-bold'>{activity.postTitle}</span>
+                              <span className='font-bold text-indigo-400'>{activity.postTitle}</span>
                             </p>
                           </div>
                         </div>

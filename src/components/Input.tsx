@@ -17,19 +17,19 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({ label, error, ...props
             <input
               ref={ref}
               {...props}
-              className='block font-normal w-full rounded-md border-2 border-transparent bg-[#364150] py-2 px-3 leading-5 text-gray-200 placeholder-gray-200 sm:text-sm ring-0 outline-none focus:ring-0 active:border-indigo-600 focus:border-indigo-600'
+              className='block w-full rounded-md border-2 border-transparent bg-[#364150] px-3 py-2 font-normal leading-5 text-gray-200 placeholder-gray-200 outline-none ring-0 focus:border-indigo-600 focus:ring-0 active:border-indigo-600 sm:text-sm'
             />
           </Label>
-          {error && <p className='text-xs text-red-200 mt-0.5'>{error.message}</p>}
+          {error && <p className='mt-0.5 text-xs text-red-200'>{error.message}</p>}
         </div>
       ) : (
         <div className='flex flex-col'>
           <input
             ref={ref}
             {...props}
-            className='block w-full font-normal rounded-md border-2 border-transparent bg-[#364150] py-2 px-3 leading-5 text-gray-200 placeholder-gray-200 sm:text-sm ring-0 outline-none focus:ring-0 active:border-indigo-600 focus:border-indigo-600'
+            className='block w-full rounded-md border-2 border-transparent bg-[#364150] px-3 py-2 font-normal leading-5 text-gray-200 placeholder-gray-200 outline-none ring-0 focus:border-indigo-600 focus:ring-0 active:border-indigo-600 sm:text-sm'
           />
-          {error && <p className='text-xs text-red-200 mt-0.5'>{error.message}</p>}
+          {error && <p className='mt-0.5 text-xs text-red-200'>{error.message}</p>}
         </div>
       )}
     </>
