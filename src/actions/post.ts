@@ -8,10 +8,7 @@ import { PostData } from './validations/posts';
 import { revalidatePath } from 'next/cache';
 import PostActivity from '@/src/models/PostActivity';
 
-async function getPosts(
-  pageNumber: number,
-  pageSize: number,
-): Promise<{ posts?: PostInterface[]; totalCount: number }> {
+async function getPosts({ pageNumber, pageSize }: { pageNumber: number, pageSize: number }): Promise<{ posts?: PostInterface[]; totalCount: number }> {
   dbConnect();
   await getUserFromSession();
   const reqRole = await getRequestRole();

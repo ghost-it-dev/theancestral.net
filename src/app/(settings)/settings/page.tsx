@@ -30,7 +30,7 @@ export default async function Page() {
                 <span className='text-xs capitalize text-gray-300'>{user.role}</span>
               </div>
             </div>
-            <Button>Edit</Button>
+            <Button disabled>Edit</Button>
           </div>
           <div className='mt-2 flex w-full flex-col gap-2 rounded-md border border-[#1F2C37] bg-transparent p-3 shadow-md '>
             <ViewEmail user={user} />

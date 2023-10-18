@@ -3,18 +3,13 @@ import dbConnect from '@/src/lib/dbConnection';
 import PostActivity, { PostActivityInterface } from '@/src/models/PostActivity';
 import { getRequestRole } from './user';
 
-async function getAllPostActivity({
-  pageNumber,
-  pageSize,
-}: {
-  pageNumber: number;
-  pageSize: number;
-}): Promise<PostActivityInterface[]> {
+async function getAllPostActivity({ pageNumber, pageSize }: { pageNumber: number, pageSize: number }): Promise<{ activity?: PostActivityInterface[]; totalCount: number }> {
   dbConnect();
   const reqRole = await getRequestRole();
 
   const query: any = {};
   if (reqRole === 'guest') query.publicPost = true;
+  const totalPostsCount = await PostActivity.countDocuments(query);
 
   const activity = await PostActivity.find(query)
     .sort({ createdAt: -1 })
@@ -22,7 +17,10 @@ async function getAllPostActivity({
     .limit(pageSize)
     .sort({ updatedAt: -1 });
 
-  return JSON.parse(JSON.stringify(activity));
+  return {
+    activity: JSON.parse(JSON.stringify(activity)),
+    totalCount: totalPostsCount,
+  };
 }
 
 export { getAllPostActivity };

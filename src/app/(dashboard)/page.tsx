@@ -10,9 +10,9 @@ import { getRequestRole } from '@/src/actions/user';
 
 export default async function Page({ searchParams }: { searchParams: { [key: string]: string | undefined } }) {
   const reqRole = await getRequestRole();
-  const page = searchParams.page ? parseInt(searchParams.page) : 1;
+  const pageNumber = searchParams.page ? parseInt(searchParams.page) : 1;
   const pageSize = 20;
-  const data = await getPosts(page, pageSize);
+  const data = await getPosts({ pageNumber, pageSize });
   const totalPages = Math.ceil(data.totalCount / pageSize);
 
   return (
@@ -74,7 +74,7 @@ export default async function Page({ searchParams }: { searchParams: { [key: str
           )}
         </div>
       )}
-      {totalPages > 1 && <Pagination currentPage={page} totalPages={totalPages} />}
+      {totalPages > 1 && <Pagination currentPage={pageNumber} totalPages={totalPages} />}
     </div>
   );
 }

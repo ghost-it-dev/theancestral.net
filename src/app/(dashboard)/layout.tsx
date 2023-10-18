@@ -6,7 +6,7 @@ import getActivityActionText from '@/src/lib/getActivityActionText';
 import classNames from 'classnames';
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const postActivity = await getAllPostActivity({ pageNumber: 1, pageSize: 5 });
+  const data = await getAllPostActivity({ pageNumber: 1, pageSize: 5 });
 
   return (
     <>
@@ -18,7 +18,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
 
           <main
             className={classNames(
-              postActivity.length !== 0
+              data.totalCount !== 0
                 ? 'min-w-0 flex-1 bg-[#101826] lg:border-l lg:border-[#1F2C37] xl:flex'
                 : 'min-w-0 flex-1 bg-[#101826] lg:border-x lg:border-[#1F2C37] xl:flex',
             )}
@@ -26,7 +26,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
             {children}
           </main>
           {/* Activity feed */}
-          {postActivity.length !== 0 && (
+          {data.totalCount !== 0 && (
             <aside className='bg-[#101826] px-4 lg:flex-shrink-0 lg:border-l lg:border-[#1F2C37] lg:px-8 xl:pr-0'>
               <div className='lg:w-80'>
                 <div className='pb-2 pt-6'>
@@ -34,8 +34,8 @@ export default async function DashboardLayout({ children }: { children: React.Re
                 </div>
                 <div>
                   <ul role='list' className='select-none list-none divide-y divide-[#1F2C37]'>
-                    {postActivity.map(activity => (
-                      <li key={activity._id.toString()} className='py-4'>
+                    {data.activity?.map(item => (
+                      <li key={item._id.toString()} className='py-4'>
                         <div className='flex space-x-3'>
                           <Image
                             height={24}
@@ -46,12 +46,12 @@ export default async function DashboardLayout({ children }: { children: React.Re
                           />
                           <div className='flex-1 space-y-1'>
                             <div className='flex items-center justify-between'>
-                              <h3 className='text-sm font-medium text-gray-200'>{activity.username}</h3>
-                              <p className='text-sm text-gray-300'>{moment(activity.createdAt).fromNow()}</p>
+                              <h3 className='text-sm font-medium text-gray-200'>{item.username}</h3>
+                              <p className='text-sm text-gray-300'>{moment(item.createdAt).fromNow()}</p>
                             </div>
                             <p className='text-sm text-gray-300'>
-                              {getActivityActionText(activity.action)} post{' '}
-                              <span className='font-bold text-indigo-400'>{activity.postTitle}</span>
+                              {getActivityActionText(item.action)} post{' '}
+                              <span className='font-bold text-indigo-400'>{item.postTitle}</span>
                             </p>
                           </div>
                         </div>
