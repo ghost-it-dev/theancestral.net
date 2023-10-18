@@ -22,7 +22,6 @@ const PostForm = ({
   post?: PostInterface;
   tags: PostInterface['tags'];
 }) => {
-  // Display this error somwhere
   const [error, setError] = useState<null | string>(null);
   const [isPending, startTransition] = useTransition();
 
