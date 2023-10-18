@@ -10,7 +10,6 @@ import { createPost, updatePostById } from '@/src/actions/post';
 import { useState, useTransition } from 'react';
 import { hasError } from '@/src/lib/response';
 import { Label } from '../Label';
-import CreatableSelect from 'react-select/creatable';
 import { PostInterface } from '@/src/models/Post';
 import MultiSelect from '../MultiSelect';
 
@@ -71,7 +70,7 @@ const PostForm = ({
   });
 
   return (
-    <>
+    <form onSubmit={isEditing ? handlePostUpdate : handlePostCreate}>
       <div className='flex h-[105px] items-center border-b border-t border-[#1F2C37] px-4 py-4 pb-4 xl:border-t-0 xl:pt-6'>
         <div className='flex flex-1 flex-col'>
           <h1 className='flex-1 text-2xl font-medium text-gray-200'>{isEditing ? 'Edit Post' : 'Create Post'}</h1>
@@ -93,11 +92,11 @@ const PostForm = ({
         </div>
         <div className='flex gap-2'>
           {isEditing ? (
-            <Button isLoading={isPending} onClick={() => handlePostUpdate()}>
+            <Button isLoading={isPending} type={'submit'}>
               Update
             </Button>
           ) : (
-            <Button isLoading={isPending} onClick={() => handlePostCreate()}>
+            <Button isLoading={isPending} type={'submit'}>
               Post
             </Button>
           )}
@@ -113,7 +112,6 @@ const PostForm = ({
           />
           <div>
             <Label label='Tags'>
-              {/* Style this */}
               {/* We should have no validations errors for this since it's not required and will always be an array */}
               <MultiSelect
                 creatable
@@ -128,7 +126,7 @@ const PostForm = ({
           <MDInput descriptionField={descriptionField} error={errors.description} />
         </div>
       </div>
-    </>
+    </form>
   );
 };
 

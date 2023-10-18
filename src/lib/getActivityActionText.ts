@@ -9,7 +9,7 @@ const getActivityActionText = (action: PostActivityInterface['action']) => {
     case 'delete':
       return 'Deleted';
     default:
-      return 'unknown action on post';
+      return 'Unknown';
   }
 };
 
