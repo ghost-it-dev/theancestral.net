@@ -20,7 +20,7 @@ export default async function Page({ searchParams }: { searchParams: { [key: str
   return (
     <>
       <div className='space-y-6 px-0 lg:col-span-9'>
-        <Section title='Account Details' description='View email and change password for your account.'>
+        <Section title='Activity' description='View all post activity.'>
           {data.activity?.length !== 0 ? (
             <div className="overflow-hidden overflow-x-auto ring-opacity-5 rounded-lg">
               <table className="min-w-full divide-y divide-gray-900">
