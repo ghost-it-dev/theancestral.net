@@ -4,7 +4,7 @@ import { cookies, headers } from 'next/headers';
 import dbConnect from '@/src/lib/dbConnection';
 import Session from '@/src/models/Session';
 import mongoose from 'mongoose';
-import { UpdatePasswordData, UserCreateData } from './validations/user';
+import { UpdatePasswordData, UserCreateOrUpdateData } from './validations/user';
 import { logout } from './auth';
 import argon2id from 'argon2';
 
@@ -38,20 +38,42 @@ async function updatePassword(
   _id: UserInterface['_id'],
 ): Promise<{ error?: string; message?: string }> {
   dbConnect();
-  const user = await User.findById(_id);
-  if (!user) return { error: 'You must be logged in to change your password' };
+  const reqUser = await User.findById(_id);
+  if (!reqUser) return { error: 'You must be logged in to change your password' };
 
-  const validPassword = await argon2id.verify(user.password, data.currentPassword);
+  const validPassword = await argon2id.verify(reqUser.password, data.currentPassword);
   if (!validPassword) return { error: 'Invalid password' };
 
-  user.password = data.newPassword;
-  await user.save();
+  reqUser.password = data.newPassword;
+  await reqUser.save();
 
   return { message: 'Password changed successfully' };
 }
 
+async function getAllUsers({ pageNumber, pageSize }: { pageNumber: number, pageSize: number }): Promise<{ users?: UserInterface[]; totalCount: number } | { error: string }> {
+  dbConnect();
+  const reqUser = await getUserFromSession();
+  if (!reqUser || reqUser.role !== 'admin') return { error: 'You do not have permission to get all users' };
+
+  const query: any = {};
+
+  const totalPostsCount = await User.countDocuments(query);
+  const users = await User.find(query)
+    .skip((pageNumber - 1) * pageSize)
+    .limit(pageSize)
+    .sort({ updatedAt: -1 });
+
+  return {
+    users: users,
+    totalCount: totalPostsCount,
+  }
+}
+
 async function getUserById(_id: UserInterface['_id']): Promise<UserInterface | { error: string }> {
   dbConnect();
+  const reqUser = await getUserFromSession();
+  if (!reqUser || reqUser.role !== 'admin') return { error: 'You do not have permission to get this user' };
+
   const isValidPost = mongoose.isValidObjectId(_id);
   if (!isValidPost) return { error: 'Invalid post id' };
 
@@ -61,10 +83,29 @@ async function getUserById(_id: UserInterface['_id']): Promise<UserInterface | {
   return user;
 }
 
+async function updateUserById(_id: UserInterface['_id'], data: Partial<UserCreateOrUpdateData>): Promise<{ error?: string; message?: string }> {
+  dbConnect();
+  const reqUser = await getUserFromSession();
+  if (!reqUser || reqUser.role !== 'admin') return { error: 'You do not have permission to update this user' };
+
+  const user = await User.findOne({ _id });
+  if (!user) return { error: 'User not found' };
+
+  user.email = data.email || user.email;
+  user.name = data.name || user.name;
+  user.username = data.username || user.username;
+  user.role = data.role || user.role;
+  user.password = data.password || user.password;
+
+  await user.save();
+  return { message: 'User succesfully updated' };
+}
+
 async function deleteUserById(_id: UserInterface['_id']): Promise<{ error?: string; message?: string }> {
   dbConnect();
-  const reqRole = await getRequestRole();
-  if (reqRole !== 'admin') return { error: 'You do not have permission to delete this user' };
+  const reqUser = await getUserFromSession();
+  if (!reqUser || reqUser.role !== 'admin') return { error: 'You do not have permission to delete this user' };
+
   const user = await User.findOne({ _id });
   if (!user) return { error: 'User not found' };
 
@@ -72,10 +113,10 @@ async function deleteUserById(_id: UserInterface['_id']): Promise<{ error?: stri
   return { message: 'User succesfully deleted' };
 }
 
-async function createUser(data: UserCreateData): Promise<{ message?: string; error?: string }> {
+async function createUser(data: UserCreateOrUpdateData): Promise<{ message?: string; error?: string }> {
   dbConnect();
-  const reqRole = await getRequestRole();
-  if (reqRole !== 'admin') return { error: 'You do not have permission to create a user' };
+  const reqUser = await getUserFromSession();
+  if (!reqUser || reqUser.role !== 'admin') return { error: 'You do not have permission to create a user' };
 
   const user = new User({
     email: data.email,
@@ -89,4 +130,4 @@ async function createUser(data: UserCreateData): Promise<{ message?: string; err
   return { message: 'User succesfully created' };
 }
 
-export { getUserFromSession, createUser, getUserById, deleteUserById, getRequestRole, updatePassword };
+export { getUserFromSession, createUser, getUserById, deleteUserById, getRequestRole, updatePassword, getAllUsers, updateUserById };
