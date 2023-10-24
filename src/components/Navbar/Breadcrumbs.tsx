@@ -20,10 +20,9 @@ const Breadcrumbs = () => {
 
   // Generate breadcrumb items for each path segment
   pathSegments.forEach((segment, index) => {
-    // Check if the segment looks like an ID (e.g., it's a 24-character hexadecimal string)
-    const isId = /^[0-9a-fA-F]{24}$/.test(segment);
 
-    if (!isId) {
+    // Shouldn't have a segment longer than 24 characters, if we do we assume its an ID and don't include it
+    if (!(segment.length >= 24)) {
       const path = `/${pathSegments.slice(0, index + 1).join('/')}`;
 
       breadcrumbs.push({
