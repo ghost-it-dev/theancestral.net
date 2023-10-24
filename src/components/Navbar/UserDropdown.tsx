@@ -44,7 +44,7 @@ function UserDropdown({ user }: { user: Omit<UserInterface, 'password'> }) {
         leaveTo='transform opacity-0 scale-95'
       >
         <Menu.Items className='absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-[#4B5563] py-1 shadow-xl'>
-          <Menu.Item>
+          {/* <Menu.Item>
             {({ active }) => (
               <Link
                 href={`/user/${user._id}`}
@@ -56,7 +56,7 @@ function UserDropdown({ user }: { user: Omit<UserInterface, 'password'> }) {
                 <UserIcon className='h-5 w-5' /> View Profile
               </Link>
             )}
-          </Menu.Item>
+          </Menu.Item> */}
           <Menu.Item>
             {({ active }) => (
               <Link
