@@ -6,6 +6,7 @@ import argon2id from 'argon2';
 import { cookies, headers } from 'next/headers';
 import env from '@/src/lib/env';
 import { LoginFormData } from './validations/auth';
+import { redirect } from 'next/navigation';
 
 async function login(data: LoginFormData) {
   if (!data.email || !data.password) return { error: 'Please provide both email and password.' };
@@ -44,8 +45,7 @@ async function login(data: LoginFormData) {
 }
 
 async function logout() {
-  if (!cookies().get('session') || cookies().get('session')?.value === '')
-    return { message: 'Successfully logged out' };
+  if (!cookies().get('session') || cookies().get('session')?.value === '') redirect('/');
 
   dbConnect();
   await Session.findByIdAndDelete(cookies().get('session')?.value);
@@ -57,7 +57,8 @@ async function logout() {
     sameSite: 'strict',
     secure: env.APP_MODE === 'production',
   });
-  return { message: 'Successfully logged out' };
+
+  redirect('/');
 }
 
 export { login, logout };
