@@ -8,14 +8,18 @@ import { PencilSquareIcon, TrashIcon } from '@heroicons/react/20/solid';
 import { useState } from 'react';
 import Link from 'next/link';
 import { PostInterface } from '@/src/models/Post';
+import { useRouter } from 'next/navigation'
 
 const PostActions = ({ post }: { post: PostInterface }) => {
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState<null | string>(null);
+  const router = useRouter();
 
   const handleDelete = () => {
     deletePostById(post._id).then(res => {
       if (hasError(res)) return setError(res.error);
+
+      router.push('/');
     });
   };
 
@@ -38,7 +42,7 @@ const PostActions = ({ post }: { post: PostInterface }) => {
           </div>
         </div>
       </Modal>
-      <div className='flex gap-2'>
+      <div className='flex gap-2 justify-end items-center'>
         <Link href={`/post/${post._id}/edit`}>
           <PencilSquareIcon className='h-5 w-5 cursor-pointer text-gray-300 transition-colors hover:text-indigo-600' />
         </Link>

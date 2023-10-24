@@ -107,7 +107,7 @@ async function updatePostById(data: PostData, _id: PostInterface['_id']): Promis
   redirect(`/post/${post._id}`);
 }
 
-async function deletePostById(_id: PostInterface['_id']): Promise<{ error?: string; message?: string }> {
+async function deletePostById(_id: PostInterface['_id']): Promise<{ error?: string; message?: string } | undefined> {
   dbConnect();
   const user = await getUserFromSession();
 
@@ -130,8 +130,8 @@ async function deletePostById(_id: PostInterface['_id']): Promise<{ error?: stri
 
   await Post.findByIdAndDelete(_id);
 
+  // Don't redirect since we can delete this on the admin pages and don't want to redirect to the feed
   revalidatePath(`/`);
-  redirect('/');
 }
 
 export { getPosts, getTags, getPostById, updatePostById, createPost, deletePostById };
