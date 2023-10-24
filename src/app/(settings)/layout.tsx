@@ -42,7 +42,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
                         <span className='truncate'>Manage Posts</span>
                       </Link>
                       <Link
-                        href={'/logs'}
+                        href={'/activity'}
                         className={
                           'group flex items-center rounded-md bg-[#1E2936] px-3 py-2 text-sm font-medium text-gray-100 hover:text-gray-300'
                         }
@@ -51,7 +51,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
                           className={'mr-2 h-6 w-6 flex-shrink-0 text-gray-100 group-hover:text-gray-300'}
                           aria-hidden='true'
                         />
-                        <span className='truncate'>Logs</span>
+                        <span className='truncate'>Activity</span>
                       </Link>
                     </>
                   )}
