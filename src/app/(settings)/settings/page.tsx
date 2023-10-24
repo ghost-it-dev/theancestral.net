@@ -13,7 +13,13 @@ export default async function Page() {
   return (
     <>
       <div className='space-y-6 px-0 lg:col-span-9'>
-        <Section title='Account Details' description='View email and change password for your account.'>
+        <Section
+          header={
+            <div>
+              <h2 className='text-lg font-medium leading-6 text-gray-100'>Account Details</h2>
+              <p className='mt-0.5 text-sm text-gray-200'>View email and change password for your account.</p>
+            </div>
+          }>
           <div className='flex w-full items-center justify-between rounded-md border border-[#1F2C37] bg-transparent p-3 shadow-md'>
             <div className='flex flex-row gap-2'>
               <Image

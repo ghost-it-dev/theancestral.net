@@ -20,7 +20,6 @@ async function Page({ params }: PageProps) {
   if (hasError(post)) {
     return (
       <div className='flex w-full flex-col items-center gap-2 p-4 lg:p-12'>
-
         <DocumentTextIcon className='h-16 w-16 text-gray-400' />
         <p className='text-lg text-gray-300'>Post not found.</p>
       </div>

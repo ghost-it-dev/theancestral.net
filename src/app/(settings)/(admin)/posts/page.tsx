@@ -21,7 +21,13 @@ export default async function Page({ searchParams }: { searchParams: { [key: str
   return (
     <>
       <div className='space-y-6 px-0 lg:col-span-9'>
-        <Section title='Manage Posts' description='Oversee posts across all users, with capabilities to delete and modify posts.'>
+        <Section
+          header={
+            <div>
+              <h2 className='text-lg font-medium leading-6 text-gray-100'>Manage Posts</h2>
+              <p className='mt-0.5 text-sm text-gray-200'>Oversee posts across all users, with capabilities to delete and modify posts.</p>
+            </div>
+          }>
           {data.posts?.length !== 0 ? (
             <div className="overflow-hidden overflow-x-auto ring-opacity-5 rounded-lg">
               <table className="min-w-full divide-y divide-gray-900">

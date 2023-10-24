@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { Fragment, useTransition } from 'react';
 import Image from 'next/image';
 import { ArrowRightOnRectangleIcon } from '@heroicons/react/20/solid';
-import { Cog6ToothIcon, UserIcon } from '@heroicons/react/24/outline';
+import { Cog6ToothIcon } from '@heroicons/react/24/outline';
 import { logout } from '@/src/actions/auth';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';

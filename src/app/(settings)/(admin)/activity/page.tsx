@@ -13,6 +13,7 @@ export default async function Page({ searchParams }: { searchParams: { [key: str
   const pageNumber = searchParams.page ? parseInt(searchParams.page) : 1;
   const pageSize = 10;
   const data = await getAllPostActivity({ pageNumber, pageSize });
+
   const totalPages = Math.ceil(data.totalCount / pageSize);
 
   if (!reqUser || reqUser.role !== 'admin') redirect('/');
@@ -20,7 +21,13 @@ export default async function Page({ searchParams }: { searchParams: { [key: str
   return (
     <>
       <div className='space-y-6 px-0 lg:col-span-9'>
-        <Section title='Activity' description='View all post activity.'>
+        <Section
+          header={
+            <div>
+              <h2 className='text-lg font-medium leading-6 text-gray-100'>Activity</h2>
+              <p className='mt-0.5 text-sm text-gray-200'>View all post activity.</p>
+            </div>
+          }>
           {data.activity?.length !== 0 ? (
             <div className="overflow-hidden overflow-x-auto ring-opacity-5 rounded-lg">
               <table className="min-w-full divide-y divide-gray-900 table-fixed">
