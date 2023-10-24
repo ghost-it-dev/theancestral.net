@@ -4,16 +4,16 @@ import { hasError } from '@/src/lib/response';
 import { SpinnerCircular } from 'spinners-react';
 import MDViewer from '@/src/components/MDViewer';
 import PostActions from './PostActions';
-import { getRequestRole, getUserFromSession } from '@/src/actions/user';
 import { redirect } from 'next/navigation';
 import { PostInterface } from '@/src/models/Post';
+import { getRequestRole, getUserFromSession } from '@/src/actions/user';
 
 interface PageProps {
   params: { postId: PostInterface['_id'] };
 }
 
 async function Page({ params }: PageProps) {
-  const user = await getUserFromSession();
+  const reqUser = await getUserFromSession();
   const post = await getPostById(params.postId);
   const reqRole = await getRequestRole();
 
@@ -33,7 +33,7 @@ async function Page({ params }: PageProps) {
               <div className='flex w-full flex-col'>
                 <div className='flex items-center justify-between'>
                   <h1 className='flex-1 text-lg font-medium text-gray-200'>{post.title}</h1>
-                  {(user?.role === 'admin' || user?._id === post.authorId) && <PostActions post={post} />}
+                  {(reqUser?.role === 'admin' || reqUser?._id === post.authorId) && <PostActions post={post} />}
                 </div>
                 <div className='flex items-center justify-between'>
                   <p className='text-sm text-gray-400'>Posted by {post.authorName}</p>

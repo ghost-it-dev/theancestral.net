@@ -1,13 +1,13 @@
 import * as z from 'zod';
 
-const userCreateSchema = z.object({
+const userCreateOrUpdateSchema = z.object({
   email: z.string().email('Invalid email address').min(1, 'Email is required'),
   name: z.string().min(1, 'Name is required'),
   username: z.string().min(1, 'Username is required'),
   password: z.string().min(1, 'Password is required'),
   role: z.enum(['admin', 'user']),
 });
-type UserCreateData = z.infer<typeof userCreateSchema>;
+type UserCreateOrUpdateData = z.infer<typeof userCreateOrUpdateSchema>;
 
 const updatePasswordSchema = z
   .object({
@@ -22,4 +22,4 @@ const updatePasswordSchema = z
 
 type UpdatePasswordData = z.infer<typeof updatePasswordSchema>;
 
-export { userCreateSchema, type UserCreateData, updatePasswordSchema, type UpdatePasswordData };
+export { userCreateOrUpdateSchema, type UserCreateOrUpdateData, updatePasswordSchema, type UpdatePasswordData };

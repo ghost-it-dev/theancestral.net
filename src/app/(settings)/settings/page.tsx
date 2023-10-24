@@ -7,8 +7,8 @@ import UpdatePassword from './UpdatePassword';
 import ViewEmail from './ViewEmail';
 
 export default async function Page() {
-  const user = await getUserFromSession();
-  if (!user) redirect('/');
+  const reqUser = await getUserFromSession();
+  if (!reqUser) redirect('/');
 
   return (
     <>
@@ -26,15 +26,15 @@ export default async function Page() {
                 alt=''
               />
               <div className='flex flex-col'>
-                <span className='text-xl font-medium text-gray-100'>{user.username}</span>
-                <span className='text-xs capitalize text-gray-300'>{user.role}</span>
+                <span className='text-xl font-medium text-gray-100'>{reqUser.username}</span>
+                <span className='text-xs capitalize text-gray-300'>{reqUser.role}</span>
               </div>
             </div>
             <Button disabled>Edit</Button>
           </div>
           <div className='mt-2 flex w-full flex-col gap-2 rounded-md border border-[#1F2C37] bg-transparent p-3 shadow-md '>
-            <ViewEmail user={user} />
-            <UpdatePassword user={user} />
+            <ViewEmail user={reqUser} />
+            <UpdatePassword user={reqUser} />
           </div>
         </Section>
       </div>

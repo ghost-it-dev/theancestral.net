@@ -11,7 +11,7 @@ interface PageProps {
 }
 
 async function Page({ params }: PageProps) {
-  const user = await getUserFromSession();
+  const reqUser = await getUserFromSession();
   const post = await getPostById(params.postId);
   const tags = await getTags();
 
@@ -19,7 +19,7 @@ async function Page({ params }: PageProps) {
     return <ErrorMessage message={post.error} />;
   }
 
-  if (!user || user?.role !== 'admin' || user?._id !== post.authorId) redirect('/');
+  if (!reqUser || reqUser?.role !== 'admin' || reqUser?._id !== post.authorId) redirect('/');
 
   return (
     <div className='bg-[#101826] lg:min-w-0 lg:flex-1'>

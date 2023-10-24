@@ -36,10 +36,13 @@ async function getTags(): Promise<PostInterface['tags']> {
 
 async function getPostById(_id: PostInterface['_id']): Promise<PostInterface | { error: string }> {
   dbConnect();
+  const reqRole = await getRequestRole();
+
   const isValidPost = mongoose.isValidObjectId(_id);
   if (!isValidPost) return { error: 'Invalid post id' };
   const post: PostInterface | null = await Post.findOne({ _id });
 
+  if (reqRole === 'guest' && !post?.publicPost) return { error: 'You don\'t have permission to get this post' };
   if (!post) return { error: 'Post not found' };
 
   return JSON.parse(JSON.stringify(post));
@@ -47,8 +50,8 @@ async function getPostById(_id: PostInterface['_id']): Promise<PostInterface | {
 
 async function createPost(data: PostData): Promise<PostInterface | { error: string }> {
   dbConnect();
-  const user = await getUserFromSession();
-  if (!user) return { error: 'You must be logged in to create a post' };
+  const reqUser = await getUserFromSession();
+  if (!reqUser) return { error: 'You must be logged in to create a post' };
   if (!data.title || !data.description) return { error: 'You must provide a title and description' };
 
   const post = await Post.create({
@@ -56,15 +59,15 @@ async function createPost(data: PostData): Promise<PostInterface | { error: stri
     tags: data.tags,
     description: data.description,
     publicPost: data.publicPost,
-    authorId: user._id,
-    authorName: user.username,
+    authorId: reqUser._id,
+    authorName: reqUser.username,
   });
 
   await PostActivity.create({
     action: 'create',
     postId: post._id,
     postTitle: post.title,
-    username: user.username,
+    username: reqUser.username,
     publicPost: post.publicPost,
   });
 
@@ -74,15 +77,15 @@ async function createPost(data: PostData): Promise<PostInterface | { error: stri
 
 async function updatePostById(data: PostData, _id: PostInterface['_id']): Promise<PostInterface | { error: string }> {
   dbConnect();
-  const user = await getUserFromSession();
-  if (!user) return { error: 'You must be logged in to edit a post' };
+  const reqUser = await getUserFromSession();
+  if (!reqUser) return { error: 'You must be logged in to edit a post' };
 
   const isValidPost = mongoose.isValidObjectId(_id);
   if (!isValidPost) return { error: 'Invalid post id' };
   const post = await Post.findById(_id);
   if (!post) return { error: 'Post not found' };
 
-  if (user.role !== 'admin' && user._id !== post.authorId)
+  if (reqUser.role !== 'admin' && reqUser._id !== post.authorId)
     return { error: 'You do not have permission to edit this post' };
 
   const updatedFields: Partial<PostInterface> = {
@@ -99,7 +102,7 @@ async function updatePostById(data: PostData, _id: PostInterface['_id']): Promis
     action: 'update',
     postId: post._id,
     postTitle: post.title,
-    username: user.username,
+    username: reqUser.username,
     publicPost: post.publicPost,
   });
 
@@ -109,7 +112,7 @@ async function updatePostById(data: PostData, _id: PostInterface['_id']): Promis
 
 async function deletePostById(_id: PostInterface['_id']): Promise<{ error?: string; message?: string } | undefined> {
   dbConnect();
-  const user = await getUserFromSession();
+  const reqUser = await getUserFromSession();
 
   const isValidPost = mongoose.isValidObjectId(_id);
   if (!isValidPost) return { error: 'Invalid post id' };
@@ -117,14 +120,14 @@ async function deletePostById(_id: PostInterface['_id']): Promise<{ error?: stri
   const post = await Post.findOne({ _id });
   if (!post) return { error: 'Post not found' };
 
-  if ((user?._id.toString() !== post.authorId.toString() && user?.role !== 'admin') || !user)
+  if ((reqUser?._id.toString() !== post.authorId.toString() && reqUser?.role !== 'admin') || !reqUser)
     return { error: 'You do not have permission to delete this post' };
 
   await PostActivity.create({
     action: 'delete',
     postId: post._id,
     postTitle: post.title,
-    username: user.username,
+    username: reqUser.username,
     publicPost: post.publicPost,
   });
 

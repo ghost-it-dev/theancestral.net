@@ -5,9 +5,9 @@ import { redirect } from 'next/navigation';
 
 async function Page() {
   const tags = await getTags();
-  const user = await getUserFromSession();
+  const reqUser = await getUserFromSession();
 
-  if (!user || user?.role !== 'admin') redirect('/');
+  if (!reqUser || reqUser?.role !== 'admin') redirect('/');
 
   return (
     <div className='bg-[#101826] lg:min-w-0 lg:flex-1'>

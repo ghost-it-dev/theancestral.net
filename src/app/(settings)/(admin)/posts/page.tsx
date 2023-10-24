@@ -10,13 +10,13 @@ import { getPosts } from '@/src/actions/post';
 import PostActions from './PostActions';
 
 export default async function Page({ searchParams }: { searchParams: { [key: string]: string | undefined } }) {
-  const user = await getUserFromSession();
+  const reqUser = await getUserFromSession();
   const pageNumber = searchParams.page ? parseInt(searchParams.page) : 1;
   const pageSize = 10;
   const data = await getPosts({ pageNumber, pageSize });
   const totalPages = Math.ceil(data.totalCount / pageSize);
 
-  if (!user || user.role !== 'admin') redirect('/');
+  if (!reqUser || reqUser.role !== 'admin') redirect('/');
 
   return (
     <>

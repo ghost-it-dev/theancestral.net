@@ -4,7 +4,7 @@ import { DocumentMagnifyingGlassIcon, DocumentTextIcon, UserCircleIcon, UsersIco
 import Link from 'next/link';
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const user = await getUserFromSession();
+  const reqUser = await getUserFromSession();
 
   return (
     <>
@@ -15,7 +15,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
             <aside className='lg:col-span-3'>
               <nav className='space-y-2'>
                 <div className='space-y-1 border-b-2 border-[#1E2936] pb-2'>
-                  {user?.role === 'admin' && (
+                  {reqUser?.role === 'admin' && (
                     <>
                       <Link
                         href={'/users'}

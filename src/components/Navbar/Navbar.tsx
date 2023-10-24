@@ -4,7 +4,7 @@ import Breadcrumbs from './Breadcrumbs';
 import { getUserFromSession } from '@/src/actions/user';
 
 async function Navbar() {
-  const user = await getUserFromSession();
+  const reqUser = await getUserFromSession();
 
   return (
     <>
@@ -14,7 +14,7 @@ async function Navbar() {
             <div className='flex flex-row items-center'>
               <Breadcrumbs />
             </div>
-            <NavbarButtons user={user} />
+            <NavbarButtons user={reqUser} />
           </div>
         </div>
       </header>
