@@ -16,7 +16,7 @@ export default async function Page({ searchParams }: { searchParams: { [key: str
   const data = await getPosts({ pageNumber, pageSize });
   const totalPages = Math.ceil(data.totalCount / pageSize);
 
-  if (!user) redirect('/');
+  if (!user || user.role !== 'admin') redirect('/');
 
   return (
     <>
