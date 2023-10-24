@@ -5,7 +5,6 @@ import dbConnect from '@/src/lib/dbConnection';
 import Session from '@/src/models/Session';
 import mongoose from 'mongoose';
 import { UpdatePasswordData, UserCreateOrUpdateData } from './validations/user';
-import { logout } from './auth';
 import argon2id from 'argon2';
 import { revalidatePath } from 'next/cache';
 
@@ -20,7 +19,7 @@ async function getUserFromSession(): Promise<Omit<UserInterface, 'password'> | n
 
   // If the user agent doesn't match the session user agent, delete the session
   if (session && session?.userAgent !== headers().get('user-agent')) {
-    await logout();
+    await await Session.findByIdAndDelete(cookies().get('session')?.value);
     return null;
   }
 
