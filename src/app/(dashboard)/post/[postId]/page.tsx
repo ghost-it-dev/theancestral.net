@@ -1,5 +1,4 @@
 import { getPostById } from '@/src/actions/post';
-import ErrorMessage from '@/src/components/ErrorMessage';
 import { hasError } from '@/src/lib/response';
 import { SpinnerCircular } from 'spinners-react';
 import MDViewer from '@/src/components/MDViewer';
@@ -7,6 +6,7 @@ import PostActions from './PostActions';
 import { redirect } from 'next/navigation';
 import { PostInterface } from '@/src/models/Post';
 import { getRequestRole, getUserFromSession } from '@/src/actions/user';
+import { DocumentTextIcon } from '@heroicons/react/24/outline';
 
 interface PageProps {
   params: { postId: PostInterface['_id'] };
@@ -17,9 +17,14 @@ async function Page({ params }: PageProps) {
   const post = await getPostById(params.postId);
   const reqRole = await getRequestRole();
 
-  // I think I want to change this to a modal or something
   if (hasError(post)) {
-    return <ErrorMessage message={post.error} />;
+    return (
+      <div className='flex w-full flex-col items-center gap-2 p-4 lg:p-12'>
+
+        <DocumentTextIcon className='h-16 w-16 text-gray-400' />
+        <p className='text-lg text-gray-300'>Post not found.</p>
+      </div>
+    )
   }
 
   if (reqRole === 'guest' && !post.publicPost) redirect('/');
