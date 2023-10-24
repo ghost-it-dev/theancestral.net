@@ -12,7 +12,7 @@ export interface UserInterface {
   createdAt: Date;
   _id: Types.ObjectId;
   // Image name in minio
-  profilePicture: string;
+  // profilePicture: string;
 }
 
 const userSchema = new Schema<UserInterface>(
@@ -23,7 +23,7 @@ const userSchema = new Schema<UserInterface>(
     password: { type: String, required: true },
     role: { type: String, required: true, default: 'user' },
     postAmount: { type: Number, required: true, default: 0 },
-    profilePicture: { type: String, required: true, default: 'default.png' },
+    // profilePicture: { type: String, required: true, default: 'default.png' },
   },
   { versionKey: false, timestamps: true },
 );

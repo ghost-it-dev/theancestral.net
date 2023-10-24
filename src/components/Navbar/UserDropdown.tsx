@@ -26,7 +26,7 @@ function UserDropdown({ user }: { user: Omit<UserInterface, 'password'> }) {
         <Menu.Button id={'menu'} className='flex'>
           <span className='sr-only'>Open user menu</span>
           <Image
-            src={'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg'}
+            src='https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg'
             alt='avatar'
             width={36}
             height={36}

@@ -41,8 +41,8 @@ export default async function DashboardLayout({ children }: { children: React.Re
                             height={24}
                             width={24}
                             className='h-6 w-6 rounded-full'
-                            src='https://avatars.githubusercontent.com/u/38229170?s=400&u=b6d25af34d7cd519ee3f69a701229dfe35ace5da&v=4'
-                            alt=''
+                            src='https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg'
+                            alt='avatar'
                           />
                           <div className='flex-1 space-y-1'>
                             <div className='flex items-center justify-between'>

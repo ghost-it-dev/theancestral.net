@@ -20,10 +20,8 @@ export default async function Page() {
                 height={48}
                 width={48}
                 className='h-18 w-18 rounded-full'
-                src={
-                  'https://avatars.githubusercontent.com/u/38229170?s=400&u=b6d25af34d7cd519ee3f69a701229dfe35ace5da&v=4'
-                }
-                alt=''
+                src='https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg'
+                alt='avatar'
               />
               <div className='flex flex-col'>
                 <span className='text-xl font-medium text-gray-100'>{reqUser.username}</span>
