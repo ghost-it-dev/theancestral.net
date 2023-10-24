@@ -2,7 +2,6 @@ import * as z from 'zod';
 
 const userCreateOrUpdateSchema = z.object({
   email: z.string().email('Invalid email address').min(1, 'Email is required'),
-  name: z.string().min(1, 'Name is required'),
   username: z.string().min(1, 'Username is required'),
   password: z.string().min(1, 'Password is required'),
   role: z.enum(['admin', 'user']),

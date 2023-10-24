@@ -7,6 +7,7 @@ import mongoose from 'mongoose';
 import { UpdatePasswordData, UserCreateOrUpdateData } from './validations/user';
 import { logout } from './auth';
 import argon2id from 'argon2';
+import { revalidatePath } from 'next/cache';
 
 // Return the user object if the user is logged in, otherwise return null
 async function getUserFromSession(): Promise<Omit<UserInterface, 'password'> | null> {
@@ -50,7 +51,7 @@ async function updatePassword(
   return { message: 'Password changed successfully' };
 }
 
-async function getAllUsers({ pageNumber, pageSize }: { pageNumber: number, pageSize: number }): Promise<{ users?: UserInterface[]; totalCount: number } | { error: string }> {
+async function getAllUsers({ pageNumber, pageSize }: { pageNumber: number, pageSize: number }): Promise<{ users?: Omit<UserInterface, 'password'>[]; totalCount: number } | { error: string }> {
   dbConnect();
   const reqUser = await getUserFromSession();
   if (!reqUser || reqUser.role !== 'admin') return { error: 'You do not have permission to get all users' };
@@ -61,10 +62,11 @@ async function getAllUsers({ pageNumber, pageSize }: { pageNumber: number, pageS
   const users = await User.find(query)
     .skip((pageNumber - 1) * pageSize)
     .limit(pageSize)
-    .sort({ updatedAt: -1 });
+    .sort({ updatedAt: -1 })
+    .select(['-password']);
 
   return {
-    users: users,
+    users: JSON.parse(JSON.stringify(users)),
     totalCount: totalPostsCount,
   }
 }
@@ -92,7 +94,6 @@ async function updateUserById(_id: UserInterface['_id'], data: Partial<UserCreat
   if (!user) return { error: 'User not found' };
 
   user.email = data.email || user.email;
-  user.name = data.name || user.name;
   user.username = data.username || user.username;
   user.role = data.role || user.role;
   user.password = data.password || user.password;
@@ -101,7 +102,7 @@ async function updateUserById(_id: UserInterface['_id'], data: Partial<UserCreat
   return { message: 'User succesfully updated' };
 }
 
-async function deleteUserById(_id: UserInterface['_id']): Promise<{ error?: string; message?: string }> {
+async function deleteUserById(_id: UserInterface['_id']): Promise<{ error?: string } | undefined> {
   dbConnect();
   const reqUser = await getUserFromSession();
   if (!reqUser || reqUser.role !== 'admin') return { error: 'You do not have permission to delete this user' };
@@ -110,7 +111,7 @@ async function deleteUserById(_id: UserInterface['_id']): Promise<{ error?: stri
   if (!user) return { error: 'User not found' };
 
   await User.findByIdAndDelete(_id);
-  return { message: 'User succesfully deleted' };
+  revalidatePath('/');
 }
 
 async function createUser(data: UserCreateOrUpdateData): Promise<{ message?: string; error?: string }> {
@@ -120,7 +121,6 @@ async function createUser(data: UserCreateOrUpdateData): Promise<{ message?: str
 
   const user = new User({
     email: data.email,
-    name: data.name,
     password: data.password,
     username: data.username,
     role: data.role,

@@ -3,7 +3,6 @@ import mongoose, { Schema, Types, model } from 'mongoose';
 
 export interface UserInterface {
   username: string;
-  name: string;
   email: string;
   password: string;
   role: 'user' | 'admin';
@@ -18,7 +17,6 @@ export interface UserInterface {
 const userSchema = new Schema<UserInterface>(
   {
     username: { type: String, required: true },
-    name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     role: { type: String, required: true, default: 'user' },
