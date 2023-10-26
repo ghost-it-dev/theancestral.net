@@ -105,6 +105,7 @@ async function deleteUserById(_id: UserInterface['_id']): Promise<{ error?: stri
   dbConnect();
   const reqUser = await getUserFromSession();
   if (!reqUser || reqUser.role !== 'admin') return { error: 'You do not have permission to delete this user' };
+  if (reqUser._id === _id) return { error: 'You cannot delete your own account' };
 
   const user = await User.findOne({ _id });
   if (!user) return { error: 'User not found' };
