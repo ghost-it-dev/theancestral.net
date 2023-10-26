@@ -8,6 +8,7 @@ import { SpinnerCircular } from 'spinners-react';
 import { hasError } from '@/src/lib/response';
 import UserActions from './UserActions';
 import Button from '@/src/components/Button';
+import CreateUserButton from './CreateUserButton';
 
 export default async function Page({ searchParams }: { searchParams: { [key: string]: string | undefined } }) {
   const reqUser = await getUserFromSession();
@@ -37,7 +38,7 @@ export default async function Page({ searchParams }: { searchParams: { [key: str
                 <h2 className='text-lg font-medium leading-6 text-gray-100'>Manage Users</h2>
                 <p className='mt-0.5 text-sm text-gray-200'>Add, modify, or remove users.</p>
               </div>
-              <Button>Create User</Button>
+              <CreateUserButton />
             </div>
           }>
           {data.users?.length !== 0 ? (
@@ -69,7 +70,7 @@ export default async function Page({ searchParams }: { searchParams: { [key: str
                         {item.email}
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-200 hidden sm:table-cell">{item.username}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-200">
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-200 capitalize">
                         {item.role}
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-200">

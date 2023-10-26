@@ -9,14 +9,14 @@ import { LoginFormData } from './validations/auth';
 import { redirect } from 'next/navigation';
 
 async function login(data: LoginFormData) {
-  if (!data.email || !data.password) return { error: 'Please provide both email and password.' };
+  if (!data.email || !data.password) return { error: 'Please provide both email and password' };
   dbConnect();
 
   const user = await User.findOne({ email: data.email });
-  if (!user) return { error: 'User not found. Please check your email and password.' };
+  if (!user) return { error: 'User not found. Please check your email and password' };
 
   const validPassword = await argon2id.verify(user.password, data.password);
-  if (!validPassword) return { error: 'Invalid email or password. Please check your credentials.' };
+  if (!validPassword) return { error: 'Invalid email or password. Please check your credentials' };
 
   // Don't allow the user to spam this function and create a ton of sessions
   if (cookies().get('session')) {

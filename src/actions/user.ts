@@ -88,6 +88,7 @@ async function updateUserById(_id: UserInterface['_id'], data: Partial<UserCreat
   dbConnect();
   const reqUser = await getUserFromSession();
   if (!reqUser || reqUser.role !== 'admin') return { error: 'You do not have permission to update this user' };
+  if (reqUser._id === _id) return { error: 'You cannot modify your own account' };
 
   const user = await User.findOne({ _id });
   if (!user) return { error: 'User not found' };
@@ -104,7 +105,7 @@ async function updateUserById(_id: UserInterface['_id'], data: Partial<UserCreat
 async function deleteUserById(_id: UserInterface['_id']): Promise<{ error?: string } | undefined> {
   dbConnect();
   const reqUser = await getUserFromSession();
-  if (!reqUser || reqUser.role !== 'admin') return { error: 'You do not have permission to delete this user' };
+  if (!reqUser || reqUser.role !== 'admin') return { error: 'You do not have permission to delete this user.' };
   if (reqUser._id === _id) return { error: 'You cannot delete your own account' };
 
   const user = await User.findOne({ _id });
@@ -118,6 +119,8 @@ async function createUser(data: UserCreateOrUpdateData): Promise<{ message?: str
   dbConnect();
   const reqUser = await getUserFromSession();
   if (!reqUser || reqUser.role !== 'admin') return { error: 'You do not have permission to create a user' };
+  const existingUser = await User.findOne({ email: data.email });
+  if (existingUser) return { error: 'A user with that email already exists' };
 
   const user = new User({
     email: data.email,
@@ -127,7 +130,9 @@ async function createUser(data: UserCreateOrUpdateData): Promise<{ message?: str
   });
 
   await user.save();
-  return { message: 'User succesfully created' };
+
+  revalidatePath('/');
+  return { message: 'User created successfully' };
 }
 
 export { getUserFromSession, createUser, getUserById, deleteUserById, getRequestRole, updatePassword, getAllUsers, updateUserById };

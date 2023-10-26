@@ -11,7 +11,6 @@ import { useForm } from 'react-hook-form';
 import { updatePassword } from '@/src/actions/user';
 import { hasError } from '@/src/lib/response';
 import { logout } from '@/src/actions/auth';
-import { redirect } from 'next/navigation';
 
 function UpdatePasswordModal({
   user,

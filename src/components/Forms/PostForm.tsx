@@ -12,6 +12,7 @@ import { hasError } from '@/src/lib/response';
 import { Label } from '../Label';
 import { PostInterface } from '@/src/models/Post';
 import MultiSelect from '../MultiSelect';
+import ErrorMessage from '../ErrorMessage';
 
 const PostForm = ({
   isEditing,
@@ -70,7 +71,8 @@ const PostForm = ({
 
   return (
     <form onSubmit={isEditing ? handlePostUpdate : handlePostCreate}>
-      <div className='flex h-[105px] items-center border-b border-t border-[#1F2C37] px-4 py-4 pb-4 xl:border-t-0 xl:pt-6'>
+      {error && <ErrorMessage className='px-4 mt-4' message={error} />}
+      <div className='flex h-[105px] items-center border-b border-t border-[#1F2C37] px-4 py-4 pb-4 xl:border-t-0'>
         <div className='flex flex-1 flex-col'>
           <h1 className='flex-1 text-2xl font-medium text-gray-200'>{isEditing ? 'Edit Post' : 'Create Post'}</h1>
           {publicPostField.value ? (

@@ -63,7 +63,7 @@ function UserDropdown({ user }: { user: Omit<UserInterface, 'password'> }) {
                 href='/settings'
                 className={classNames(
                   active ? 'bg-[#1E2936]' : '',
-                  'flex items-center gap-1 border-t border-[#1E2936] px-4 py-2 text-sm font-semibold text-gray-200 transition-colors',
+                  'flex items-center gap-1 px-4 py-2 text-sm font-semibold text-gray-200 transition-colors',
                 )}
               >
                 <Cog6ToothIcon className='h-5 w-5' /> Settings
@@ -76,7 +76,7 @@ function UserDropdown({ user }: { user: Omit<UserInterface, 'password'> }) {
                 onClick={() => handleLogout()}
                 className={classNames(
                   active ? 'bg-[#1E2936]' : '',
-                  'flex cursor-pointer items-center gap-1 border-t border-[#1E2936] px-4 py-2 text-sm font-semibold text-gray-200 transition-colors',
+                  'flex cursor-pointer items-center gap-1 px-4 py-2 text-sm font-semibold text-gray-200 transition-colors',
                 )}
               >
                 <ArrowRightOnRectangleIcon className='h-5 w-5' /> Logout

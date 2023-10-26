@@ -1,15 +1,14 @@
+import { ExclamationCircleIcon } from '@heroicons/react/20/solid';
 import classNames from 'classnames';
 
 function ErrorMessage({ message, className }: { message: string; className?: string }) {
   return (
-    <div>
+    <div className={className}>
       <div
-        className={classNames(
-          'h-auto w-full rounded-md rounded-l-none border-l-2 border-red-400 bg-red-400 bg-opacity-20 px-2 py-1 text-white text-opacity-100',
-          className,
-        )}
+        className={'h-auto w-full flex items-center gap-1 rounded-md px-2 py-1 bg-[#4B5563] text-red-300 font-semibold'}
       >
-        {message}
+        <ExclamationCircleIcon className='h-5 w-5' />
+        <span>{message}</span>
       </div>
     </div>
   );
