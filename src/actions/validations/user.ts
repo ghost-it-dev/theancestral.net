@@ -1,12 +1,20 @@
 import * as z from 'zod';
 
-const userCreateOrUpdateSchema = z.object({
+const createUserSchema = z.object({
   email: z.string().email('Invalid email address').min(1, 'Email is required'),
   username: z.string().min(1, 'Username is required'),
   password: z.string().min(1, 'Password is required'),
   role: z.enum(['admin', 'user']),
 });
-type UserCreateOrUpdateData = z.infer<typeof userCreateOrUpdateSchema>;
+type CreateUserData = z.infer<typeof createUserSchema>;
+
+const updateUserSchema = z.object({
+  email: z.string().email('Invalid email address').min(1, 'Email is required'),
+  username: z.string().min(1, 'Username is required'),
+  password: z.string(),
+  role: z.enum(['admin', 'user']),
+});
+type UpdateUserData = z.infer<typeof createUserSchema>;
 
 const updatePasswordSchema = z
   .object({
@@ -21,4 +29,4 @@ const updatePasswordSchema = z
 
 type UpdatePasswordData = z.infer<typeof updatePasswordSchema>;
 
-export { userCreateOrUpdateSchema, type UserCreateOrUpdateData, updatePasswordSchema, type UpdatePasswordData };
+export { createUserSchema, type CreateUserData, updateUserSchema, type UpdateUserData, updatePasswordSchema, type UpdatePasswordData };

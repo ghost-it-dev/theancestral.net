@@ -4,7 +4,7 @@ import { cookies, headers } from 'next/headers';
 import dbConnect from '@/src/lib/dbConnection';
 import Session from '@/src/models/Session';
 import mongoose from 'mongoose';
-import { UpdatePasswordData, UserCreateOrUpdateData } from './validations/user';
+import { CreateUserData, UpdatePasswordData, UpdateUserData } from './validations/user';
 import argon2id from 'argon2';
 import { revalidatePath } from 'next/cache';
 
@@ -84,7 +84,7 @@ async function getUserById(_id: UserInterface['_id']): Promise<UserInterface | {
   return user;
 }
 
-async function updateUserById(_id: UserInterface['_id'], data: Partial<UserCreateOrUpdateData>): Promise<{ error?: string; message?: string }> {
+async function updateUserById(_id: UserInterface['_id'], data: Partial<UpdateUserData>): Promise<{ error?: string; message?: string }> {
   dbConnect();
   const reqUser = await getUserFromSession();
   if (!reqUser || reqUser.role !== 'admin') return { error: 'You do not have permission to update this user' };
@@ -92,6 +92,8 @@ async function updateUserById(_id: UserInterface['_id'], data: Partial<UserCreat
 
   const user = await User.findOne({ _id });
   if (!user) return { error: 'User not found' };
+  const existingUser = await User.findOne({ email: data.email });
+  if (existingUser && user.email !== existingUser.email) return { error: 'A user with that email already exists' };
 
   user.email = data.email || user.email;
   user.username = data.username || user.username;
@@ -99,6 +101,7 @@ async function updateUserById(_id: UserInterface['_id'], data: Partial<UserCreat
   user.password = data.password || user.password;
 
   await user.save();
+  revalidatePath('/');
   return { message: 'User succesfully updated' };
 }
 
@@ -115,7 +118,7 @@ async function deleteUserById(_id: UserInterface['_id']): Promise<{ error?: stri
   revalidatePath('/');
 }
 
-async function createUser(data: UserCreateOrUpdateData): Promise<{ message?: string; error?: string }> {
+async function createUser(data: CreateUserData): Promise<{ message?: string; error?: string }> {
   dbConnect();
   const reqUser = await getUserFromSession();
   if (!reqUser || reqUser.role !== 'admin') return { error: 'You do not have permission to create a user' };

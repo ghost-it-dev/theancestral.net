@@ -7,17 +7,20 @@ import Button from '../Button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useController, useForm } from 'react-hook-form';
 import { hasError } from '@/src/lib/response';
-import { createUser } from '@/src/actions/user';
+import { updateUserById } from '@/src/actions/user';
 import { Label } from '../Label';
 import classNames from 'classnames';
-import { CreateUserData, createUserSchema } from '@/src/actions/validations/user';
+import { UserInterface } from '@/src/models/User';
+import { updateUserSchema, UpdateUserData } from '@/src/actions/validations/user';
 
-function CreateUserModal({
+function UpdateUserModal({
 	open,
 	setOpen,
+	user
 }: {
 	open: boolean;
 	setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+	user: Omit<UserInterface, 'password'>;
 }) {
 	const [error, setError] = useState<null | string>(null);
 
@@ -27,17 +30,17 @@ function CreateUserModal({
 		control,
 		reset,
 		formState: { errors },
-	} = useForm<CreateUserData>({ resolver: zodResolver(createUserSchema) });
+	} = useForm<UpdateUserData>({ resolver: zodResolver(updateUserSchema) });
 
 	const { field: roleField } = useController({
 		name: 'role',
 		control,
-		defaultValue: 'user',
+		defaultValue: user.role,
 	});
 
-	const handleCreateUser = handleSubmit(data => {
+	const handleUpdateUser = handleSubmit(data => {
 		startTransition(() => {
-			createUser(data).then(res => {
+			updateUserById(user._id, data).then(res => {
 				if (hasError(res)) return setError(res.error);
 
 				reset();
@@ -50,10 +53,10 @@ function CreateUserModal({
 	return (
 		<Modal isOpen={open} setIsOpen={setOpen}>
 			{error && <ErrorMessage className='mb-2' message={error} />}
-			<span className='text-xl font-semibold text-white'>Create User</span>
-			<form onSubmit={handleCreateUser} className='mt-2 flex flex-col gap-2' autoComplete='off'>
-				<Input type='email' label='Email' {...register('email')} error={errors.email} autoComplete='off' />
-				<Input type='text' label='Username' {...register('username')} error={errors.username} autoComplete='off' />
+			<span className='text-xl font-semibold text-white'>Update User</span>
+			<form onSubmit={handleUpdateUser} className='mt-2 flex flex-col gap-2' autoComplete='off'>
+				<Input defaultValue={user.email} type='email' label='Email' {...register('email')} error={errors.email} autoComplete='off' />
+				<Input defaultValue={user.username} type='text' label='Username' {...register('username')} error={errors.username} autoComplete='off' />
 				<Input type='password' label='Password' {...register('password')} error={errors.password} autoComplete='off' />
 				<Label label='Role'>
 					<div className='flex w-full justify-between gap-2'>
@@ -66,11 +69,11 @@ function CreateUserModal({
 					</div>
 				</Label>
 				<Button type='submit' className='mt-2 w-full'>
-					Create
+					Update
 				</Button>
 			</form>
 		</Modal>
 	);
 }
 
-export default CreateUserModal;
+export default UpdateUserModal;

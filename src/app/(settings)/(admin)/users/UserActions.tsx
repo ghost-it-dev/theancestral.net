@@ -7,9 +7,11 @@ import { PencilSquareIcon, TrashIcon } from '@heroicons/react/20/solid';
 import { useState } from 'react';
 import { deleteUserById } from '@/src/actions/user';
 import { UserInterface } from '@/src/models/User';
+import UpdateUserModal from '@/src/components/Forms/UpdateUserModal';
 
-const PostActions = ({ user, reqUser }: { user: Omit<UserInterface, 'password'>, reqUser: Omit<UserInterface, 'password'> }) => {
-	const [showModal, setShowModal] = useState(false);
+const UserActions = ({ user, reqUser }: { user: Omit<UserInterface, 'password'>, reqUser: Omit<UserInterface, 'password'> }) => {
+	const [showDeleteModal, setShowDeleteModal] = useState(false);
+	const [showUpdateModal, setShowUpdateModal] = useState(false);
 	const [error, setError] = useState<null | string>(null);
 
 	const handleDelete = () => {
@@ -20,7 +22,8 @@ const PostActions = ({ user, reqUser }: { user: Omit<UserInterface, 'password'>,
 
 	return (
 		<>
-			<Modal isOpen={showModal} setIsOpen={setShowModal}>
+			<UpdateUserModal open={showUpdateModal} setOpen={setShowUpdateModal} user={user} />
+			<Modal isOpen={showDeleteModal} setIsOpen={setShowDeleteModal}>
 				<div className='flex flex-col gap-2'>
 					{error && <ErrorMessage className='mb-2' message={error} />}
 					<span className='text-xl font-semibold text-gray-200'>Delete &quot;{user.username}&quot;</span>
@@ -28,7 +31,7 @@ const PostActions = ({ user, reqUser }: { user: Omit<UserInterface, 'password'>,
 						This is a permanent operation. The post cannot be recovered once deleted.
 					</span>
 					<div className='flex w-full justify-end gap-2'>
-						<Button onClick={() => setShowModal(false)} variant={'gray'}>
+						<Button onClick={() => setShowDeleteModal(false)} variant={'gray'}>
 							Cancel
 						</Button>
 						<Button onClick={() => handleDelete()} variant={'red'}>
@@ -45,11 +48,8 @@ const PostActions = ({ user, reqUser }: { user: Omit<UserInterface, 'password'>,
 					</>
 				) : (
 					<>
-						{/* Modal for this */}
-						<PencilSquareIcon className='h-5 w-5 cursor-pointer text-gray-300 transition-colors hover:text-indigo-600' />
-						<TrashIcon
-							onClick={() => setShowModal(true)}
-							className='h-5 w-5 cursor-pointer text-gray-300 transition-colors hover:text-red-600'
+						<PencilSquareIcon onClick={() => setShowUpdateModal(true)} className='h-5 w-5 cursor-pointer text-gray-300 transition-colors hover:text-indigo-600' />
+						<TrashIcon onClick={() => setShowDeleteModal(true)} className='h-5 w-5 cursor-pointer text-gray-300 transition-colors hover:text-red-600'
 						/>
 					</>
 				)}
@@ -58,4 +58,4 @@ const PostActions = ({ user, reqUser }: { user: Omit<UserInterface, 'password'>,
 	);
 };
 
-export default PostActions;
+export default UserActions;
