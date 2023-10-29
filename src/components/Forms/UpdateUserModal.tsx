@@ -30,12 +30,14 @@ function UpdateUserModal({
 		control,
 		reset,
 		formState: { errors },
-	} = useForm<UpdateUserData>({ resolver: zodResolver(updateUserSchema) });
+	} = useForm<UpdateUserData>({
+		resolver: zodResolver(updateUserSchema),
+		defaultValues: { email: user.email, username: user.username, password: '', role: user.role }
+	});
 
 	const { field: roleField } = useController({
 		name: 'role',
-		control,
-		defaultValue: user.role,
+		control
 	});
 
 	const handleUpdateUser = handleSubmit(data => {
@@ -43,7 +45,7 @@ function UpdateUserModal({
 			updateUserById(user._id, data).then(res => {
 				if (hasError(res)) return setError(res.error);
 
-				reset();
+				() => reset()
 				setError(null);
 				setOpen(false);
 			});
@@ -55,8 +57,8 @@ function UpdateUserModal({
 			{error && <ErrorMessage className='mb-2' message={error} />}
 			<span className='text-xl font-semibold text-white'>Update User</span>
 			<form onSubmit={handleUpdateUser} className='mt-2 flex flex-col gap-2' autoComplete='off'>
-				<Input defaultValue={user.email} type='email' label='Email' {...register('email')} error={errors.email} autoComplete='off' />
-				<Input defaultValue={user.username} type='text' label='Username' {...register('username')} error={errors.username} autoComplete='off' />
+				<Input type='email' label='Email' {...register('email')} error={errors.email} autoComplete='off' />
+				<Input type='text' label='Username' {...register('username')} error={errors.username} autoComplete='off' />
 				<Input type='password' label='Password' {...register('password')} error={errors.password} autoComplete='off' />
 				<Label label='Role'>
 					<div className='flex w-full justify-between gap-2'>
