@@ -69,7 +69,7 @@ function CreateUserModal({
 									/>
 								</span>
 							</Listbox.Button>
-							{/* Use static and useState to close the menu when a option is selected */}
+							{/* Fuck it just change thist to two boxes and a border when active */}
 							<Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-[#4B5563] py-1 shadow-md text-sm">
 								{['user', 'admin'].map((role, index) => (
 									<Listbox.Option
