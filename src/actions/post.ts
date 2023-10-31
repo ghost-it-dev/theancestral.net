@@ -17,7 +17,6 @@ async function getPosts({
   pageSize: number;
 }): Promise<{ posts?: PostInterface[]; totalCount: number }> {
   dbConnect();
-  await getUserFromSession();
   const reqRole = await getRequestRole();
 
   const query: any = {};
