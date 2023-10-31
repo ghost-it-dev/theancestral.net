@@ -5,7 +5,7 @@ import User from '@/src/models/User';
 import argon2id from 'argon2';
 import { cookies, headers } from 'next/headers';
 import env from '@/src/lib/env';
-import { LoginFormData } from './validations/auth';
+import { LoginFormData } from '@/src/actions/validations/auth';
 import { redirect } from 'next/navigation';
 
 async function login(data: LoginFormData) {

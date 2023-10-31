@@ -1,6 +1,6 @@
 import React from 'react';
-import NavbarButtons from './NavbarButtons';
-import Breadcrumbs from './Breadcrumbs';
+import NavbarButtons from '@/src/components/Navbar/NavbarButtons';
+import Breadcrumbs from '@/src/components/Navbar/Breadcrumbs';
 import { getUserFromSession } from '@/src/actions/user';
 
 async function Navbar() {

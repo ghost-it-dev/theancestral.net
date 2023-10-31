@@ -1,4 +1,4 @@
-import { PostActivityInterface } from '../models/PostActivity';
+import { PostActivityInterface } from '@/src/models/PostActivity';
 
 const getActivityActionText = (action: PostActivityInterface['action']) => {
   switch (action) {

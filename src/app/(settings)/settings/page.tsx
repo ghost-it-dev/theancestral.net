@@ -3,8 +3,8 @@ import Button from '@/src/components/Button';
 import Section from '@/src/components/Section';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
-import UpdatePassword from './UpdatePassword';
-import ViewEmail from './ViewEmail';
+import UpdatePassword from '@/src/app/(settings)/settings/UpdatePassword';
+import ViewEmail from '@/src/app/(settings)/settings/ViewEmail';
 
 export default async function Page() {
   const reqUser = await getUserFromSession();

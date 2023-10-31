@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import type { ComponentProps } from 'react';
-import { Label } from './Label';
 import { FieldError } from 'react-hook-form';
+import { Label } from '@/src/components/Label';
 
 interface InputProps extends Omit<ComponentProps<'input'>, 'ref' | 'className'> {
   label?: string;

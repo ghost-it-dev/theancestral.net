@@ -1,14 +1,14 @@
 'use client';
 import { startTransition, useState } from 'react';
-import Modal from '../Modal';
-import ErrorMessage from '../ErrorMessage';
-import Input from '../Input';
-import Button from '../Button';
+import Modal from '@/src/components/Modal';
+import ErrorMessage from '@/src/components/ErrorMessage';
+import Input from '@/src/components/Input';
+import Button from '@/src/components/Button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useController, useForm } from 'react-hook-form';
 import { hasError } from '@/src/lib/response';
 import { createUser } from '@/src/actions/user';
-import { Label } from '../Label';
+import { Label } from '@/src/components/Label';
 import classNames from 'classnames';
 import { CreateUserData, createUserSchema } from '@/src/actions/validations/user';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { cva, VariantProps } from 'class-variance-authority';
-import ButtonOrLink, { ButtonOrLinkProps } from './ButtonOrLink';
+import ButtonOrLink, { ButtonOrLinkProps } from '@/src/components/ButtonOrLink';
 import classNames from 'classnames';
 import { SpinnerCircular } from 'spinners-react';
 
@@ -30,7 +30,7 @@ const buttonStyles = cva(
   },
 );
 
-interface Props extends ButtonOrLinkProps, VariantProps<typeof buttonStyles> {}
+interface Props extends ButtonOrLinkProps, VariantProps<typeof buttonStyles> { }
 
 const Button: React.FC<Props> = ({ variant, size, isLoading, className, ...props }) => {
   return (

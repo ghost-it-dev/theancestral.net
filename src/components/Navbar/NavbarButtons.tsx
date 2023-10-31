@@ -1,11 +1,10 @@
 'use client';
 import React, { useState } from 'react';
-import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
-import UserDropdown from './UserDropdown';
-import Button from '../Button';
+import UserDropdown from '@/src/components/Navbar/UserDropdown';
+import Modal from '@/src/components/Modal';
+import Button from '@/src/components/Button';
 import dynamic from 'next/dynamic';
 import { UserInterface } from '@/src/models/User';
-import Modal from '../Modal';
 const AuthModal = dynamic(() => import('@/src/components/Forms/AuthModal'));
 
 function NavbarButtons({ user }: { user: Omit<UserInterface, 'password'> | null }) {

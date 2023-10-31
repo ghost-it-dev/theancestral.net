@@ -1,5 +1,5 @@
 import mongoose, { Schema, model, Types } from 'mongoose';
-import User from './User';
+import User from '@/src/models/User';
 
 export interface PostInterface {
   title: string;

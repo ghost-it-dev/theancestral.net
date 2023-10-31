@@ -7,7 +7,7 @@ import { redirect } from 'next/navigation';
 import { DocumentTextIcon } from '@heroicons/react/24/outline';
 import { SpinnerCircular } from 'spinners-react';
 import { getPosts } from '@/src/actions/post';
-import PostActions from './PostActions';
+import PostActions from '@/src/app/(settings)/(admin)/posts/PostActions';
 
 export default async function Page({ searchParams }: { searchParams: { [key: string]: string | undefined } }) {
   const reqUser = await getUserFromSession();

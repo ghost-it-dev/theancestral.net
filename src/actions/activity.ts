@@ -1,7 +1,7 @@
 'use server';
 import dbConnect from '@/src/lib/dbConnection';
 import PostActivity, { PostActivityInterface } from '@/src/models/PostActivity';
-import { getRequestRole } from './user';
+import { getRequestRole } from '@/src/actions/user';
 
 async function getAllPostActivity({
   pageNumber,

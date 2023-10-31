@@ -1,10 +1,10 @@
 'use server';
 import dbConnect from '@/src/lib/dbConnection';
-import { getRequestRole, getUserFromSession } from './user';
+import { getRequestRole, getUserFromSession } from '@/src/actions/user';
 import Post, { PostInterface } from '@/src/models/Post';
 import { redirect } from 'next/navigation';
 import mongoose from 'mongoose';
-import { PostData } from './validations/posts';
+import { PostData } from '@/src/actions/validations/posts';
 import { revalidatePath } from 'next/cache';
 import PostActivity from '@/src/models/PostActivity';
 

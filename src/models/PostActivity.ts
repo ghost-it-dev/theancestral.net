@@ -1,6 +1,7 @@
 import mongoose, { Schema, model, Types } from 'mongoose';
-import { PostInterface } from './Post';
-import { UserInterface } from './User';
+import { PostInterface } from '@/src/models/Post';
+import { UserInterface } from '@/src/models/User';
+
 
 export interface PostActivityInterface {
   action: 'update' | 'create' | 'delete';

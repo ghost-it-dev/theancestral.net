@@ -5,10 +5,10 @@ import { LoginFormData, loginSchema } from '@/src/actions/validations/auth';
 import { hasError } from '@/src/lib/response';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import Button from '../Button';
-import Modal from '../Modal';
-import Input from '../Input';
-import ErrorMessage from '../ErrorMessage';
+import Button from '@/src/components/Button';
+import Modal from '@/src/components/Modal';
+import Input from '@/src/components/Input';
+import ErrorMessage from '@/src/components/ErrorMessage';
 
 function AuthModal({
   isOpen,

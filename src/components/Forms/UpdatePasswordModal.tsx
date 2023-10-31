@@ -1,10 +1,10 @@
 'use client';
-import { startTransition, useState, useTransition } from 'react';
-import Modal from '../Modal';
-import ErrorMessage from '../ErrorMessage';
+import { startTransition, useState } from 'react';
+import Modal from '@/src/components/Modal';
+import ErrorMessage from '@/src/components/ErrorMessage';
 import { UserInterface } from '@/src/models/User';
-import Input from '../Input';
-import Button from '../Button';
+import Input from '@/src/components/Input';
+import Button from '@/src/components/Button';
 import { UpdatePasswordData, updatePasswordSchema } from '@/src/actions/validations/user';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';

@@ -6,9 +6,8 @@ import { redirect } from 'next/navigation';
 import { DocumentTextIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import { SpinnerCircular } from 'spinners-react';
 import { hasError } from '@/src/lib/response';
-import UserActions from './UserActions';
-import Button from '@/src/components/Button';
-import CreateUserButton from './CreateUserButton';
+import UserActions from '@/src/app/(settings)/(admin)/users/UserActions';
+import CreateUserButton from '@/src/app/(settings)/(admin)/users/CreateUserButton';
 
 export default async function Page({ searchParams }: { searchParams: { [key: string]: string | undefined } }) {
   const reqUser = await getUserFromSession();

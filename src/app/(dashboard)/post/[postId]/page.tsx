@@ -2,7 +2,7 @@ import { getPostById } from '@/src/actions/post';
 import { hasError } from '@/src/lib/response';
 import { SpinnerCircular } from 'spinners-react';
 import MDViewer from '@/src/components/MDViewer';
-import PostActions from './PostActions';
+import PostActions from '@/src/app/(dashboard)/post/[postId]/PostActions';
 import { redirect } from 'next/navigation';
 import { PostInterface } from '@/src/models/Post';
 import { getRequestRole, getUserFromSession } from '@/src/actions/user';

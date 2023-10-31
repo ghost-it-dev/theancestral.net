@@ -9,10 +9,10 @@ import MDInput from '@/src/components/MDInput';
 import { createPost, updatePostById } from '@/src/actions/post';
 import { useState, useTransition } from 'react';
 import { hasError } from '@/src/lib/response';
-import { Label } from '../Label';
+import { Label } from '@/src/components/Label';
 import { PostInterface } from '@/src/models/Post';
-import MultiSelect from '../MultiSelect';
-import ErrorMessage from '../ErrorMessage';
+import MultiSelect from '@/src/components/MultiSelect';
+import ErrorMessage from '@/src/components/ErrorMessage';
 
 const PostForm = ({
   isEditing,

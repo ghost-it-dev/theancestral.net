@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import Button from './Button';
+import Button from '@/src/components/Button';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid';
 import { usePathname } from 'next/navigation';
 

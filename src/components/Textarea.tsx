@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import type { ComponentProps } from 'react';
-import { Label } from './Label';
+import { Label } from '@/src/components/Label';
 
 interface TextAreaProps extends Omit<ComponentProps<'textarea'>, 'ref' | 'className'> {
   label?: string;

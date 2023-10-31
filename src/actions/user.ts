@@ -4,7 +4,7 @@ import { cookies, headers } from 'next/headers';
 import dbConnect from '@/src/lib/dbConnection';
 import Session from '@/src/models/Session';
 import mongoose from 'mongoose';
-import { CreateUserData, UpdatePasswordData, UpdateUserData } from './validations/user';
+import { CreateUserData, UpdatePasswordData, UpdateUserData } from '@/src/actions/validations/user';
 import argon2id from 'argon2';
 import { revalidatePath } from 'next/cache';
 
