@@ -1,4 +1,5 @@
 'use server';
+
 import User, { UserInterface } from '@/src/models/User';
 import { cookies, headers } from 'next/headers';
 import dbConnect from '@/src/lib/dbConnection';
@@ -114,7 +115,7 @@ async function updateUserById(
   return { message: 'User succesfully updated' };
 }
 
-async function deleteUserById(_id: UserInterface['_id']): Promise<{ error?: string } | undefined> {
+async function deleteUserById(_id: UserInterface['_id']): Promise<{ message?: string; error?: string } | undefined> {
   dbConnect();
   const reqUser = await getUserFromSession();
   if (!reqUser || reqUser.role !== 'admin') return { error: 'You do not have permission to delete this user.' };
@@ -124,7 +125,10 @@ async function deleteUserById(_id: UserInterface['_id']): Promise<{ error?: stri
   if (!user) return { error: 'User not found' };
 
   await User.findByIdAndDelete(_id);
+  await Session.deleteMany({ userID: _id });
+
   revalidatePath('/');
+  return { message: 'User deleted successfully' }
 }
 
 async function createUser(data: CreateUserData): Promise<{ message?: string; error?: string }> {

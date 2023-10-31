@@ -55,7 +55,7 @@ function CreateUserModal({ open, setOpen }: { open: boolean; setOpen: React.Disp
               onClick={() => roleField.onChange('user')}
               className={classNames(
                 roleField.value === 'user' ? 'border-indigo-600' : 'border-[#364150]',
-                'w-full rounded-md border-2 bg-transparent px-2 py-1 text-center',
+                'w-full cursor-pointer rounded-md border-2 bg-transparent px-2 py-1 text-center',
               )}
             >
               <span className='text-lg font-bold'>User</span>
@@ -64,7 +64,7 @@ function CreateUserModal({ open, setOpen }: { open: boolean; setOpen: React.Disp
               onClick={() => roleField.onChange('admin')}
               className={classNames(
                 roleField.value === 'admin' ? 'border-indigo-600' : 'border-[#364150]',
-                'w-full rounded-md border-2 bg-transparent px-2 py-1 text-center',
+                'w-full cursor-pointer rounded-md border-2 bg-transparent px-2 py-1 text-center',
               )}
             >
               <span className='text-lg font-bold'>Admin</span>

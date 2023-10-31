@@ -9,13 +9,6 @@ export interface SessionInterface {
   _id: Types.ObjectId;
 }
 
-// When any of the following happen invalidate the session:
-// 1. x User logs out (function)
-// 2. User changes password (function)
-// 4. Account is deleted (function)
-// 5. x User Agent changes (verify session)
-// 6. x Session expires (database)
-
 const sessionSchema = new Schema<SessionInterface>(
   {
     userID: { type: Schema.Types.ObjectId, ref: 'User', required: true },
@@ -26,6 +19,7 @@ const sessionSchema = new Schema<SessionInterface>(
 );
 
 // Create a TTL index on the expiresAt field
+// Delete sessions after 30 days
 sessionSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 
 export default mongoose.models.Sessions || model<SessionInterface>('Sessions', sessionSchema);

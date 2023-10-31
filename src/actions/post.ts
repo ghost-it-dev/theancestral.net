@@ -1,4 +1,5 @@
 'use server';
+
 import dbConnect from '@/src/lib/dbConnection';
 import { getRequestRole, getUserFromSession } from '@/src/actions/user';
 import Post, { PostInterface } from '@/src/models/Post';
