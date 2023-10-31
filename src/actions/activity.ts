@@ -3,7 +3,13 @@ import dbConnect from '@/src/lib/dbConnection';
 import PostActivity, { PostActivityInterface } from '@/src/models/PostActivity';
 import { getRequestRole } from './user';
 
-async function getAllPostActivity({ pageNumber, pageSize }: { pageNumber: number, pageSize: number }): Promise<{ activity?: PostActivityInterface[]; totalCount: number }> {
+async function getAllPostActivity({
+  pageNumber,
+  pageSize,
+}: {
+  pageNumber: number;
+  pageSize: number;
+}): Promise<{ activity?: PostActivityInterface[]; totalCount: number }> {
   dbConnect();
   const reqRole = await getRequestRole();
 

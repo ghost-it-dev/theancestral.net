@@ -9,7 +9,8 @@ const buttonStyles = cva(
   {
     variants: {
       variant: {
-        accent: 'bg-indigo-600 hover:bg-indigo-700 text-white disabled:hover:bg-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed',
+        accent:
+          'bg-indigo-600 hover:bg-indigo-700 text-white disabled:hover:bg-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed',
         red: 'bg-red-600 hover:bg-red-700 text-white disabled:hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed',
         gray: 'bg-[#364150] hover:bg-[#465160] text-gray-200 disabled:bg-[#465160] disabled:opacity-50 disabled:cursor-not-allowed',
       },
@@ -29,7 +30,7 @@ const buttonStyles = cva(
   },
 );
 
-interface Props extends ButtonOrLinkProps, VariantProps<typeof buttonStyles> { }
+interface Props extends ButtonOrLinkProps, VariantProps<typeof buttonStyles> {}
 
 const Button: React.FC<Props> = ({ variant, size, isLoading, className, ...props }) => {
   return (

@@ -8,7 +8,13 @@ import { PostData } from './validations/posts';
 import { revalidatePath } from 'next/cache';
 import PostActivity from '@/src/models/PostActivity';
 
-async function getPosts({ pageNumber, pageSize }: { pageNumber: number, pageSize: number }): Promise<{ posts?: PostInterface[]; totalCount: number }> {
+async function getPosts({
+  pageNumber,
+  pageSize,
+}: {
+  pageNumber: number;
+  pageSize: number;
+}): Promise<{ posts?: PostInterface[]; totalCount: number }> {
   dbConnect();
   await getUserFromSession();
   const reqRole = await getRequestRole();
@@ -42,7 +48,7 @@ async function getPostById(_id: PostInterface['_id']): Promise<PostInterface | {
   if (!isValidPost) return { error: 'Invalid post id' };
   const post: PostInterface | null = await Post.findOne({ _id });
 
-  if (reqRole === 'guest' && !post?.publicPost) return { error: 'You don\'t have permission to get this post' };
+  if (reqRole === 'guest' && !post?.publicPost) return { error: "You don't have permission to get this post" };
   if (!post) return { error: 'Post not found' };
 
   return JSON.parse(JSON.stringify(post));

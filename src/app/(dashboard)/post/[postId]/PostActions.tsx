@@ -8,7 +8,7 @@ import { PencilSquareIcon, TrashIcon } from '@heroicons/react/20/solid';
 import { useState } from 'react';
 import Link from 'next/link';
 import { PostInterface } from '@/src/models/Post';
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
 
 const PostActions = ({ post }: { post: PostInterface }) => {
   const [showModal, setShowModal] = useState(false);
@@ -42,7 +42,7 @@ const PostActions = ({ post }: { post: PostInterface }) => {
           </div>
         </div>
       </Modal>
-      <div className='flex gap-2 justify-end items-center'>
+      <div className='flex items-center justify-end gap-2'>
         <Link href={`/post/${post._id}/edit`}>
           <PencilSquareIcon className='h-5 w-5 cursor-pointer text-gray-300 transition-colors hover:text-indigo-600' />
         </Link>

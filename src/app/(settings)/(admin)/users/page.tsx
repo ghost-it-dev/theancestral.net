@@ -18,11 +18,11 @@ export default async function Page({ searchParams }: { searchParams: { [key: str
 
   if (hasError(data)) {
     return (
-      <div className='flex w-full flex-col items-center gap-2 p-4 lg:p-12 lg:col-span-9'>
+      <div className='flex w-full flex-col items-center gap-2 p-4 lg:col-span-9 lg:p-12'>
         <ExclamationTriangleIcon className='h-16 w-16 text-gray-400' />
         <p className='text-lg text-gray-300'>Error getting users.</p>
       </div>
-    )
+    );
   }
 
   const totalPages = Math.ceil(data.totalCount / pageSize);
@@ -33,50 +33,52 @@ export default async function Page({ searchParams }: { searchParams: { [key: str
       <div className='space-y-6 px-0 lg:col-span-9'>
         <Section
           header={
-            <div className='flex flex-row justify-between items-center'>
+            <div className='flex flex-row items-center justify-between'>
               <div>
                 <h2 className='text-lg font-medium leading-6 text-gray-100'>Manage Users</h2>
                 <p className='mt-0.5 text-sm text-gray-200'>Add, modify, or remove users.</p>
               </div>
               <CreateUserButton />
             </div>
-          }>
+          }
+        >
           {data.users?.length !== 0 ? (
-            <div className="overflow-hidden overflow-x-auto ring-opacity-5 rounded-lg">
-              <table className="min-w-full divide-y divide-gray-900">
-                <thead className="bg-[#1E2936]">
+            <div className='overflow-hidden overflow-x-auto rounded-lg ring-opacity-5'>
+              <table className='min-w-full divide-y divide-gray-900'>
+                <thead className='bg-[#1E2936]'>
                   <tr>
-                    <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-200 sm:pl-6">
+                    <th scope='col' className='py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-200 sm:pl-6'>
                       Email
                     </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-200 hidden sm:table-cell">
+                    <th
+                      scope='col'
+                      className='hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-200 sm:table-cell'
+                    >
                       Username
                     </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-200">
+                    <th scope='col' className='px-3 py-3.5 text-left text-sm font-semibold text-gray-200'>
                       Role
                     </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-200">
+                    <th scope='col' className='px-3 py-3.5 text-left text-sm font-semibold text-gray-200'>
                       Created
                     </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-200">
+                    <th scope='col' className='px-3 py-3.5 text-left text-sm font-semibold text-gray-200'>
                       <span className='sr-only'>Actions</span>
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-900 bg-[#1E2936]">
+                <tbody className='divide-y divide-gray-900 bg-[#1E2936]'>
                   {data.users?.map(item => (
                     <tr key={item._id.toString()}>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-200 sm:pl-6">
-                        {item.email}
+                      <td className='whitespace-nowrap px-3 py-4 text-sm text-gray-200 sm:pl-6'>{item.email}</td>
+                      <td className='hidden whitespace-nowrap px-3 py-4 text-sm text-gray-200 sm:table-cell'>
+                        {item.username}
                       </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-200 hidden sm:table-cell">{item.username}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-200 capitalize">
-                        {item.role}
-                      </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-200">
+                      <td className='whitespace-nowrap px-3 py-4 text-sm capitalize text-gray-200'>{item.role}</td>
+                      <td className='whitespace-nowrap px-3 py-4 text-sm text-gray-200'>
                         {moment(item.createdAt).format('L')}
                       </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-200 sm:pr-6">
+                      <td className='whitespace-nowrap px-3 py-4 text-sm text-gray-200 sm:pr-6'>
                         <UserActions user={item} reqUser={reqUser} />
                       </td>
                     </tr>
@@ -102,4 +104,3 @@ export default async function Page({ searchParams }: { searchParams: { [key: str
     </>
   );
 }
-

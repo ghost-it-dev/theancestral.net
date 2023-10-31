@@ -29,4 +29,11 @@ const updatePasswordSchema = z
 
 type UpdatePasswordData = z.infer<typeof updatePasswordSchema>;
 
-export { createUserSchema, type CreateUserData, updateUserSchema, type UpdateUserData, updatePasswordSchema, type UpdatePasswordData };
+export {
+  createUserSchema,
+  type CreateUserData,
+  updateUserSchema,
+  type UpdateUserData,
+  updatePasswordSchema,
+  type UpdatePasswordData,
+};

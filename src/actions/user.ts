@@ -50,7 +50,13 @@ async function updatePassword(
   return { message: 'Password changed successfully' };
 }
 
-async function getAllUsers({ pageNumber, pageSize }: { pageNumber: number, pageSize: number }): Promise<{ users?: Omit<UserInterface, 'password'>[]; totalCount: number } | { error: string }> {
+async function getAllUsers({
+  pageNumber,
+  pageSize,
+}: {
+  pageNumber: number;
+  pageSize: number;
+}): Promise<{ users?: Omit<UserInterface, 'password'>[]; totalCount: number } | { error: string }> {
   dbConnect();
   const reqUser = await getUserFromSession();
   if (!reqUser || reqUser.role !== 'admin') return { error: 'You do not have permission to get all users' };
@@ -67,7 +73,7 @@ async function getAllUsers({ pageNumber, pageSize }: { pageNumber: number, pageS
   return {
     users: JSON.parse(JSON.stringify(users)),
     totalCount: totalPostsCount,
-  }
+  };
 }
 
 async function getUserById(_id: UserInterface['_id']): Promise<UserInterface | { error: string }> {
@@ -84,7 +90,10 @@ async function getUserById(_id: UserInterface['_id']): Promise<UserInterface | {
   return user;
 }
 
-async function updateUserById(_id: UserInterface['_id'], data: Partial<UpdateUserData>): Promise<{ error?: string; message?: string }> {
+async function updateUserById(
+  _id: UserInterface['_id'],
+  data: Partial<UpdateUserData>,
+): Promise<{ error?: string; message?: string }> {
   dbConnect();
   const reqUser = await getUserFromSession();
   if (!reqUser || reqUser.role !== 'admin') return { error: 'You do not have permission to update this user' };
@@ -138,4 +147,13 @@ async function createUser(data: CreateUserData): Promise<{ message?: string; err
   return { message: 'User created successfully' };
 }
 
-export { getUserFromSession, createUser, getUserById, deleteUserById, getRequestRole, updatePassword, getAllUsers, updateUserById };
+export {
+  getUserFromSession,
+  createUser,
+  getUserById,
+  deleteUserById,
+  getRequestRole,
+  updatePassword,
+  getAllUsers,
+  updateUserById,
+};

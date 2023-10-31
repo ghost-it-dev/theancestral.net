@@ -25,45 +25,48 @@ export default async function Page({ searchParams }: { searchParams: { [key: str
           header={
             <div>
               <h2 className='text-lg font-medium leading-6 text-gray-100'>Manage Posts</h2>
-              <p className='mt-0.5 text-sm text-gray-200'>Oversee posts across all users, with capabilities to delete and modify posts.</p>
+              <p className='mt-0.5 text-sm text-gray-200'>
+                Oversee posts across all users, with capabilities to delete and modify posts.
+              </p>
             </div>
-          }>
+          }
+        >
           {data.posts?.length !== 0 ? (
-            <div className="overflow-hidden overflow-x-auto ring-opacity-5 rounded-lg">
-              <table className="min-w-full divide-y divide-gray-900">
-                <thead className="bg-[#1E2936]">
+            <div className='overflow-hidden overflow-x-auto rounded-lg ring-opacity-5'>
+              <table className='min-w-full divide-y divide-gray-900'>
+                <thead className='bg-[#1E2936]'>
                   <tr>
-                    <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-200 sm:pl-6">
+                    <th scope='col' className='py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-200 sm:pl-6'>
                       Name
                     </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-200">
+                    <th scope='col' className='px-3 py-3.5 text-left text-sm font-semibold text-gray-200'>
                       Author
                     </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-200">
+                    <th scope='col' className='px-3 py-3.5 text-left text-sm font-semibold text-gray-200'>
                       Created
                     </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-200">
+                    <th scope='col' className='px-3 py-3.5 text-left text-sm font-semibold text-gray-200'>
                       Updated
                     </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-200">
+                    <th scope='col' className='px-3 py-3.5 text-left text-sm font-semibold text-gray-200'>
                       <span className='sr-only'>Actions</span>
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-900 bg-[#1E2936]">
+                <tbody className='divide-y divide-gray-900 bg-[#1E2936]'>
                   {data.posts?.map(item => (
                     <tr key={item._id.toString()}>
-                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-indigo-400 font-bold sm:pl-6">
+                      <td className='whitespace-nowrap py-4 pl-4 pr-3 text-sm font-bold text-indigo-400 sm:pl-6'>
                         <Link href={`/post/${item._id}`}>{item.title}</Link>
                       </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-200">{item.authorName}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-200">
+                      <td className='whitespace-nowrap px-3 py-4 text-sm text-gray-200'>{item.authorName}</td>
+                      <td className='whitespace-nowrap px-3 py-4 text-sm text-gray-200'>
                         {moment(item.createdAt).format('L')}
                       </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-200">
+                      <td className='whitespace-nowrap px-3 py-4 text-sm text-gray-200'>
                         {moment(item.updatedAt).format('L')}
                       </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-200 sm:pr-6">
+                      <td className='whitespace-nowrap px-3 py-4 text-sm text-gray-200 sm:pr-6'>
                         <PostActions post={item} />
                       </td>
                     </tr>
@@ -89,4 +92,3 @@ export default async function Page({ searchParams }: { searchParams: { [key: str
     </>
   );
 }
-

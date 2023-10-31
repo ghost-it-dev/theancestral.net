@@ -23,7 +23,7 @@ async function Page({ params }: PageProps) {
         <DocumentTextIcon className='h-16 w-16 text-gray-400' />
         <p className='text-lg text-gray-300'>Post not found.</p>
       </div>
-    )
+    );
   }
 
   if (reqRole === 'guest' && !post.publicPost) redirect('/');

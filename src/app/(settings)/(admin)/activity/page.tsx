@@ -27,37 +27,40 @@ export default async function Page({ searchParams }: { searchParams: { [key: str
               <h2 className='text-lg font-medium leading-6 text-gray-100'>Activity</h2>
               <p className='mt-0.5 text-sm text-gray-200'>View all post activity.</p>
             </div>
-          }>
+          }
+        >
           {data.activity?.length !== 0 ? (
-            <div className="overflow-hidden overflow-x-auto ring-opacity-5 rounded-lg">
-              <table className="min-w-full divide-y divide-gray-900 table-fixed">
-                <thead className="bg-[#1E2936]">
+            <div className='overflow-hidden overflow-x-auto rounded-lg ring-opacity-5'>
+              <table className='min-w-full table-fixed divide-y divide-gray-900'>
+                <thead className='bg-[#1E2936]'>
                   <tr>
-                    <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-200 sm:pl-6">
+                    <th scope='col' className='py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-200 sm:pl-6'>
                       Username
                     </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-200">
+                    <th scope='col' className='px-3 py-3.5 text-left text-sm font-semibold text-gray-200'>
                       Action
                     </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-200">
+                    <th scope='col' className='px-3 py-3.5 text-left text-sm font-semibold text-gray-200'>
                       Post
                     </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-200">
+                    <th scope='col' className='px-3 py-3.5 text-left text-sm font-semibold text-gray-200'>
                       Date
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-900 bg-[#1E2936]">
+                <tbody className='divide-y divide-gray-900 bg-[#1E2936]'>
                   {data.activity?.map(item => (
                     <tr key={item._id.toString()}>
-                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-200 sm:pl-6">
+                      <td className='whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-200 sm:pl-6'>
                         {item.username}
                       </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-200 capitalize">{item.action}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm font-bold text-indigo-400 cursor-pointer">
+                      <td className='whitespace-nowrap px-3 py-4 text-sm capitalize text-gray-200'>{item.action}</td>
+                      <td className='cursor-pointer whitespace-nowrap px-3 py-4 text-sm font-bold text-indigo-400'>
                         <Link href={`/post/${item.postId}`}>{item.postTitle}</Link>
                       </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-200">{moment(item.createdAt).format('L')}</td>
+                      <td className='whitespace-nowrap px-3 py-4 text-sm text-gray-200'>
+                        {moment(item.createdAt).format('L')}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
