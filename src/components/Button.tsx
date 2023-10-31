@@ -30,7 +30,7 @@ const buttonStyles = cva(
   },
 );
 
-interface Props extends ButtonOrLinkProps, VariantProps<typeof buttonStyles> { }
+interface Props extends ButtonOrLinkProps, VariantProps<typeof buttonStyles> {}
 
 const Button: React.FC<Props> = ({ variant, size, isLoading, className, ...props }) => {
   return (
