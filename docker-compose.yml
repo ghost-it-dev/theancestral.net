@@ -6,7 +6,7 @@ services:
     restart: always
     networks:
       - production
-      
+
   nextjs:
     env_file:
       - .env
@@ -21,7 +21,7 @@ services:
       - /app
       - /app/node_modules
     networks:
-      - production  
+      - production
 
 networks:
   production:
