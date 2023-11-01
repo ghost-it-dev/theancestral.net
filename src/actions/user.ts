@@ -151,6 +151,25 @@ async function createUser(data: CreateUserData): Promise<{ message?: string; err
   return { message: 'User created successfully' };
 }
 
+// Create first user if no users exist
+async function createFirstUser(): Promise<{ message?: string; error?: string }> {
+  dbConnect();
+  const userAmount = await User.countDocuments();
+  if (userAmount !== 0) return { error: 'Users already exist' };
+
+  const user = new User({
+    email: 'admin@admin.com',
+    password: 'admin',
+    username: 'admin',
+    role: 'admin',
+  });
+
+  await user.save();
+
+  revalidatePath('/');
+  return { message: 'User created successfully' };
+}
+
 export {
   getUserFromSession,
   createUser,
@@ -160,4 +179,5 @@ export {
   updatePassword,
   getAllUsers,
   updateUserById,
+  createFirstUser
 };
