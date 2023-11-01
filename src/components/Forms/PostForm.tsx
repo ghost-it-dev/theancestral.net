@@ -74,7 +74,7 @@ const PostForm = ({
       {error && <ErrorMessage className='mt-4 px-4' message={error} />}
       <div className='flex h-[105px] items-center justify-between border-b border-t border-[#1F2C37] px-4 py-4 pb-4 xl:border-t-0 xl:pt-6'>
         <div className='flex flex-col'>
-          <h1 className='flex-1 text-2xl font-medium text-gray-200'>Create Post</h1>
+          <h1 className='flex-1 text-2xl font-medium text-gray-200'>{isEditing ? 'Edit Post' : 'Create Post'}</h1>
           {publicPostField.value ? (
             <div onClick={() => publicPostField.onChange(!publicPostField.value)}>
               <span className='flex cursor-pointer items-center gap-1'>
@@ -91,7 +91,15 @@ const PostForm = ({
             </div>
           )}
         </div>
-        <Button href={'/create'}>{isEditing ? 'Edit Post' : 'Create Post'}</Button>
+        {isEditing ? (
+          <Button isLoading={isPending} type={'submit'}>
+            Update
+          </Button>
+        ) : (
+          <Button isLoading={isPending} type={'submit'}>
+            Post
+          </Button>
+        )}
       </div>
       <div className='my-4 flex flex-col gap-2 px-4 xl:my-6'>
         <div className='grid grid-cols-2 gap-2'>
