@@ -10,7 +10,7 @@ import Link from 'next/link';
 import { PostInterface } from '@/src/models/Post';
 import { useRouter } from 'next/navigation';
 
-const PostActions = ({ post }: { post: PostInterface }) => {
+function PostActions({ post }: { post: PostInterface }) {
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState<null | string>(null);
   const router = useRouter();

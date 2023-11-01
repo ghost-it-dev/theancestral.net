@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { ChevronRightIcon } from '@heroicons/react/20/solid';
 
-const Breadcrumbs = () => {
+function Breadcrumbs() {
   const pathName = usePathname();
   const router = useRouter();
 
