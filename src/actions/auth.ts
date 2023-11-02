@@ -13,6 +13,19 @@ async function login(data: LoginFormData) {
   if (!data.email || !data.password) return { error: 'Please provide both email and password' };
   dbConnect();
 
+  const userCount = await User.countDocuments();
+
+  if (userCount === 0) {
+    const user = new User({
+      email: data.email,
+      password: data.password,
+      username: 'admin',
+      role: 'admin',
+    });
+
+    await user.save();
+  }
+
   const user = await User.findOne({ email: data.email });
   if (!user) return { error: 'User not found. Please check your email and password' };
 
