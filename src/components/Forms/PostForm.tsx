@@ -13,6 +13,7 @@ import { Label } from '@/src/components/Label';
 import { PostInterface } from '@/src/models/Post';
 import MultiSelect from '@/src/components/MultiSelect';
 import ErrorMessage from '@/src/components/ErrorMessage';
+import { useRouter } from 'next/navigation';
 
 const PostForm = ({
   isEditing,
@@ -25,6 +26,7 @@ const PostForm = ({
 }) => {
   const [error, setError] = useState<null | string>(null);
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
   const {
     register,
@@ -53,18 +55,22 @@ const PostForm = ({
 
   const handlePostCreate = handleSubmit(data => {
     startTransition(() => {
-      createPost(data).then(res => {
-        if (hasError(res)) setError(res.error);
-      });
+      createPost(data)
+        .then(res => {
+          if (hasError(res)) setError(res.error)
+        })
+        .finally(() => router.push('/'))
     });
   });
 
   const handlePostUpdate = handleSubmit(data => {
     startTransition(() => {
       if (post?._id) {
-        updatePostById(data, post._id).then(res => {
-          if (hasError(res)) setError(res.error);
-        });
+        updatePostById(data, post._id)
+          .then(res => {
+            if (hasError(res)) setError(res.error);
+          })
+          .finally(() => router.push(`/post/${post._id}`))
       }
     });
   });

@@ -3,7 +3,6 @@
 import dbConnect from '@/src/lib/dbConnection';
 import { getRequestRole, getUserFromSession } from '@/src/actions/user';
 import Post, { PostInterface } from '@/src/models/Post';
-import { redirect } from 'next/navigation';
 import mongoose from 'mongoose';
 import { PostData } from '@/src/actions/validations/posts';
 import { revalidatePath } from 'next/cache';
@@ -54,7 +53,7 @@ async function getPostById(_id: PostInterface['_id']): Promise<PostInterface | {
   return JSON.parse(JSON.stringify(post));
 }
 
-async function createPost(data: PostData): Promise<PostInterface | { error: string }> {
+async function createPost(data: PostData): Promise<undefined | { error: string }> {
   dbConnect();
   const reqUser = await getUserFromSession();
   if (!reqUser) return { error: 'You must be logged in to create a post' };
@@ -78,10 +77,9 @@ async function createPost(data: PostData): Promise<PostInterface | { error: stri
   });
 
   revalidatePath('/');
-  redirect('/');
 }
 
-async function updatePostById(data: PostData, _id: PostInterface['_id']): Promise<PostInterface | { error: string }> {
+async function updatePostById(data: PostData, _id: PostInterface['_id']): Promise<undefined | { error: string }> {
   dbConnect();
   const reqUser = await getUserFromSession();
   if (!reqUser) return { error: 'You must be logged in to edit a post' };
@@ -113,7 +111,6 @@ async function updatePostById(data: PostData, _id: PostInterface['_id']): Promis
   });
 
   revalidatePath(`/post/${post._id}`);
-  redirect(`/post/${post._id}`);
 }
 
 async function deletePostById(_id: PostInterface['_id']): Promise<{ error?: string; message?: string } | undefined> {
