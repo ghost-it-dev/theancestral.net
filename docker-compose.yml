@@ -17,9 +17,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - '3000:3000'
-    volumes:
-      - /app
-      - /app/node_modules
     networks:
       - production
 
