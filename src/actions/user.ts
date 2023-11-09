@@ -128,7 +128,7 @@ async function deleteUserById(_id: UserInterface['_id']): Promise<{ message?: st
   await Session.deleteMany({ userID: _id });
 
   revalidatePath('/');
-  return { message: 'User deleted successfully' }
+  return { message: 'User deleted successfully' };
 }
 
 async function createUser(data: CreateUserData): Promise<{ message?: string; error?: string }> {
@@ -151,7 +151,6 @@ async function createUser(data: CreateUserData): Promise<{ message?: string; err
   return { message: 'User created successfully' };
 }
 
-
 export {
   getUserFromSession,
   createUser,
@@ -160,5 +159,5 @@ export {
   getRequestRole,
   updatePassword,
   getAllUsers,
-  updateUserById
+  updateUserById,
 };

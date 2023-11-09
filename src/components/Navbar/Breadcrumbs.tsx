@@ -61,6 +61,6 @@ function Breadcrumbs() {
       ))}
     </ol>
   );
-};
+}
 
 export default Breadcrumbs;
