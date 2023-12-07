@@ -57,9 +57,9 @@ const PostForm = ({
     startTransition(() => {
       createPost(data)
         .then(res => {
-          if (hasError(res)) setError(res.error)
+          if (hasError(res)) setError(res.error);
         })
-        .finally(() => router.push('/'))
+        .finally(() => router.push('/'));
     });
   });
 
@@ -70,7 +70,7 @@ const PostForm = ({
           .then(res => {
             if (hasError(res)) setError(res.error);
           })
-          .finally(() => router.push(`/post/${post._id}`))
+          .finally(() => router.push(`/post/${post._id}`));
       }
     });
   });

@@ -53,6 +53,6 @@ function PostActions({ post }: { post: PostInterface }) {
       </div>
     </>
   );
-};
+}
 
 export default PostActions;
